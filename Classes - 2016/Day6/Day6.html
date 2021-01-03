@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# More fun with <br> Conditional Probability 
+
+---
+# Conditional Probability
+
+.left-column[
+## Review
+]
+
+.right-column[
+## Conditional Probability
+
+Recall that conditional probability *introduces information*
+
+It does so by reducing the sample space.red[*]
+
+$$P(A \| B) = \frac{P(A, B)}{P(B)}$$
+
+But not all information is useful
+
++ $A$: "There is hard conditional probability question in the midterm"
+
++ $B$: "Donald Trump is elected president of the US"
+
+$$P(A | B) \ = \ $$
+
+.footnote[.red[*] I'll write $P(A,B)$ to mean $P(A \cap B)$]
+]
+
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Review
+## Factorization
+]
+
+.right-column[
+## Independence
+
+When information doesn't flow from one event to the other, we say that they are *independent*.
+
+In the exam question / US president example:
+
+$$P(A | B) = P(A)$$
+
+## Factorization property
+
+Independent events *factorize*:
+
+$$P(A) = P(A | B) = \frac{P(A, B)}{P(B)} 
+\ \ \Rightarrow \ \ 
+P(A)P(B) = P(A,B)
+$$
+
+]
+
+---
+# Conditional Probability
+
+.left-column[
+## Review
+## Factorization
+## Decomposition
+]
+
+.right-column[
+## Chain rule
+
+Actually, even when event are not independent, it's useful to know what is sometimes called the *chain rule*:
+
+$$P(A,B) = P(A|B)P(B)$$
+<br>
+Also makes sense when we think of probability tables
+
+.center[<img src = "cpt.png", height = 100>]
+
+First condition on column, then row. Or vice-versa.
+
+]
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Review
+## Factorization
+## Decomposition
+## Symmetry
+]
+
+.right-column[
+## A symmetric formula
+
+Recall that
+
+$$P(A | B) \neq P(B | A)$$
+
+However, obviously
+
+$$P(B,A) = P(A,B)$$
+
+So, using the chain rule on both sides
+
+$$P(A|B)P(B) = P(B|A)P(A)$$
+
+<br>
+.center[*Pleasantly symmetric!*]
+
+]
+
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Review
+## Factorization
+## Decomposition
+## Symmetry
+## LoTP
+]
+
+.right-column[
+## Law of Total Probability
+
+<img src ="lotp.jpeg", height = 200>
+
+$$ P(B) = P(B \cap A_1) +  \cdots + P(B \cap A_6) $$
+.center[or]
+
+$$P(B) = P(B | A_1)P(A_1) + \cdots + P(B | A_6)P(A_6)$$
+]
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+]
+
+.right-column[
+## Visualizing independence
+
+Independence is about relative *sizes* of events, not about them being *disjoint*!
+
+
+<figure>
+  <img src="will-smith.jpg" alt="The Pulpit Rock" width="500">
+  <figcaption><font size=1>A picture of Will Smith trying to visualize independence</font></figcaption>
+</figure>
+]
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+]
+
+.right-column[
+## Visualizing independence
+
+Independence is about relative *sizes* of events, not about them being *disjoint*!
+
+
+<figure>
+  <img src="dep.png", alt="independent events", width = 500>
+  <figcaption><font size=3>These events are not independent. Ratios change.</font></figcaption>
+</figure>
+
+]
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+]
+
+.right-column[
+## Visualizing independence
+
+Independence is about relative *sizes* of events, not about them being *disjoint*!
+
+
+<figure>
+  <img src="indep.png", alt="independent events", width=500>
+  <figcaption><font size=3>These events are independent. Ratios remain the same.</font></figcaption>
+</figure>
+
+]
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+]
+
+.right-column[
+## Conditional Independence
+
+Recall that for independent events:
+
+$$P(A|B) = P(A)$$
+
+Even when two variables are not independent, they can become independent after conditioning on appropriate information:
+
+$$P(A|C, B) = P(A|C)$$
+
+We say *$A$ is independent of $B$ conditionally on $C$* or *$A$ in independent of $B$ given $C$*.
+
+]
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+## Examples
+]
+
+.right-column[
+## Conditional Independence
+
+Toy example:
+
+$A$: Vitor is sick
+
+$B$: It is flu season
+
+$C$: Vitor has a cough, fever and muscle ache
+
+
+<br><br>
+$C$ "blocks" all the information in $B$. Now $B$ doesn't help us anymore.
+
+]
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+## Examples
+]
+
+.right-column[
+## Conditional Independence
+
+Econometrics example
+
+$A$: 6-figure wages at age 30
+
+$B$: (Innate) Intelligence
+
+$C$: Education, family background, grades...
+
+<br><br>
+
+In econometrics people often assume:
+
+$$P(A|C) = P(A|B,C)$$
+
+Whenever people talk about *controls*, people are actually talking about conditional independence!
+]
+
+
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+## Examples
+## Non-Implications
+]
+
+.right-column[
+## Conditional independence does not imply independence...
+
+We've just seen some examples. More in your HWs [&#128211;]
+]
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+## Examples
+## Non-Implications
+]
+
+.right-column[
+## ...Neither does independence imply conditional independence
+
+Toy example 1:
+
++ $A$: First coin toss is Heads
+
++ $B$: Second coin toss is Heads
+
++ $C$: Sum of coin tosses is 1.
+
+$$P(A,B)=P(A)P(B)$$ but $$P(A,B|C) \neq P(A|C)P(B|C)$$
+
+
+]
+
+
+
+---
+# Conditional Probability
+
+.left-column[
+## Seeing it
+## Conditional Independence
+## Examples
+## Non-Implications
+]
+
+.right-column[
+## ...Neither does independence imply conditional independence
+
+
+Suppose usually John and Paul live in different neighborhoods, take different means of transportation, etc.
+
++ $A$: John is late
+
++ $B$: Paul is late
+
++ $C$: John and Paul are coming together this time
+
+
+Other examples [&#128211;]
+
+]
+
+
+
+
+
+
+
+---
+class: inverse, middle, center
+# In real life
+
+---
+
+# Statistical Intuition 
+
+.left-column[
+## Sally Clark
+]
+
+.right-column[
+## Failure to understand independence 
+
+.center[[Sally Clark's child murder case](https://en.wikipedia.org/wiki/Sally_Clark)]
+
+"[The prosecutor's] calculation was based on the assumption that two SIDS deaths in the same family are independent."
+
+It is true that:
+
+$$P(\text{Once death by SIDS}) = \frac{1}{8500}$$
+
+So is it true that:
+
+$$P(\text{Two deaths by SIDS}) = \frac{1}{8500^{2}}$$
+]
+
+---
+
+# Statistical Intuition 
+
+.left-column[
+## Sally Clark
+## 23andme
+]
+
+.right-column[
+## Failure to understand Bayes Theorem
+
+23andme is a company that offers direct-to-consumer saliva-based genetic testing
+
+.center[[News](http://www.pbs.org/newshour/rundown/23andme-returns-modified-fda-approved-genetic-tests/)]
+
+If you get a positive result for a rare disease in 23 and me, what is the probability of you *actually* having it?
+
+$$P(Disease) = \frac{1}{100}$$ 
+$$P(Disease | +) = 0.95$$
+$$P(No Disease | -) = 0.95$$
+]
+
+---
+
+# Statistical Intuition 
+
+.left-column[
+## Sally Clark
+## 23andme
+]
+
+.right-column[
+.center[
+Using your intuition
+<img src="medical.jpg", height=300>
+
+Using Bayes + LoTP
+<font size = 2>
+$$P(D | +) =
+\frac{P(+ | D)P(D)}{P(+)} =
+\frac{P(+ | D)P(D)}{P(+|D)P(D) + P(+|D^{C})P(D^{C})} =
+\frac{0.95 \cdot 0.01}{0.95\cdot 0.01 + 0.05\cdot 0.99} \approx 16\%
+$$
+</font>
+]
+]
+
+
+
+
+
+	
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

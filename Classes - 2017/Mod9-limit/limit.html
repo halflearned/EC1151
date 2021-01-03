@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Limit Theorems
+
+
+---
+.left-column[
+## E[sum] 
+]
+
+.right-column[
+## Expectation of sum of random variables.
+
+Begin with two random variables, $X_1$ and $X_2$.
+
+Suppose we know that $E[X_1] = E[X_2] = 3$.
+
+Moreover, $Z = X_1 + X_2$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[X_1 + X2] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = E[X_1] + E[X_2] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = 3 + 3 \qquad \qquad \text{(Both have same mean)}$
+]
+--
+.right-column[
+$\qquad = 6 \qquad \qquad \text{(Done!)}$
+]
+
+
+---
+.left-column[
+## E[sum] 
+]
+
+.right-column[
+## Expectation of sum of random variables.
+
+Begin with <font color="blue">three</font> random variables, $X_1$ and $X_2$ and $X_3$.
+
+Suppose we know that $E[X_1] = E[X_2] = E[X_3] = 3$.
+
+Moreover, $Z = X_1 + X_2 + X_3$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[X_1 + X2 + X_3] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = E[X_1] + E[X_2] + E[X_3] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = 3 + 3 + 3 \qquad \qquad \text{(Three of them have same mean)}$
+]
+--
+.right-column[
+$\qquad = 9 \qquad \qquad \text{(Done!)}$
+]
+
+
+---
+.left-column[
+## E[sum] 
+]
+.right-column[
+## Expectation of sum of random variables.
+
+Now <font color="orange">many</font> random variables, $X_1$, $X_2, \cdots, X_n$.
+
+Suppose we know that $E[X_1] = \cdots = E[X_n] = 3$.
+
+Moreover, $Z = X_1 + \cdots + X_n$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[X_1 + \cdots + X_n] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = E[X_1] + \cdots + E[X_3] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \underbrace{3 + \cdots + 3}_{n \text{ times}} \qquad \qquad \text{(All have same mean)}$
+]
+--
+.right-column[
+$\qquad = 3n \qquad \qquad \text{(Done!)}$
+]
+
+
+---
+.left-column[
+## E[sum] 
+]
+.right-column[
+## Expectation of sum of random variables.
+
+<font size=1>Same thing as last slide, except using summation</font>
+
+Suppose we know that $E[X_1] = \cdots = E[X_n] = m$.
+
+Moreover, $Z = \sum_i^n X_i$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[\sum_i^n X_i] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = \sum_i^n E[X_i] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \sum_i^n m \qquad \qquad \text{(All have same mean)}$
+]
+--
+.right-column[
+$\qquad = nm \qquad \qquad \text{(Done!)}$
+]
+
+
+
+---
+.left-column[
+## E[sum] 
+]
+.right-column[
+## Expectation of sum of random variables.
+
+<font size=1>Same thing as last slide</font>
+
+Suppose we know that $E[X_1] = \cdots = E[X_n] = m$.
+
+Moreover, $Z = \sum_i^n X_i$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[\sum_i^n X_i] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = \sum_i^n E[X_i] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \sum_i^n m \qquad \qquad \text{(All have same mean)}$
+]
+--
+.right-column[
+$\qquad = nm \qquad \qquad \text{(Done!)}$
+]
+
+
+
+
+---
+.left-column[
+## E[sum]
+]
+.right-column[
+## Expectations add up
+
+.center[The expectation of the sum of $X_1, \cdots, X_n$ <br> 
+equals the sum of each expectation]<br>
+]
+--
+.right-column[
+<font size=5>
+$$E[\sum_i X_i] = \sum_i E[X_i]$$
+</font>
+.center[or]
+<font size=5>
+$$E[X_1 + \cdots + X_n] = E[X_1] + \cdots + E[X_n]$$
+</font>
+]
+--
+.right-column[
+.center[These results hold regardless of the distribution of $X_i$.<br>
+In particular, $X_i$ don't have to be Normal.]
+]
+
+
+
+---
+.left-column[
+## E[sum]
+]
+.right-column[
+## Variance of sum of random variables
+<font size=3>
+Begin with two random variables, $X_1$ and $X_2$.
+
+Both are independent of each other.
+
+Suppose we know that $Var[X_1] = Var[X_2] = 5$.
+
+Moreover, $Z = X_1 + X_2$.
+
+What is $Var[Z]$?
+]
+--
+.right-column[
+$Var[Z] = Var[X_1 + X_2] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = Var[X_1] + Var[X_2] \qquad \qquad \text{(If independent, variances add)}$
+]
+--
+.right-column[
+$\qquad = 5 + 5 \qquad \qquad$
+]
+--
+.right-column[
+$\qquad = 10 \qquad \qquad \text{(Done!)}$
+]
+</font>
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+]
+.right-column[
+## Variance of sum of random variables
+<font size=3>
+Now <font color="orange">many</font> random variables, $X_1, \cdots, X_n$.
+
+All are independent of each other.
+
+Suppose we know that $Var[X_1] = Var[X_2] = Var[X_n] = v$.
+
+Moreover, $Z = X_1 + \cdots + X_n$.
+
+What is $Var[Z]$?
+]
+--
+.right-column[
+$Var[Z] = Var[X_1 + \cdots + X_n] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = Var[X_1] + \cdots Var[X_n] \qquad \qquad \text{(If independent, variances add)}$
+]
+--
+.right-column[
+$\qquad = nv$
+]
+</font>
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+]
+.right-column[
+## Variance of sum of random variables
+<font size=1>
+Same derivation, just using summation notation.
+</font>
+<font size=3>
+Now <font color="orange">many</font> random variables, $X_1, \cdots, X_n$.
+
+All are independent of each other.
+
+Suppose we know that $Var[X_1] = Var[X_2] = Var[X_n] = v$.
+
+Moreover, $Z = \sum_i X_i$.
+
+What is $Var[Z]$?
+]
+--
+.right-column[
+$Var[Z] = Var[\sum_i X_i] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = \sum_i Var[ X_i] \qquad \qquad \text{(If independent, variances add)}$
+]
+--
+.right-column[
+$\qquad = nv$
+]
+</font>
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+]
+.right-column[
+## If independent, variances add up
+
+.center[If $X_1, \cdots, X_n$ are all independent of each other, then <br> 
+the variance of their sum equals the sum of the variances]<br>
+]
+--
+.right-column[
+<font size=5>
+$$Var[\sum_i X_i] = \sum_i Var[X_i]$$
+</font>
+.center[or]
+<font size=5>
+$$Var[X_1 + \cdots + X_n] = Var[X_1] + \cdots + Var[X_n]$$
+</font>
+]
+--
+.right-column[
+.center[Once again, these results hold regardless of the distribution of $X_i$.<br>
+In particular, $X_i$ don't have to be Normal.]
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+]
+.right-column[
+## Expectations and Variances are easy!
+<font size=3>
+If we know $E[X_1], E[X_2], \cdots, E[X_n]$, then finding
+$$E[X_1 + X_2 + \cdots + X_n]$$
+is easy: just add $E[X_i]$ up!.
+]
+--
+.right-column[
+If we know $Var[X_1], Var[X_2], \cdots, Var[X_n]$, <font color="red">and they are independent of each other</font>
+then finding
+$$Var[X_1 + X_2 + \cdots + X_n]$$
+is easy: just add $Var[X_i]$ up!
+]
+--
+.right-column[
+But suppose that we knew the <i>probability distribution</i> of $$X_1, X_2, \cdots, X_n$$
+
+Can can we say about the probability distribution of $$Z = X_1 + \cdots + X_n?$$
+</font>
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+]
+.right-column[
+## But how about the shape?
+<font size=3>
+For example, suppose we have $X_1, X_2, \cdots, X_n$ all coming from the same distribution:
+.center[<img src="Xs.png">]
+What does the probability distribution of $X_1 + \cdots + X_n$ look like?
+</font>
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+]
+.right-column[
+## But how about the shape?
+<font size=3>
+For example, suppose we have $W_1, W_2, \cdots, W_n$ all coming from the same distribution:
+.center[<img src="Ws.png">]
+What does the probability distribution of $W_1 + \cdots + W_n$ look like?
+</font>
+]
+
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+]
+.right-column[
+## But how about the shape?
+<font size=3>
+For example, suppose we have $Y_1, Y_2, \cdots, Y_n$ all coming from the same distribution:
+.center[<img src="Ys.png">]
+What does the probability distribution of $Y_1 + \cdots + Y_n$ look like?
+</font>
+]
+--
+.right-column[
+.center[The answer is surprising!]
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice1.png", width = "450"> <br>]
+
+.center[For $n = 1$, all outcomes have equal probability.]
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice2.png", width = "450"> <br>]
+
+.center[For $n = 2$, the outcome 7 has much higher probability]
+
+.center[<img src="twodice.png" height = 100>]
+
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice3.png", width = "450"> <br>]
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice4.png", width = "450"> <br>]
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice5.png", width = "450"> <br>]
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice10.png", width = "450"> <br>]
+]
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice20.png", width = "450"> <br>]
+]
+
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice50.png", width = "450"> <br>]
+]
+
+
+
+
+---
+count: false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+]
+.right-column[
+## Sum of dice rolls
+Let $X_n$ be the sum of $n$ fair dice rolls.
+.center[<img src="sumdice100.png", width = "450"> <br>]
+]
+--
+.right-column[
+.center[What is going on here?]
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern1.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern2.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern3.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern4.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern5.png", width = "450"> <br>]
+]
+
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern10.png", width = "450"> <br>]
+]
+
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern20.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern50.png", width = "450"> <br>]
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+
+.center[
+We had already seem this phenomenon before, <br>
+when we talked about the Binomial distribution.]
+
+.center[<img src="sumbern100.png", width = "450"> <br>]
+]
+--
+.right-column[
+.center[What happens to the shape, mean and variance?]
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Binomial
+Again, the distribution converges to a Normal distribution.
+
+
+.center[https://www.youtube.com/watch?v=03tx4v0i7MA]
+
+
+This phenomenon happens to sums of random variables.
+
+
+Recall that a $Binomial(n,p)$ random variable is the sum of $n$ random variables distributed as $Bernoulli(p)$.
+
+That's why a $Bernoulli(n,p)$ is bell-shaped for high $n$.
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+]
+.right-column[
+## Do you see the connection with this?
+
+<img src="bincoef.png" width = 600>
+
+]
+
+
+
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+Nothing changes if the original distribution was continuous.
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+
+.center[<img src="sumunif1.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif2.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif3.png", width = "450"> <br>]
+]
+
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif4.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif5.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif10.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif20.png", width = "450"> <br>]
+]
+
+---
+count:false
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Sum uniformly-distributed random variables
+
+.center[PDF of $X_n = U_1 + \cdots + U_n$, <br>where each $U_i \sim Unif[0,1]$]
+.center[<img src="sumunif50.png", width = "450"> <br>]
+]
+--
+.right-column[
+.center[What is happening to the expectation of $X_n$?
+
+What is happening to the variance of $X_n$?]
+]
+
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Central Limit Theorem (for sums)
+
+This phenomenon is called the Central Limit Theorem.
+
+.center[<i>The distribution of the sum of <br><font color="darkorange">independent</font> and <font color="darkorange">identically distributed</font><br>
+random variables converges to the <font color="red"><br>Normal distribution.</i></font>]
+]
+--
+.right-column[
+<font size=6>
+$$\sum_i X_i \sim^{a} Normal(?, \ ?)$$
+</font>
+.center[(The "a" stands for "approximately")]
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Central Limit Theorem (for sums)
+The CLT tells us the <i>shape</i> of the distribution, but what are its mean and variance?
+]
+--
+.right-column[
+If $E[X_1] = E[X_2] = \cdots = E[X_n] = m$, then
+$$E[\sum_i X_i] = nm$$
+]
+--
+.right-column[
+If $Var[X_1] = Var[X_2] = \cdots = Var[X_n] = v$, then
+$$Var[\sum_i X_i] = nv$$
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+]
+.right-column[
+## Central Limit Theorem (for sums)
+
+This phenomenon is called the Central Limit Theorem.
+
+.center[<i>The distribution of the sum of <br><font color="darkorange">independent</font> and <font color="darkorange">identically distributed</font><br>
+random variables converges to the <font color="red"><br>Normal distribution.</i></font>]
+]
+.right-column[
+<font size=6>
+$$\sum_i X_i \sim^{a} Normal(nm, \ nv)$$
+</font>
+.center[(The "a" stands for "approximately")]
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+## Example
+]
+.right-column[
+## HW9 Q2
+
+One thousand voters show up to vote in a certain country. There are two candidates, $A$ and $B$. Each voter chooses randomly who to vote for with probability $\frac{1}{2}$, and each voter's decision is independent of the next voter.
+
+What is the <u>**exact**</u> probability that the candidate $A$ will have 480 votes or fewer?
+]
+--
+.right-column[
+Each vote for $A$ can be modelled $X_i \sim Bernoulli(\frac{1}{2})$
+]
+.right-column[
+Total votes for $A$ can be modelled as 
+$Y = X_1 + \cdots + X_n \qquad Y \sim Binomial(1000, \frac{1}{2})$
+]
+.right-column[
+So the answer is $F_Y(480) \approx 10.872\%$. <font color="blue">$\leftarrow$Binomial CDF</font>
+]
+
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+## Example
+]
+.right-column[
+## HW9 Q2
+
+One thousand voters show up to vote in a certain country. There are two candidates, $A$ and $B$. Each voter chooses randomly who to vote for with probability $\frac{1}{2}$, and each voter's decision is independent of the next voter.
+
+What is the <u>**approximate**</u> probability that the candidate $A$ will have 480 votes or fewer?
+]
+--
+.right-column[
+Since $Y$ is a **sum** and $n$ is big, 
+$Y \sim Normal(?, ?)$
+]
+.right-column[
+Fill in the blanks with the actual mean and variance:
+$$E[Y] = np \qquad Var[Y] = np(1-p)$$
+]
+.right-column[
+Approximate answer $F_Y(480) \approx 10.295\%$ <font color="blue">$\leftarrow$Normal CDF</font>
+]
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+## Example
+]
+.right-column[
+## HW9 Q3
+<i>
+Yvonne is the HR manager at a company. This week, she must read her employees' evaluations. 
+<br>
+Each evaluation takes her $T_i$ minutes, with $E[T_i] = 30$ and $Var[T_i] = 25$.
+<br>
+If she has $50$ employees, what is the probability that it will take her less than $1450$ minutes to finish everything?
+</i>
+]
+--
+.right-column[
+Number the employees from 1 to 50.
+
+Let $T\_{1}, T\_{2}, \cdots, T\_{50}$ be the time it takes Yvonne to read each evaluation.
+
+We want to know $P(T\_1 + \cdots + T\_{50} < 1400)$.
+]
+--
+.right-column[
+We must check the CDF of.... which distribution?
+
+Is $T_i \sim Expo(\frac{1}{30})?$ Who knows? <font color="red">It doesn't matter</font>.
+
+]
+
+
+---
+.left-column[
+## E[sum]
+## Var[sum]
+## Shape
+## Dice
+## Binom
+## Unif
+## Example
+]
+.right-column[
+## HW9 Q3
+<i>
+  Yvonne is the HR manager at a company. This week, she must read her employees' evaluations. 
+  <br>
+  Each evaluation takes her $T_i$ minutes, with $E[T_i] = 30$ and $Var[T_i] = 25$.
+  <br>
+  If she has $50$ employees, what is the probability that it will take her less than $1450$ minutes to finish everything?
+</i>
+]
+--
+.right-column[
+We know $E[T_i] = 30$ and $Var[T_i] = 25$ for all $i$.
+]
+--
+.right-column[
+The CLT says that 
+
+$$\sum_i T_i \sim^a Normal(50\times 30, 50\times 25)$$
+]
+--
+.right-column[
+Checking the CDF of the Normal distribution,
+
+$$P(\sum_i T_i < 1450) \approx 7.864\%$$ 
+]
+
+---
+class:middle, center, inverse
+# From sums to averages
+
+<br><br>
+We just saw what happens to the probability distribution of a **sum**:
+
+$$Y = X_1 + X_2 + \cdots + X_n$$
+
+--
+<br><br>
+
+Now let's see what happens if we scale this sum by $\frac{1}{n}$
+
+$$Z = \frac{1}{n}\left(X_1 + X_2 + \cdots + X_n\right)$$
+
+---
+.left-column[
+## E[mean]
+]
+.right-column[
+## Expectation of *averages*
+<font size=3>
+Begin with two random variables, $X_1$ and $X_2$.
+
+Suppose we know that $E[X_1] = E[X_2] = 3$.
+
+Moreover, $Z = \frac{X_1 + X_2}{2}$.
+
+What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[\frac{1}{2}(X_1 + X_2)] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{2}E[(X_1 + X_2)] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{2}E[X_1] + \frac{1}{2}E[X_2] \qquad \qquad \text{(Linearity o/f $E$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{2}3 + \frac{1}{2}3 = 3 \qquad \qquad \text{(Both have same mean)}$
+]
+</font>
+
+
+
+
+---
+.left-column[
+## E[mean]
+]
+.right-column[
+## Expectation of *averages*
+<font size=3>
+	
+Suppose we know that $E[X_1] = \cdots = E[X_n] = m$.
+
+Moreover, $Z = \frac{1}{n}\sum_i^n X_i$. What is $E[Z]$?
+]
+--
+.right-column[
+$E[Z] = E[\frac{1}{n}\sum_i^n X_i] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n}E[\sum_i^n X_i] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n}\sum_i^n E[X_i] \qquad \qquad \text{(Linearity of $E$)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n}\sum_i^n m \qquad \qquad \text{(All have same mean)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n}nm = m \qquad \qquad \text{(Done!)}$
+]
+
+
+---
+.left-column[
+## E[mean]
+]
+.right-column[
+## Expectations remain the same
+.center[The expectation of the *average* of $X_1, \cdots, X_n$ equals the average of any of the $X_i$s]
+]
+--
+.right-column[
+<font size=5>
+$$E[\frac{1}{n}\sum_i X_i] = E[X_1] = \cdots = E[X_n]$$
+</font>
+.center[or]
+<font size=5>
+$$E[\frac{X_1 + \cdots + X_n}{n}] = E[X_1] \cdots = E[X_n]$$
+</font>
+]
+--
+.right-column[
+.center[These results hold regardless of the distribution of $X_i$.<br>
+In particular, $X_i$ don't have to be Normal.]
+]
+
+
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+]
+.right-column[
+## Variance of average of random variables
+<font size=3>
+Begin with two <font color="orange">independent</font> random variables, $X_1$ and $X_2$.
+
+Suppose we know that $Var[X_1] = Var[X_2] = v$.
+
+Moreover, $Z = \frac{X_1 + X_2}{2}$. What is $Var[Z]$?
+]
+--
+.right-column[
+$Var[Z] = Var[\frac{1}{2}(X_1 + X_2)] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$Var[Z] = \frac{1}{4}Var[X_1 + X_2] \qquad \qquad \text{(Constants come out squared!)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{4}(Var[X_1] + Var[X_2]) \qquad \qquad \text{(If independent, variances add)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{4}2v = \frac{v}{2} \qquad \qquad \text{(Done!)}$
+]
+</font>
+
+
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+]
+.right-column[
+## Variance of average of random variables
+<font size=3>
+Now take many <font color="orange">independent</font> random variables, $X_1, X_2, \cdots, X_n$.
+
+Suppose we know that $Var[X_1] = \cdots = Var[X_n] = v$.
+
+Moreover, $Z = \frac{X_1 + \cdots + X_n}{n}$. What is $Var[Z]$?
+]
+--
+.right-column[
+$Var[Z] = Var[\frac{1}{n}(X_1 \cdots + X_n)] \qquad \qquad \text{(Definition of $Z$)}$
+]
+--
+.right-column[
+$Var[Z] = \frac{1}{n^2}Var[X_1 \cdots + X_n] \qquad \qquad \text{(Constants come out squared!)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n^2}(Var[X_1] + \cdots + Var[X_n]) \qquad \text{(If independent, variances add)}$
+]
+--
+.right-column[
+$\qquad = \frac{1}{n^2}nv = \frac{v}{n} \qquad \qquad \text{(Done!)}$
+]
+</font>
+
+
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+]
+.right-column[
+## Variances decrease by factor of $n$
+.center[The expectation of the *average* of $X_1, \cdots, X_n$ equals the variance of any of the $X_i$s, <font color="red">divided by $n$</font>.]
+]
+--
+.right-column[
+<font size=5>
+$$Var[\frac{1}{n}\sum_i X_i] = \frac{Var[X_1]}{n} = \cdots = \frac{Var[X_n]}{n}$$
+</font>
+.center[or]
+<font size=5>
+$$Var[\frac{X_1 + \cdots + X_n}{n}] = \frac{Var[X_1]}{n} = \cdots = \frac{Var[X_n]}{n}$$
+</font>
+]
+--
+.right-column[
+.center[These results hold regardless of the distribution of $X_i$.<br>
+<font color="orange">as long as they are independent</font>.
+In particular, $X_i$ don't have to be Normal.]
+]
+
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern1.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern2.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern3.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern4.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern5.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+]
+.right-column[
+## What does the distribution look like?
+
+The distribution of $\frac{1}{n}\sum_i X_i$ is also roughly Normal.
+
+Not surprising, since average is also kind of sum of the scaled $\frac{X_1}{n}, \cdots,\frac{X_n}{n}$!
+
+.center[<img src="avgbern20.png" height = 270>]
+]
+--
+.right-column[
+<font size=3>
+.center[
+So far, same intution: there aremore ways to be close to average and to be in extremes, so probability concentrates in the middle.
+]
+</font>
+]
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## Central Limit Theorem (for averages)
+
+.center[<i>The distribution of the sum of <br><font color="darkorange">independent</font> and <font color="darkorange">identically distributed</font><br>
+random variables with converges to the <font color="red"><br>Normal distribution.</i></font>]
+]
+.right-column[
+<font size=6>
+	$$\sum_i X_i \sim^{a} Normal(m, \ \frac{v}{n})$$
+</font>
+.center[(The "a" stands for "approximately")]
+]
+
+
+---
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+
+Let's continue increasing $n$...
+
+.center[<img src="avgbern25.png" height = 270>]
+
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+
+Let's continue increasing $n$...
+
+.center[<img src="avgbern100.png" height = 270>]
+
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+
+Let's continue increasing $n$...
+
+.center[<img src="avgbern200.png" height = 270>]
+
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+Let's continue increasing $n$...
+.center[<img src="avgbern300.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+Let's continue increasing $n$...
+.center[<img src="avgbern500.png" height = 270>]
+]
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+Let's continue increasing $n$...
+.center[<img src="avgbern1000.png" height = 270>]
+]
+
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+Let's continue increasing $n$...
+.center[<img src="avgbern10000.png" height = 270>]
+]
+
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+]
+.right-column[
+## But what does that factor $\frac{1}{n}$ do?
+Let's continue increasing $n$...
+.center[<img src="avgbern1000000.png" height = 270>]
+]
+--
+.right-column[
+.center[
+Is it still random? YES!
+
+Is it bell-shaped? YES!
+
+But the variance is tiny!
+]
+]
+
+
+---
+count:false
+.left-column[
+## E[mean]
+## Var[mean]
+## Shape
+## CLT
+## LLN
+]
+.right-column[
+## Law of Large Numbers
+
+As $n \rightarrow \infty$, the variance decreases dramatically and the random variable converges to a constant. Which constant? 
+]
+--
+.right-column[
+The <b>Law of Large Numbers</b> states that the <i>random variable</i> 
+$$\frac{X_1 + \cdots + X_n}{n}$$
+converges to the <i>constant</i>
+$$E[X_1] = \cdots = E[X_n]$$
+as $n$ approaches infinity.
+]
+--
+.right-column[
+.center[<font size=2>(For finite $n$, it's still random, just increasingly concentrated near $E[X_1]$)</font>]
+]
+
+
+
+
+</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+ inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

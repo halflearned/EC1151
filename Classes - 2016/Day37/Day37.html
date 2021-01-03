@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 30px #777;
+        -webkit-box-shadow: 0 0 30px #777;
+        box-shadow: 0 0 30px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+count: false
+# Confidence Intervals
+--
+
+(Without Python)
+
+---
+count: false
+class: inverse, middle, center
+<img src="fig1.png">
+--
+.center[Dear Anonymous, this one's for you. <br> Thank you for your patience.]
+---
+class: middle, center
+<img src="pickles.png" width = 700>
+
+---
+class: middle, center
+<img src="fig2.png" width = 700>
+
+---
+class: middle, center
+<img src="fig3.png" width = 700>
+
+<font size=3>Note: the textbook uses $\bar{X}$ to mean the sample mean (as a random variable), <br>and $\bar{x}$ to mean the actual value that we see in the sample.</font>
+
+---
+class: middle, center
+<img src="fig4.png" width = 700>
+--
+<br>
+<br>
+<font size=4>
+$E[\bar{X}] = E[\frac{1}{n}(X_1 + \cdots + X_n)] 
+= \frac{1}{n}(E[X_1] + \cdots + E[X_n]) = \frac{1}{n}n\mu = \mu$
+<br><br><br>
+--
+$Var[\bar{X}] = Var[\frac{1}{n}(X_1 + \cdots + X_n)] 
+= \frac{1}{n^2}(Var[X_1] + \cdots + Var[X_n]) = \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}$
+</font>
+
+---
+class: middle, center
+<img src="fig5.png" width = 700>
+
+
+---
+class: middle, center
+<img src="dists1.png" width = 600>
+
+Any of these have the same mean and variance!
+
+---
+class: middle, center
+<img src="fig6-2.png" width = 700>
+
+---
+class: middle, center
+<img src="fig6-1.png" width = 700>
+
+I'll explain <b><font color="orange">this part</b></font> in two slides
+
+---
+class: middle, center
+<img src="fig7.png" width = 700>
+
+---
+# "Z-transformation"
+
+Suppose $X \sim Normal(3, 4)$
+
+Call $Z$ its **standardized** counterpart (subtract mean, divide by standard deviation)
+
+$$Z = \frac{X - 3}{2}$$
+
+Now $Z \sim $
+
+---
+# "Z-transformation"
+
+Suppose $X \sim Normal(3, 4)$
+
+Call $Z$ its **standardized** counterpart (subtract mean, divide by standard deviation)
+
+$$Z = \frac{X - 3}{2}$$
+
+Now $Z \sim Normal(0, 1)$ (i.e., standard Normal).
+
+--
+<br><br>
+
+The standard normal distribution is sometimes called the <b>Z-distribution</b>.
+
+The process of standardizing a Normal r.v. is called.red[*] <b>Z-transformation</b>
+
+
+.footnote[.red[*] <font size =2>Only by statistics textbooks aimed at undergraduates.</font>]
+
+---
+# Why is it useful?
+
+Suppose $X \sim Normal(150, 20^2)$, and we want to know 
+
+$$P(X > 170)$$
+
+--
+Somewhere in our statistics textbook, we find a table like this
+
+.center[<img src="fig8.png" width = 600>]
+
+where $F(z) = P(Z \leq z)$
+
+
+
+---
+# Why is it useful?
+
+Suppose $X \sim Normal(150, 20^2)$, and we want to know 
+
+$$P(X > 170)$$
+--
+$$1 - P(X \leq 170)$$
+--
+$$1 - P(\frac{X - 150}{20} \leq \frac{170 - 150}{20})$$
+
+
+---
+# Why is it useful?
+
+Suppose $X \sim Normal(150, 20^2)$, and we want to know 
+
+$$P(X > 170)$$
+
+$$1 - P(X \leq 170)$$
+
+$$1 - P(\underbrace{\frac{X - 150}{20}}_{Z} \leq \frac{170 - 150}{20})$$
+
+
+---
+# Why is it useful?
+
+Suppose $X \sim Normal(150, 20^2)$, and we want to know 
+
+$$P(X > 170) = 1 - P(Z \leq 1) = 1 - F(1)$$
+--
+.center[<img src="fig9.png" width = 600>]
+.center[<img src="fig10.png" width = 600>]
+
+
+---
+class: middle, center
+<img src="fig6-1.png" width = 700>
+
+$$P(a \leq \bar{X} \leq b) = 
+P(\frac{a - \mu}{\frac{\sigma}{\sqrt{n}}} \leq
+\underbrace{\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}}_{Z} \leq 
+  \frac{b - \mu}{\frac{\sigma}{\sqrt{n}}}
+  ) $$
+
+
+---
+class: middle, center
+<img src="fig6-1.png" width = 700>
+
+$$P(a \leq \bar{X} \leq b) = 
+P(\frac{a - \mu}{\frac{\sigma}{\sqrt{n}}} \leq
+\underbrace{\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}}_{Z} \leq 
+  \frac{b - \mu}{\frac{\sigma}{\sqrt{n}}}
+  ) $$
+
+---
+class: middle, center
+<img src="fig6-1.png" width = 700>
+
+$$P(a \leq \bar{X} \leq b) = 
+P(\frac{a - \mu}{\frac{\sigma}{\sqrt{n}}} \leq
+\underbrace{\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}}_{Z} \leq 
+  \frac{b - \mu}{\frac{\sigma}{\sqrt{n}}}
+  ) $$
+
+
+---
+# Confidence intervals
+
+If you say:
+.center[*My guess for $\mu$ is $\bar{X}$*]
+
+That's a **point estimator**.
+
+<br><br>
+--
+If you say:
+.center[*My guess is that $\mu$ is between $\hat{L}$ and $\hat{U}$*]
+
+That's an **interval estimator**.
+--
+<br><br>
+Finally, if you say:
+.center[*My guess is that $\mu$ is between $\hat{L}$ and $\hat{U}$ <br>because 95% of the time this (random) interval will cover $\mu$.*]
+
+That's a special kind of interval estimator called a (95%) <b>confidence interval</b>.
+
+---
+class: middle, center
+<img src="fig11.png" height = 600>
+
+---
+# But how to compute it?
+
+We'd like to say this:
+<font size = 2>
+.center[*My guess is that $\mu$ is between $\hat{L}$ and $\hat{U}$ <br>because 95% of the time this (random) interval will cover $\mu$.*]
+</font>
+--
+or in symbols,
+$$P(\hat{L} \leq \mu \leq \hat{U}) = 0.95$$
+<font size=2>Please keep in mind that the random object is the interval boundary!</font>
+<br><br>
+
+--
+To compute that, we'll **invert** this expression:
+
+$$P(a \leq \bar{X} \leq b) = 
+P(\frac{a - \mu}{\frac{\sigma}{\sqrt{n}}} \leq
+Z \leq 
+  \frac{b - \mu}{\frac{\sigma}{\sqrt{n}}}
+  ) $$
+
+
+---
+# Confidence intervals by inversion (1)
+
+If $Z \sim Normal(0,1)$, then for what values of $c_1$, $c_2$ do we have that 
+
+$$P(c_1 \leq Z \leq c_2) = 0.95$$
+
+i.e., we want 
+
+$$P(Z \leq c_1) = 0.025 \qquad \text{and} \qquad P(Z \geq c_2) = 0.025$$
+
+.center[<img src="fig13.png" width = 500>]
+
+
+---
+class: middle, center
+.center[<img src="fig12.png">]
+
+So we found that $c_1 = -1.96$ and $c_2 = 1.96$.
+
+These numbers are sometimes called <b>critical values</b>.
+
+---
+
+# Confidence intervals by inversion (2)
+
+Now "invert"!
+
+$$P(-1.96 \leq Z \leq 1.96) = 0.95$$
+--
+$$P(-1.96 \leq \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+ \leq 1.96) = 0.95$$
+--
+
+$$P(-1.96\frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu  \leq 1.96\frac{\sigma}{\sqrt{n}}) = 0.95$$
+--
+
+$$P(\bar{X} -1.96\frac{\sigma}{\sqrt{n}} 
+	\leq \mu  
+	\leq \bar{X} + 1.96\frac{\sigma}{\sqrt{n}}) = 0.95$$
+
+---
+
+# Confidence intervals by inversion (2)
+
+Now "invert"!
+
+$$P(-1.96 \leq Z \leq 1.96) = 0.95$$
+
+$$P(-1.96 \leq \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+ \leq 1.96) = 0.95$$
+
+
+$$P(-1.96\frac{\sigma}{\sqrt{n}} \leq \bar{X} - \mu  \leq 1.96\frac{\sigma}{\sqrt{n}}) = 0.95$$
+
+$$P(\underbrace{\bar{X} -1.96\frac{\sigma}{\sqrt{n}}}\_{\hat{L}}
+	\leq \mu  
+	\leq 
+	\underbrace{\bar{X} +1.96\frac{\sigma}{\sqrt{n}}}\_{\hat{U}}
+	) = 0.95$$
+
+--
+.center[Done!]
+
+---
+# Issue: Unknown $\sigma$
+
+We pretended to know $\sigma$. In practice we usually have to estimate it.
+<br>
+The problem is that even though this has the <b>standard normal</b> distribution
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\sigma^2}{n}}}$$
+--
+<bR>
+This has the **t-distribution with n-1 degrees of freedom**:
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\widehat{\sigma}^2}{n}}}$$
+
+
+---
+# Confidence intervals by inversion (1)
+
+If $T \sim t_{n-1}$, then for what values of $c_1$, $c_2$ do we have that 
+
+$$P(c_1 \leq T \leq c_2) = 0.95$$
+
+i.e., we want 
+
+$$P(T \leq c_1) = 0.025 \qquad \text{and} \qquad P(T \geq c_2) = 0.025$$
+
+<br><br>
+--
+.center[Suppose $n = 10$. Where are the critical values?<br><br>]
+.center[<img src="fig14.png" width = 500>]
+
+---
+
+# Confidence intervals by inversion (2)
+
+Now "invert"!
+
+$$P(-2.23 \leq T \leq 2.23) = 0.95$$
+--
+$$P(-2.23 \leq \frac{\bar{X} - \mu}{\frac{\widehat{\sigma}}{\sqrt{n}}}
+ \leq 2.23) = 0.95$$
+--
+
+$$P(-2.23 \frac{\widehat{\sigma}}{\sqrt{n}} \leq \bar{X} - \mu  \leq 2.23\frac{\widehat{\sigma}}{\sqrt{n}}) = 0.95$$
+--
+
+$$P(\bar{X} -2.23\frac{\widehat{\sigma}}{\sqrt{n}} 
+	\leq \mu  
+	\leq \bar{X} + 2.23\frac{\widehat{\sigma}}{\sqrt{n}}) = 0.95$$
+
+
+---
+class: center
+# The formula 
+
+x = [2.23,  2.98,  4.76,  0.41,  4.9 ,  1.41,  2.18,  5.06,  5.88,  4.00] 
+<br><br>
+--
+1) Check how many observations
+
+$$n = 10$$ 
+
+--
+
+2) Estimate the mean $\bar{X}$
+
+$$\bar{x} = 3.38$$
+
+--
+3) Estimate the standard deviation $\hat{\sigma}$
+
+$$\hat{\sigma} = 1.71$$
+
+--
+4) Look up the critical values (using $t_{n-1}$ if $n$ small)
+
+$$(c_1, c_2) = (-2.23, 2.23)$$
+
+--
+5) Compute $[\bar{X} - c_1 \frac{\hat{\sigma}}{n}, \bar{X} + c_2 \frac{\hat{\sigma}}{n}]$
+
+$$[3.38 - 2.23 \cdot 1.71/10, \ \ 3.38 + 2.23 \cdot 1.71/10] = [2.17, \ 4.59]$$
+
+
+
+---
+# Test yourself (1)
+
+Suppose that $X_1, \cdots, X_n \sim Bernoulli(p)$.
+
+Explain why an approximate 95% confidence interval for $p$ given by
+
+$$\left[\hat{p} - 1.96\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}, \ \ 
+\hat{p} + 1.96\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \right]$$
+
+when $n$ is large.
+
+How would you modify the above if $n$ is small?
+
+
+---
+# Test yourself (2)
+
+Suppose that $X_1, \cdots, X_m$ comes from a population with $E[X_i] = \mu_X$ and $Var[X_i] = \sigma_X^2$.
+
+Also suppose that $Y_1, \cdots, Y_n$ comes from a population with $E[Y_i] = \mu_Y$ and $Var[Y_i] = \sigma_Y^2$.
+
+What is the approximate distribution of $\bar{X} + \bar{Y}$?
+
+Explain why the formula for a 95% confidence interval for the *sum* $\mu_1 + \mu_2$ is 
+
+$$[\bar{X} + \bar{Y} - 1.96\sqrt{\frac{\sigma_X^2}{m} + \frac{\sigma_Y^2}{n}}, \ \ 
+\bar{X} + \bar{Y} + 1.96\sqrt{\frac{\sigma_X^2}{m} + \frac{\sigma_Y^2}{n}}
+]$$
+
+
+---
+# Test yourself (3)
+
+To form confidence intervals for the mean $\mu$, we used the fact that 
+$$\frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \sim Normal(0,1)$$
+
+To form confidence interval for the std. deviation $\sigma$, we use the fact that
+$$\frac{n}{\sigma^2}\widehat{\sigma}^2 \sim \chi_{n-1}$$
+
+Explain why the formula for a confidence interval for $\sigma$ is
+
+$$[\sqrt{\frac{n\hat{\sigma}^2}{c_2}}, \ \sqrt{\frac{n\hat{\sigma}^2}{c_1}}]$$
+
+Suppose for a given problem $n = 10$, $\hat{\sigma} = 5$.
+
+Check that a 90% confidence interval for $\sigma$ is $[3.84, 8.67]$.
+
+
+---
+# Test yourself (3)
+
+.center[<img src="fig15.png" width = 700>]
+
+This is the table for the $\chi^2$ distribution for different degrees of freedom (n-1).
+
+Ex. When n-1=4, we have $P(\frac{n}{\sigma^2}\widehat{\sigma}^2 < 0.484) = 0.025$
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

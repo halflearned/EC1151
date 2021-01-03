@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Introduction to Regression 
+
+---
+# Regression
+.left-column[
+## Definition
+]
+.right-column[
+### Regression analysis
+**Regression analysis** is a statistical process for estimating the relationships among variables.
+
+So far, our questions were limited to:
+
+> Suppose the hourly number of customers is $Y \sim Poisson(3)$, then how many customers should we expect in the next hour?
+
+]
+
+
+
+---
+# Regression
+.left-column[
+## Definition
+]
+.right-column[
+### Regression analysis
+**Regression analysis** is a statistical process for estimating the relationships among variables.
+
+So far, our questions were limited to:
+
+> Suppose the hourly number of customers is $Y \sim Poisson(3)$, then how many customers should we expect in the next hour?
+
+Next, we'll be able to answer:
+
+> How does the hourly number of customers is $Y$ relate to investment in advertising $X_1$ and product quality $X_2$? *If there is a causal relationship*, by how much will $Y$ increase if we double $X_1$?
+
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+]
+.right-column[
+### The problem 
+
+Try to find a *good guess* function $g$ relating $X$ to $Y$
+
+<font size = 6>
+$$Y \approx g(X)$$
+</font>
+]
+
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+]
+.right-column[
+### Example
+
+.center[You studied 3 hours for the exam. *Guess* your grade.]
+
+.center[<img src="joint.png" width = 400>]
+
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+]
+.right-column[
+### Example
+
+.center[You studied 3 hours for the exam. *Guess* your grade.]
+
+.center[<img src="cond.png" width = 400>]
+
+]
+
+---
+
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+]
+.right-column[
+### Conditional mean
+
+One reasonable kind of guess is the **conditional mean**.
+
+<font size = 5>
+	$$g(x) = E[Y | X = x] = \sum_{\text{y}} y \cdot p_{Y|X}(y|x)$$
+</font>
+
+In the example we just saw,
+
+$$g(3) = E[Y|X = 3] = .29(100) + .52(80) + .19(60) = 81.94$$
+
+.center[<img src="cond.png" width = 200>]
+]
+
+
+---
+
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+]
+.right-column[
+### Conditional mean
+Note that $g(x) = E[Y|X=x]$ is a **function of x**.
+
+<font size = 3>
+$$g(1) = E[Y|X = 1] = .054(100) + .324(80) + .622(60) = 68.65$$
+$$g(3) = E[Y|X = 3] = .29(100) + .516(80) + .194(60) = 81.93$$
+$$g(10) = E[Y|X = 10] = .656(100) + .281(80) + .062(60) = 81.93$$
+</font>
+.center[<img src="EYx_grades.png" width = 300>]
+
+
+]
+
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+
+The patient is taking medication. How long will he or she live?
+
+<img src="extra_binom0.png" width = 500>
+
+]
+
+---
+count: false
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+
+The patient is taking medication. How long will he or she live?
+
+<img src="extra_binom1.png" width = 500>
+
+]
+
+---
+count: false
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+
+The patient is taking medication. How long will he or she live?
+
+<img src="extra_binom3.png" width = 500>
+
+]
+---
+count: false
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+
+The patient is taking medication. How long will he or she live?
+
+<img src="extra_binom5.png" width = 500>
+
+]
+---
+count: false
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+
+The patient is taking medication. How long will he or she live?
+
+<img src="extra_binom8.png" width = 500>
+
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Example
+<img src="EYX_binom.png" width = 600>
+
+]
+
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Remark
+
+<font size = 3>
+Note $p_{Y|X}(y|x)$ is a different distribution for every $x$.
+</font>
+<img src="extra_binom_3d.png" width = 600>
+
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Remark
+
+<font size = 3>
+So the value of $g(x) = E[Y|X=x]$ is a different number for each $x$.
+</font>
+<img src="extra_binom_3d_with_EYx.png" width = 600>
+
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+]
+.right-column[
+### Remark
+
+<img src="extra_binom_EYx.png" width = 600>
+
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[
+### Definition
+
+> To **regress Y on X** means to *estimate* $E[Y|X = x]$
+
+For discrete $X$, that's not too hard.
+
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[
+### Definition
+
+> To **regress Y on X** means to *estimate* $E[Y|X = x]$
+
+For discrete $X$, that's not too hard. How would you do it?
+
+.center[<img src="table1.png" height = 300>]
+
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[
+### Definition
+
+> To **regress Y on X** means to *estimate* $E[Y|X = x]$
+
+.center[<img src="table2.png" height = 150>]
+<font size = 3>
+$$\hat{E}[Y | X = 2] = \frac{-0.49 + 2.07 + -0.53 +  0.84 +  1.15}{5} = 0.61$$
+</font>
+]
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[
+### How about this?
+
+What would you do when $X$ is continuous?
+
+.center[<img src="table3.png" height = 200><img src="scatter_xy.png" height = 200>]
+
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[ 
+
+One way would be to use observations "close" to $2$.
+
+.center[<img src="table4.png" height = 100>]
+
+The output is a would be something like this:
+
+.center[<img src="scatter_xy1.png" height = 200>]
+
+
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[ 
+
+Another way would be to restrict the kind of function $E[Y|X =x]$ can be.
+
+For  example, **assume** that 
+$$E[Y|X = x] = ax^2 + bx + c$$ 
+for some $a,b,c$ that we have to estimate.red[*]
+
+.center[<img src="scatter_xy2.png" height = 200>]
+
+.footnote[.red[*] <font size=2>You'll learn how to do this next week</font>]
+]
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+]
+.right-column[ 
+## Terminology
+
+The coefficients $a,b,c$ are called *parameters* of the conditional mean. So the second method is called **parametric** estimation.
+
+
+By contrast, the first kind is called **non-parametric**.
+
+<br><br>
+<font size=3>
+	&#x2620; In Econometrics, it's common to teach only parametric estimation, <i>and</i> only restricted to linear functions. But keep in mind that regression is a much broader topic!</font>
+]
+
+
+
+---
+# Regression
+.left-column[
+## Definition
+## Example
+## Conditional mean
+## Example
+## Estimation
+## Pitfalls
+]
+.right-column[ 
+## Regression and causality
+
+Let $Y$ be body weight, and $X$ number of hours working out every week.
+
+$$\hat{g}(x) = \hat{E}[Y|X=0] = 170$$
+$$\hat{g}(x) = \hat{E}[Y|X=1] = 165$$
+
+Are these statements correct?
+
++ *People who work out 1 hour per week weight 5 pounds less than people who don't*.
+
++ *Working out 1 hour per week causes body weight to drop by 5 pounts, on average*.
+
+
+
+]
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+

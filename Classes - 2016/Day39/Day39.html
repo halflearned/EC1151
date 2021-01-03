@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 30px #777;
+        -webkit-box-shadow: 0 0 30px #777;
+        box-shadow: 0 0 30px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+count: false
+#  Maximum Likelihood
+
+---
+class: 
+# Example 1: Exponential 
+
+### Problem
+You have a random sample $Y_1, \cdots, Y_n \sim Exponential(\lambda)$.
+
+However you don't know $\lambda$.
+<br>
+
+--
+<br><br>
+
+### Solution
+
+<b>Maximum likelihood</b> is an algorithm to produce estimator for $\lambda$.
+<br><br>
+Idea is to choose the parameter <b>most likely to have generated the data</b>.
+
+
+---
+class: 
+# Example 1: Exponential 
+
+### Data
+
+$$Y_1 = 3 \qquad Y_2 = 4 \qquad Y_3 = 5$$
+
+<br><br>
+--
+$P(Data; \lambda) = p_Y(Y_1 = 3; \lambda) \cdot p_Y(Y_2 = 4; \lambda) \cdot p_Y(Y_3 = 5; \lambda)$
+<br><br>
+--
+$\qquad \qquad = \lambda e^{-3\lambda} \cdot \lambda e^{-4\lambda} \cdot \lambda e^{-5\lambda}$
+<br><br>
+--
+$\qquad \qquad = \lambda^{3} e^{-(3+4+5)\lambda}$
+--
+<br><br>
+Note that once we <b>fix the data</b>, this is a <b>function of the parameter $\lambda$</b>.
+<br><br>
+We call this function the <b>likelihood</b>
+
+
+---
+# Example 1: Exponential 
+
+### Data
+
+$$Y_1 = 3 \qquad Y_2 = 4 \qquad Y_3 = 5$$
+
+<br><br>
+
+The likelihood: $L(\lambda) = \lambda^{3} e^{-(3+4+5)\lambda}$
+--
+<br><br>
+
+<b>Trick of the trade: </b> take logs before derivatives!
+<br><br>
+
+--
+The maximizing parameter is:
+
+$$\hat{\lambda} = \frac{3}{3+4+5}$$
+
+Why does that make a lot of sense?
+
+
+
+---
+# Example 1: Exponential (Conditional)
+
+### Problem
+
+What if you knew that $Y$ dependended on some other observable $X$?
+<br><br>
+
+--
+
+### Solution
+
+If $X$ is discrete, you can find a different $\hat{\lambda}$ for different values of $X$.
+.center[(<i>data permitting</i>)]
+
+You just maximize the **conditional likelihood** $P(Data | X = x ; \lambda)$
+
+$$Y_1 = 3 \qquad Y_2 = 4 \qquad Y_3 = 5 \qquad Y_4 = 6$$
+
+$$X_1 = 0 \qquad X_2 = 0 \qquad X_3 = 1 \qquad X_4 = 1$$
+
+--
+
+$$\hat{\lambda}(0) = \frac{2}{3+4} \qquad \hat{\lambda}(1) = \frac{2}{5+6}$$
+
+---
+
+# Example 1: Exponential (Conditional)
+
+That's kind of like constructing a table that <i>maps</i> $x$ <i>to</i> a corresponding $\hat{\lambda}$
+
+.center[<img src="map.png" width = 200>]
+
+--
+
+But if $X$ is continuous, then we'd need an <i>infinite table</i>
+
+.center[<img src="map2.png" width = 200>]
+
+
+---
+
+# Example 1: Exponential (Conditional)
+
+#### Example
+
+Data:
+
+$$Y_1 = 3.2 \qquad Y_2 = 6.1$$
+
+$$X_1 = 1.1 \qquad X_2 = 2.3$$
+
+
+If we think $\lambda$ increases linearly with $X$, we can assume:
+
+$$\lambda(X) = a + bX$$
+
+--
+
+Plugging that into the maximum likelihood
+
+<img src="like1.png" width = 600>
+
+
+---
+count:false
+# Example 1: Exponential (Conditional)
+
+#### Example
+
+Data:
+
+$$Y_1 = 3.2 \qquad Y_2 = 6.1$$
+
+$$X_1 = 1.1 \qquad X_2 = 2.3$$
+
+
+If we think $\lambda$ increases linearly with $X$, we can assume:
+
+$$\lambda(X) = a + bX$$
+
+
+Plugging that into the maximum likelihood
+
+<img src="like2.png" width = 600>
+
+--
+<br>
+Then just maximize $L(a,b)$ with respect to $a$ and $b$!
+
+
+---
+# Example 2: Normal
+
+### Problem
+You have a random sample $Y_1, \cdots, Y_n \sim Normal(\mu, \sigma^2)$.
+
+However you don't know $\mu$ or $\sigma^2$.
+
+--
+
+### Solution
+
+Much weirder pdf, but same idea:
+
+$$P(Data; \mu, \sigma^2)  = \left(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(y_1 - \mu)^2}{2\sigma^2}} \right) \cdot \left(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(y_2 - \mu)^2}{2\sigma^2}} \right) \cdot \cdots$$
+
+--
+
+Take logs, maximize with respect to $\mu$ and $\sigma^2$.
+<br><br>
+
+And if you believe that $\mu, \sigma^2$ change with $X$, just make them functions of $X$!
+
+---
+class: inverse, middle, center
+count: false
+# Regression
+
+
+---
+### Problem
+
+We have data on a <b>dependent variable</b> $Y$ and <b>regressors</b> $X_1, \cdots, X_K$, <br>
+and we'd like to figure out a good "guess" function relating $X$ to $Y$.
+
+--
+
+### Solution
+
+Use the <b>conditional mean</b> $E[Y \ | \ X_1 = x_1, \cdots, X_K = x_K]$.
+
+.center[<img src="condmean.png" width = 500>
+
+Rationale: (conditional) mean <b>minimizes expected squared errors.</b>]
+
+---
+# Nonparametric Regression
+
+If regressors are discrete, we can find one value of $E[Y|X=x]$ <br> for each value of $X$. 
+
+<br>
+
+$$Y_1 = 3 \qquad Y_2 = 4 \qquad Y_3 = 5 \qquad Y_4 = 6$$
+
+$$X_1 = 0 \qquad X_2 = 0 \qquad X_3 = 1 \qquad X_4 = 1$$
+
+<br>
+$$\hat{E}[Y|X=0] = \frac{\text{values of }y_i \text{ where }x_i = 0}
+{\text{number of such values}} = 3.5$$
+
+
+---
+# Nonparametric Regression
+
+If regressors are continuous, we can still do close analogues.
+
+.center[<img src="reg2.png" width = 500>]
+
+$$\hat{E}[Y|X=2] = \frac{\text{values of }y_i \text{ whose }x_i \textit{ is near } 2}
+{\text{number of such values}} = 3.5$$
+
+
+---
+# Parametric regression
+
+But the most common workaround is to <b>parametrize</b> $E[Y|X=x]$  <br>by some function of $X$.
+
+If the function is of the form
+
+$$\hat{E}[Y \ | \ X = x] = b_0 + b_1 f_1(x) + b_2 f_2(x) + \cdots + b_3 f_M(x)$$
+
+then we call this <b>linear regression</b>.
+
+.center[<img src="reg4.png" width = 500>]
+
+
+---
+# Parametric regression
+
+But the most common workaround is to <b>parametrize</b> $E[Y|X=x]$  <br>by some function of $X$.
+
+If the function is of the form
+
+$$\hat{E}[Y \ | \ X = x] = b_0 + b_1 f_1(x) + b_2 f_2(x) + \cdots + b_3 f_M(x)$$
+
+then we call this <b>linear regression</b>.
+
+.center[<img src="reg5.png" width = 500>]
+
+.center[Even though the result can be highly nonlinear!]
+
+
+---
+# Least squares
+
+We estimate the parameters $b_0, b_1, \cdots, b_M$ by minimizing squared errors.
+
+<br>
+
+$$\hat{b}_0, \hat{b}_1 = \arg\min \sum_i [y_i - (b_0 + b_1 x_1)]^2$$
+<br>
+Again: this works because <b>conditional means minimize squared errors</b>.
+
+
+---
+# Causality 
+
+### Problem
+
+We run a simple regression of $Y$ on $X$ and estimate
+
+$$\hat{E}[Y \ | X = x] = 1.1 + 2.5 x$$
+
+Is it true that an increase in $x$ of $1$ <b>causes</b> avg $Y$ to increase by $2.5$?
+
+### Solution
+
+Only if there are no other unobserved components that are correlated with $X$!
+
+Examples: 
+
++ College GPA vs. Class attendance
+
++ Financial diversification vs. Economic growth
+
++ Bad eating habits vs. Life expectancy
+
+
+---
+# Causality 
+
+### Intuition
+
+We might never be able to perfectly predict $Y$ because there are so many things that could affect it. <br>
+
+However, what is important is that there be nothing that leads us to overestimate or underestimate the effeect of $X$ on $Y$.
+
+--
+Examples:
+
++ Class attendance positively correlates with IQ $\rightarrow$ Effect of class attendance seems more positive than truth
+
++ Financial diversification positively correlates with higher GDP $\rightarrow$ Effect of financial diversification seems more positive than truth
+
++ Bad eating habits negative correlate with poverty  $\rightarrow$ seems more negative than truth
+
+---
+# Causality
+
+That is not a problem of having more data on the already observed variables.
+
+.center[<img src="bias.png" width=600>]
+
+Our estimates of the causal effect will **biased** unless we can *control for* the unobservables.
+
+---
+# Causality
+
+That is not a problem of having more data on the already observed variables.
+
+.center[<img src="bias2.png" width=600>]
+
+Our estimates of the causal effect will **biased** unless we can *control for* the unobservables.
+
+---
+class: inverse, middle, center
+# Have a nice vacation!
+<img src="autumn.png" height = 450>
+<br><br><br>
+.footnote[<font size=1><br>.red[*] I mean it more enthusiastically than the painting suggests.  </font>]
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

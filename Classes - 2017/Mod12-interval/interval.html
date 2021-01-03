@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+---
+class: inverse, middle, center
+# Confidence Intervals
+
+---
+## Interval Estimators
+
+So far we've dealt with **point estimation**:
+
+.center[<i>A good guess for the value of the true parameter $\beta$ is...</i>]
+    
+--
+
+Today we'll talk a little about **interval estimation**:
+
+.center[<i>A good guess for an interval containing the true parameter $\beta$ is...</i>]
+
+--
+
+But what is a *good guess* in the interval case?
+    
+---
+## Intuition
+
+Here's some data from the $Normal(\mu, 1)$ distribution.
+
+
+.center[<img src="data1a.png" width = 800>]
+
+--
+
+.center[Find an interval that *definitely* contains $\mu$]
+
+--
+<center>
+<font size=8>
+$[-\infty, +\infty]$
+<br>
+<br>
+¯\_(ツ)_/¯
+</font><br>
+We didn't even use the data!
+</center>
+
+---
+## Intuition
+
+We need to use the data to refine our interval somehow.
+
+.center[<img src="data1a.png" width = 800>]
+
+---
+## Intuition
+
+We need to use the data to refine our interval somehow.
+
+.center[<img src="data2a.png" width = 800>]
+
+.center[Here's $\mu_{MOM}$]
+
+
+---
+
+## Intuition
+
+We need to use the data to refine our interval somehow.
+
+.center[<img src="data3a_narrow.png" width = 800>]
+
+.center[Is it better to be narrow...]
+
+---
+
+## Intuition
+
+We need to use the data to refine our interval somehow.
+
+.center[<img src="data3a_wide.png" width = 800>]
+
+.center[...or wide?]
+
+
+
+
+---
+
+## Intuition
+
+Here's a different data, now from $Normal(\mu, 0.1)$
+
+.center[<img src="data1b.png" width = 800>]
+
+---
+
+## Intuition
+
+Here's a different data, now from $Normal(\mu, 0.1)$
+
+.center[<img src="data3b_wide.png" width = 800>]
+
+---
+
+## Intuition
+
+Here's a different data, now from $Normal(\mu, 0.1)$
+
+.center[<img src="data3b_narrow.png" width = 800>]
+
+
+---
+
+## Intuition
+
+Last one: again from $Normal(\mu, 1)$...
+
+.center[<img src="data1c1.png" width = 800>]
+
+---
+
+## Intuition
+
+Last one: again from $Normal(\mu, 1)$... but lots of it. 
+
+.center[<img src="data1c2.png" width = 800>]
+
+---
+
+## Intuition
+
+Last one: again from $Normal(\mu, 1)$... but lots of it. 
+
+.center[<img src="data3c_wide.png" width = 800>]
+
+---
+
+## Intuition
+
+Last one: again from $Normal(\mu, 1)$... but lots of it. 
+
+.center[<img src="data3c_narrow.png" width = 800>]
+
+--
+
+.center[More data allows us to be more confident!]
+
+---
+
+## What are "good" intervals?
+
+--
+
+They somehow depend on the data:
+
+--
+
+If the data has large variance, they are **wide**
+
+.center[<img src="data3a_wide.png", height = 150>]
+
+--
+
+
+But as we gather more data, they get **narrower**
+
+.center[<img src="data3c_narrow.png", height = 150>]
+
+---
+## Intervals are random variables, too!
+
+.center[<img src="d0.png", width = 800>]
+ 
+--
+ 
+ .center[<img src="d1.png", width = 800>]
+
+--
+  
+.center[<img src="d2.png", width = 800>]
+
+--
+  
+.center[<img src="d3.png", width = 800>]
+
+--
+  
+.center[<img src="d4.png", width = 800>]
+
+--
+
+.center[The true parameters never changed, but the intervals did!]
+
+---
+## Confidence Intervals
+
+.center[
+A 90%-confidence interval estimator for $\mu$ is <br>a pair of **random variables** $L$ and $U$ that guarantee that
+]
+$$P(L < \mu < U) = 0.90$$
+
+--
+<br>
+
+ .center[<img src="d1.png", width = 800>]
+
+.center[The interval will "cover" the true parameter 90% of the time]
+
+--
+
+.center[These intervals are usually found by **inversion**]
+
+
+---
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, \sigma^2)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+--
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_n}{n} \sim Normal(?, ?)$$
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_9}{9} \sim Normal(\mu, \frac{4}{9})$$
+
+--
+
+### 2 Create a *pivot variable* whose distribution doesn't depend on $\mu$
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_9}{9} \sim Normal(\mu, \frac{4}{9})$$
+
+
+### 2 Create a *pivot variable* whose distribution doesn't depend on $\mu$
+
+$$\mu_{MOM} \sim Normal(\mu, \frac{4}{9})$$
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_9}{9} \sim Normal(\mu, \frac{4}{9})$$
+
+
+### 2 Create a *pivot variable* whose distribution doesn't depend on $\mu$
+
+$$\mu_{MOM}-\mu \sim Normal(0, \frac{4}{9})$$
+
+--
+
+<font size=1>.red[*] Technically, this is a pivot variable already, but let's go one step further</font>
+
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_9}{9} \sim Normal(\mu, \frac{4}{9})$$
+
+
+### 2 Create a *pivot variable* whose distribution doesn't depend on $\mu$
+
+$$\frac{\mu_{MOM}-\mu}{\sqrt{\frac{4}{9}}} \sim Normal(0, 1)$$
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+### 1 Find an estimator for $\mu$, and compute its distribution
+
+$$\mu_{MOM} = \frac{X_1 + \cdots + X_9}{9} \sim Normal(\mu, \frac{4}{9})$$
+
+
+### 2 Create a *pivot variable* whose distribution doesn't depend on $\mu$
+
+$$Z \sim Normal(0, 1)$$
+
+.center[<font size=1>Just for use of notation, let's denote the pivot variable by $Z$</font>]
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+#### 3 Find *critical values* $a$, $b$ such that $P(a < Z < b) = 0.90$
+
+--
+
+<img src="ab.png">
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+#### 3 Find *critical values* $a$, $b$ such that $P(a < Z < b) = 0.90$
+$$
+P(Z < a) = 0.05 \qquad \implies \qquad a = F^{-1}(0.05) \approx -1.64
+$$
+.center[<img src="table.png" height = 350>]
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_n \sim Normal(\mu, 4)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+#### 3 Find *critical values* $a$, $b$ such that $P(a < Z < b) = 0.90$
+$$
+P(Z < a) = 0.05 \qquad \implies \qquad a = F^{-1}(0.05) \approx -1.64
+$$
+
+$$
+P(Z < b) = 0.95 \qquad \implies \qquad b = F^{-1}(0.95) \approx +1.64
+$$
+
+<br>
+You can also use `scipy.stats` if you'd like
+
+```python
+dist = ss.norm(0, 1)
+a = dist.ppf(0.05)
+b = dist.ppf(0.95)
+print(a,b)
+
+-1.64485362695 1.64485362695
+```
+
+---
+
+## Trick of the trade: inversion
+
+Given $X_1, \cdots, X_9 \sim Normal(\mu, \sigma^2)$, find a 90%-confidence interval for $\mu$.
+
+We have 9 data points and assume know for sure $\sigma^2 = 4$.
+
+#### 4 Solve for $\mu$!
+
+$$P(-1.64 < Z < 1.64) = 0.90$$
+
+--
+
+$$P(-1.64 < \frac{\mu_{MOM}-\mu}{\sqrt{\frac{4}{9}}} < 1.64) = 0.90$$
+
+--
+
+$$P(-1.64\sqrt{\frac{4}{9}} < \mu_{MOM}-\mu < 1.64\sqrt{\frac{4}{9}}) = 0.90$$
+
+
+--
+
+$$P(\underbrace{\mu\_{MOM}-1.64\sqrt{\frac{4}{9}}}\_{L} < \mu < \underbrace{\mu\_{MOM}+1.64\sqrt{\frac{4}{9}}}\_{U}) = 0.90$$
+
+---
+## Is this interval "good"?
+
+In general, the formula for a 90% confidence interval for the mean of a Normal distribution is
+
+$$\left[ \mu\_{MOM} - 1.64\sqrt{\frac{\sigma^2}{n}},  \ \ \ \mu\_{MOM} + 1.64\sqrt{\frac{\sigma^2}{n}} \right]$$
+
+--
+.center[
+<b>Does it depend on the data? <br></b>
+<font color="green">YES</font>, through $\mu_{MOM}$!
+]
+--
+.center[
+<b>Does it become wide when has large variance? <br></b>
+<font color="green">YES</font>, since it's scaled up by $\sigma$!
+]
+--
+.center[
+<b>Does it get narrower when we have lots of data?<br></b>
+<font color="green">YES</font>, since it's scaled down by $\frac{1}{\sqrt{n}}$!
+]
+--
+.center[<img src="beautiful.jpeg" height = 100>]
+
+
+    </textarea>
+      <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+      <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+      <script type="text/javascript">
+        var slideshow = remark.create();
+
+        // Setup MathJax
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+                return(elem.SourceElement());
+            }).parent().addClass('has-jax');
+        });
+
+        MathJax.Hub.Configured();
+      </script>
+    </body>
+  </html>

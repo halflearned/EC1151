@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+count: False
+# Counting and Naive Probability
+
+
+---
+.left-column[
+## Experiment
+]
+
+
+.right-column[
+
+# Definitions
+
+An <b>experiment</b> is an observation of a random occurence.
+
++ Rolling a die, tossing a coin
+
++ Dropping a ball and a feather in vacuum
+
++ Measuring space-time distortion
+
+.center[<img src="MIT-LIGO-2.jpg" width = 400><br>
+Image <a href="http://news.mit.edu/2016/ligo-first-detection-gravitational-waves-0211">source</a>]
+
+]
+
+---
+.left-column[
+## Experiment
+]
+
+
+.right-column[
+
+# Definitions
+
+An <b>experiment</b> is an observation of a random occurence.
+
++ Measuring economic effect of earthquakes
+
+<font size=2>Cavallo, Eduardo, et al. "Catastrophic natural disasters and economic growth." Review of Economics and Statistics 95.5 (2013): 1549-1561. APA </font>	
+
++ Vietnam draft lottery effect on education and wages
+
+<font size=2>Angrist, J. D. (1990). Lifetime earnings and the Vietnam era draft lottery: evidence from social security administrative records. The American Economic Review, 313-336. </font>	
+]
+--
+.right-column[
+
+<font color="red">
+.center[&#x2620; Important &#x2620;]
+</font>
+
+It doesn't matter that these don't fit into our colloquial usage of the word *experiment*.
+
+When you encounter a definition, pretend that it's a totally new word. 
+
+]
+
+
+
+---
+
+.left-column[
+## Experiment
+## Elementary outcomes
+## Sample space and event
+]
+.right-column[
+
+Each <b>elementary outcome</b> is a unique possible outcome of an experiment.
+
+
+<figure>
+  .center[	<font size=10>  &#9856</font>
+  <figcaption><font size=2>An elementary outcome of a die roll.</font></figcaption>]
+</figure>
+]
+--
+.right-column[
+
+The <b>sample space</b> is the <b>set</b> of all elementary outcomes.
+
+<figure>
+  .center[	<font size=10>  {&#9856;, &#9857;, &#9858;, &#9859;, &#9860;, &#9861;}</font>
+  <figcaption><font size=2>Sample space of one die roll.</font></figcaption>]
+</figure>
+
+]
+--
+.right-column[
+An <b>event</b> is a subset of the sample space: 
+<figure>
+.center[<font size=10>  {&#9856;, &#9857;}, <font size=10>  {&#9856;, &#9859;}, <font size=10>  {&#9861;}</font>
+  <figcaption><font size=2>Events of a die roll</font></figcaption>]
+</figure>
+
+
+]
+
+
+---
+
+.left-column[
+## Experiment
+## Elementary outcomes
+## Sample space and event
+## Probability
+]
+
+.right-column[
+
+## How to define probability?
+
+That's hard! Our first impulse is to talk about <b>long-run frequencies</b>:
+
+If we toss die a billion number of times, "&#9858;" will come up about $\frac{1}{6}$ of the time.
+
+.center[&#9858; &#9860; &#9860; &#9858; &#9860; &#9860; &#9857; &#9856; &#9858; &#9859; &#9861; &#9858; &#9861; &#9860; &#9859; &#9859; &#9858; &#9858; &#9859; &#9860; &#9860; &#9858; &#9861; &#9859; &#9860; $\cdots$]
+]
+--
+.right-column[
+How what do we make of *this*?
+
+<img src="election.png", width = 500>
+
+We need a working definition.
+
+<br><br>
+
+.footnote[<font size=2>See more on page 35 of the textbook.</font>]
+
+]
+
+
+---
+.left-column[
+## Naive definition
+]
+
+.right-column[
+
+## Classical or Naive probability
+
+Here's a definition that works if <b>every outcome has equal probability of happening.</b>
+
+Let $A$ be an event inside the sample space $S$.
+
+$$
+P_{Classical}(A) 
+=  \frac{|A|}{|S|}
+= \frac{\text{\# Favorable outcomes}}{\text{\# Total outcomes}}
+$$
+.footnote[<font size=2>The notation $|B|$ means "the number of elements in set $B$".</font>]
+]
+--
+.right-column[
+#### Example: Is an 11 more likely than a 12?
+.center[<img src="two_dice.png", width = 300>]
+]
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+]
+.right-column[
+## But counting can be hard!
+
+Take a shuffled deck of 52 cards: A, 2, 3, ... 9, 10, J, Q, K
+
+<b>Q1) What's the probability that a  deck is in the order:</b>
+
+(A, &#9830;),  (A, &#9831;), (A, &#9829;), (A, &#9828;), $\cdots$ (K, &#9830;),  (K, &#9831;), (K, &#9829;), (K, &#9828;)
+] 
+--
+.right-column[
+There's only one "favorable outcome": $|A| = 1$.
+
+But what's the "size of all outcomes": $|S| = \ \ ?$
+] 
+--
+.right-column[
+
+<b>Q2) What's the probability of drawing one 3, two 7s and two As?</b>
+
+Now even computing $|A|$ is not that easy :-(
+
+]
+
+
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+]
+
+.right-column[
+<font face="times">
+## Multiplication rule
+
+Q: How many ways can you pair three entrees {&#127837;, &#x1F356;, &#127843;} and two desserts: {&#127846;, &#127856;}]
+--
+.right-column[
+A:  Six ways: <font size=6><br>
+.center[
+(&#127837;,&#127846;),	(&#x1F356;, &#127846;), (&#127843;,&#127846;) <br>
+(&#127837;, &#127856;), (&#x1F356;, &#127856;), (&#127843;,&#127856;) </font>]
+Note that 6=3$\times$2.]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+]
+.right-column[
+
+## Multiplication rule
+If there are $n$ ways of doing something and $m$ ways of doing something else, 
+then there are $n \times m $ ways of performing both actions.
+
+<img src="tree.png" height= 300>
+
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+]
+.right-column[
+
+## Permutations
+
+We can apply the **multiplication rule** to find out the number of permutations of a set.
+
+A **permutation** is just a shuffling:
+
+.center[<img src="perms1.png" height = 200>]
+
+<br>
+
+There are six permutations of the set {1,2,3} because <br> 
+.center[$3!=3\times 2\times 1 = 6$
+
+<font size=2>
+(Three choices for the first number, two for the second, one for the third)
+</font>
+]
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+]
+
+.right-column[
+## Answering Q1
+
+<b>In how many ways can you shuffle a deck of 52 cards?</b>
+]
+--
+.right-column[
+$52!=52\times 51 \times 50 \times \cdots \times 1$ ways:
+
++ 52 ways of choosing the first card
++ 51 ways of choosing the second card
++ 50 ways of choosing the third card
+...
+]
+--
+.right-column[
+<b>What's the probability of the deck being in an exact particular order?</b>
+
+$$\frac{1}{52!} \approx 1.23 \times 10^{-68}$$
+
+]
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Combinations
+
+<b>How many ways are there to pick a pair of numbers from S = {1,2,3,4}?</b>
+]
+--
+.right-column[
+Initially there are $4 \times 3= 12$ pairs:
+
+<img src="combo1.png" height= 200>
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Combinations
+
+<b>How many ways are there to pick a pair of numbers from S = {1,2,3,4}?</b>
+]
+
+.right-column[
+But many of them are the same pair, in different order!
+
+<img src="combo2.png" height= 200>
+]
+--
+.right-column[
+We had to "shrink" then number of pairs by 2, because each pair can be rearranged in $2!=2\times 1=2$ ways.
+]
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Combinations
+
+<b>How many ways are there to pick two 3s from a deck of cards?</b>
+]
+
+.right-column[
+There are four 3s in a deck:
+
+.center[(3,&#9830;) (3,&#9831;) (3,&#9829;) (3,&#9828)]
+
+So initially there are ___ ordered pairs.
+
+
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Combinations
+
+<b>How many ways are there to pick two 3s from a deck of cards?</b>
+]
+
+.right-column[
+There are four 3s in a deck:
+
+.center[(3,&#9830;) (3,&#9831;) (3,&#9829;) (3,&#9828)]
+
+So initially there are $4 \times 3 = 12$ ordered pairs:
+
+(3,&#9830;)(3,&#9831;)&nbsp;	(3,&#9830;)(3,&#9829;)&nbsp;	(3,&#9830;)(3,&#9828)&nbsp;   	(3,&#9831;)(3,&#9830;)&nbsp;	<br>
+(3,&#9831;)(3,&#9829;)&nbsp;	(3,&#9831;)(3,&#9828)&nbsp;	    (3,&#9829;)(3,&#9830;)&nbsp;	(3,&#9829;)(3,&#9831;)&nbsp;	<br>
+(3,&#9829;)(3,&#9828)&nbsp;	    (3,&#9828)(3,&#9830;)&nbsp;	    (3,&#9828)(3,&#9831;)&nbsp;		(3,&#9828)(3,&#9829;)&nbsp;	<br>
+
+If we forget the order, how many of these are the same?
+
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Combinations
+
+<b>How many ways are there to pick two 3s from a deck of cards?</b>
+]
+
+.right-column[
+There are four 3s in a deck:
+
+.center[(3,&#9830;) (3,&#9831;) (3,&#9829;) (3,&#9828)]
+
+
+There are $2!$ of each pair, so we must divide by $2!$.
+
+.center[
+(3,&#9830;)(3,&#9831;)&nbsp;	(3,&#9830;)(3,&#9829;)&nbsp; <br>
+(3,&#9830;)(3,&#9828)&nbsp;	(3,&#9831;)(3,&#9829;)&nbsp;	<br>
+(3,&#9831;)(3,&#9828)&nbsp;	(3,&#9829;)(3,&#9828)&nbsp;
+]
+
+We're left with $\frac{4\times 3}{2!} = 6$ unique pairs.
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Answering Q2
+
+<b> In how many ways can we draw 5 cards, regardless of order?</b>
+]
+--
+.right-column[
++ There are 52 choices for the first card
++ There are 51 choices for the second card
++ There are 50 choices for the third card
++ There are 49 choices for the fourth card
++ There are 48 choices for the fifth card
+
+So there are $52\times 51 \times 50 \times 49 \times 48$ ways of choosing 5 ordered cards.
+]
+--
+.right-column[
+Now, five cards can be arranged in 5! permutations, so we "forget" the order by dividing by 5!.
+
+Answer: $\frac{52\times 51 \times 50 \times 49 \times 48}{5!}$
+]
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Answering Q2
+
+<b> In how many ways can we draw one 3, two 7s and two As?</b>
+]
+
+.right-column[
+
++ There are 4 ways of drawing a three.
+
+.center[(3,&#9830;)&nbsp;	(3,&#9831;)&nbsp;	(3,&#9829;)&nbsp;	(3,&#9828)&nbsp;]
+
++ There are $\frac{4\times 3}{2!} = 6$ ways of drawing two 7s.
+.center[(7,&#9830;)(7,&#9831;)&nbsp;	(7,&#9830;)(7,&#9829;)&nbsp;	<br>
+(7,&#9830;)(7,&#9828)&nbsp;	(7,&#9831;)(7,&#9829;)&nbsp;	<br>
+(7,&#9831;)(7,&#9828)&nbsp;	(7,&#9829;)(7,&#9828)&nbsp;]
++ There are $\frac{4\times 3}{2!} = 6$ ways of drawing two As.
+.center[(A,&#9830;)(A,&#9831;)&nbsp;	(A,&#9830;)(A,&#9829;)&nbsp;	<br>
+(A,&#9830;)(A,&#9828)&nbsp;	(A,&#9831;)(A,&#9829;)&nbsp;	<br>
+(A,&#9831;)(A,&#9828)&nbsp;	(A,&#9829;)(A,&#9828)&nbsp;]
+
+Answer: There are $4 \times 6 \times 6$ ways of drawing this hand.
+]
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+]
+
+.right-column[
+## Answering Q2
+
+<b> What is the <i>probability</i> of drawing one 3, two 7s and two As?</b>
+]
+
+.right-column[
+
+Remember the numbers we just found:
+
++ There are $4 \times 6 \times 6$ ways of drawing this hand.
+
++ There are $52 \times 51 \times 50 \times 49 \times 48$ hands.
+
+Plug them in the naive probability formula:
+
+$$Probability = \frac{4 \times 6 \times 6}{52 \times 51 \times 50 \times 49 \times 48} = 4.62 \times 10^{-7}$$
+
+
+]
+
+
+---
+.left-column[
+## Naive definition
+## Issue
+## Mult Rule
+## Perms
+## Examples
+## Combs
+## Notation
+]
+
+.right-column[
+## Notation
+
+Using the multiplication formula we "derived" these formulas:
+
+<font size= 3>
+	<ul>
+		<li>Ways to permute $n$ elements: $n!$
+
+		<li>Ways to choose $k$ elements out of $n$ elements (ordered): 
+			$$n \times (n-1) \times \cdots \ (n-k+1) \qquad \text{ or } \qquad \frac{n!}{(n-k)!}$$
+
+		<li> Ways to choose $k$ elements out of $n$ elements (unordered): 
+			$$\frac{n \times (n-1) \times \cdots \ (n-k+1)}{k!}\qquad \text{ or } \qquad \frac{n!}{(n-k)!k!}$$
+	</ul>
+</font>
+]
+--
+.right-column[
+
+This last number actually has a name: the <b>binomial coefficient</b>
+
+.center[<font size = 6>${n \choose k} = \frac{n!}{(n-k)!k!}$ </font>]
+
+This is read as "n choose k".
+]
+
+
+---
+class: inverse, center, middle
+# Quick Check
+
+---
+## Quick check
+
+What is the sample space associated with a coin toss?
+
+Why are all possible events associated with this sample space? 
+
+How many five-letter 'words' can you make with the letters "ABCDE" (without repetition)?
+
+How many five-letter 'words' can you make with the letters "ABCDE" (allowing for repetition)?
+
+How many two-letter 'words' can you make with the letter "ABCDE" (without repetition)? 
+
+In how many ways can you choose two men out of a group of 10 men (unordered)?
+
+If you choose two men out of a group of 10 men, and then three women out of a group of 8 women, how many different five-people groups can you form?
+
+
+
+
+---
+## Quick check
+
+What is the sample space associated with a coin toss? {Heads, Tails}
+
+Why are all possible events associated with this sample space? {}, {Heads}, {Tails}, {Heads, Tails}
+
+How many five-letter 'words' can you make with the letters "ABCDE" (without repetition)? $5!$
+
+How many five-letter 'words' can you make with the letters "ABCDE" (allowing for repetition)? $5^5$
+
+How many two-letter 'words' can you make with the letter "ABCDE" (without repetition)? $5\times 4$ or $\frac{5!}{3!}$
+
+In how many ways can you choose two men out of a group of 10 men (unordered)? $\frac{10\times 9}{2!}$ or $\frac{10!}{8!2!}$ or ${10 \choose 2}$
+
+If you choose two men out of a group of 10 men, and then three women out of a group of 8 women, how many different five-people groups can you form? 
+<font size=2>
+<ul>
+	<li>Two men out of 10: ${10 \choose 2}$
+
+	<li>Three women out of 8: ${8 \choose 3}$
+
+	<li>Total: ${10 \choose 2} \times {8 \choose 3}$
+</font>
+</ul>
+
+
+
+
+
+
+
+
+
+</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+ inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

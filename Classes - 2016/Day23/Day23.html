@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Interval estimation 
+---
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Point vs. Interval Estimation
+
+Until now, all work has been to say something like:
+
+> *Given the data $X_1,\cdots,X_n$, our best guess for the **value of the unknown true parameter $\theta$** is $\hat{\theta}(X_1, \cdots, X_n)$.*
+
+
+<br><br>
+
+Today, we'll learn to make the following statement:
+
+> *Given the data $X_1,\cdots,X_n$, our best guess for the **boundaries of an interval containing the true parameter** $\theta$ is $\hat{L}(X_1, \cdots, X_n)$ for the lower bound and $\hat{U}(X_1,\cdots,X_n)$ for the upper bound*.
+
+]
+
+---
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Randomness
+
+Recall what we learned in point estimation:
+
+*Because the data $X_1,\cdots,X_n$ is random, the statistic $\hat{\mu}$ is random.*
+
+.center[<img src="muhat_off1.png", width = 550>]
+
+```python
+x_sim = ss.norm(0, 1).rvs((10000, 5)) # 10000 samples w n=5
+mu_hat_sim = np.mean(x_sim, axis = 1) # Mean of each sample
+```
+]
+
+
+
+---
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Randomness
+
+.center[When $Var(X_i)$ large, estimates get worse]
+
+<img src="muhat_off2.png", width = 550>
+
+
+]
+
+---
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Randomness
+
+.center[When $n$ large, estimates get better]
+
+<img src="muhat_off3.png", width = 550>
+
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Important [&#9760;]
+
+
+### Qualitatively
+
++ If $X_i$ has large variance, $\hat{\mu}$ has large variance
+
++ As $n$ grows large, the variance of $\hat{\mu}$ decreases.
+
+
+<br>
+### Quantitatively
+
+Both of the above are implicit in the CLT <br><br>
+
+$$\hat{\mu} \sim^a Normal(E[X_i], \frac{Var[X_i]}{n})$$
+
+]
+
+
+
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+]
+.right-column[
+## Computing intervals 
+
+Compare the two statements:
+
+*Having seen the data, my best guess for the interval containing the true parameter $\theta$ is...*
+
+> 1) *...the interval $[-\infty, +\infty]$*
+
+> 2) *...the interval $[0.000002, 0.000003]$*
+
+<br><br>
+
++ Which statement is more informative?
+
++ Which one will be more susceptible to be wrong due to data randomness?
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+]
+
+.right-column[
+## Simple algorithm
+
+Suppose we want to estimate an interval that will cover the mean $\mu$.
+
+<br>
+Choose some width $2c$.
+
++ Estimate $\hat{\mu} = \frac{1}{n}\sum_i X_i$
+
++ Let $\hat{L} = \hat{\mu} - c$ and $\hat{U} = \hat{\mu} + c$
+
+<br><br>
+Note:
+
+.center[Because $\hat{\mu}$ is random, <br>
+**the interval $[\hat{L}, \hat{U}]$ is also random**!] 
+
+]
+
+
+
+
+
+
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+]
+.right-column[
+## Random intervals
+
+.center[Twenty realizations of $\hat{L}, \hat{U}$.]
+
+<img src="random_intervals_1.png" width = 600>
+
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+]
+.right-column[
+## Random intervals
+
+.center[Twenty realizations of $\hat{L}, \hat{U}$ when $Var(X_i)$ is large.]
+
+<img src="random_intervals_2.png" width = 600>
+
+
+.footnote[<font size = 1><br>Note the horizontal axis has changed since last slide.</font>]
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+]
+.right-column[
+## Random intervals
+
+.center[Twenty realizations of $\hat{L}, \hat{U}$ when $n$ is large.]
+
+<img src="random_intervals_3.png" width = 600>
+
+.footnote[<font size = 1>Note the horizontal axis has changed since last slide.</font>]
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+]
+.right-column[
+## Consequences
+
+<br>
++ If $Var(X_i)$ is large
+	+ Estimates bounce around a lot
+	+ We need larger intervals to straddle $\theta$ most of the time
+
+<br><br>
++ If $n$ is large
+	+ Randomness has smaller effect
+	+ We can shrink our intervals because they'll often be near $\theta$
+
+]
+
+
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+]
+
+.right-column[
+## How often are we right?
+
+Let's try going through the math.
+
+We want to know:.red[*]
+
+$$P(\hat{\mu} - 1 < \mu < \hat{\mu} + 1)$$	
+
+
+We can show this equals [&#128211;]:
+
+$$P(\hat{\mu} < \mu + 1) - P(\hat{\mu} < \mu - 1)$$
+	 
+
+This is just the cdf of $\hat{\mu}$, so in Python this becomes:
+
+```python
+dist = ss.norm(mu, np.sqrt(sigma/n)) # Distribution of muhat
+prob = dist.cdf(mu + 1) - dist.cdf(mu - 1)
+
+0.9545
+```
+
+.footnote[.red[*]<font size = 2>If this is confusing, try thinking in terms of events. <br>
+Let $A$ be the event $\mu < \hat{\mu} + 1$ <br>
+Let $B$ be the event $\mu < \hat{\mu} - 1$ <br>
+We want to know $P(A\backslash B) = P(A) - P(B)$.
+</font>]
+]
+
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+]
+.right-column[
+## What is the right width?
+
+It depends:
+
++ On $Var(X_i)$, and $n$
+
++ On how informative we want it to be
+
++ On how often we allow ourselves to make mistakes
+
+We will choose $c$ so that the interval *covers* $\mu$ a large percentage of the time.
+
+<br>
+
+## Definition
+
+> If $\hat{L}$ and $\hat{U}$ cover the true mean $\mu$ (say) 95% of the time, then we say $[\hat{L}, \hat{U}]$ form a <font color="green">**95% confidence interval about the true parameter**</font>
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci0.png" width = 650>
+
+Suppose we're testing 
+.center[<img src="hyp.png" height = 50>]
+
+We **assume** for a moment that the true parameter is $\mu_{hyp}$, and think about the chances of getting a number as extreme as $\hat{\mu}$.
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci1.png" width = 650>
+
+.center[Low-chance regions are called the <font color="red">rejection region</font>.
+
+We *choose* the region so that its total area equals the significance level $\alpha$.]
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci2.png" width = 650>
+
+.center[Here's how we'll create our confidence interval. <br><br>Choose $c$ to be as above]
+
+]
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci3.png" width = 650>
+
+.center[Now this be our confidence interval width.]
+
+]
+
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci5.png" width = 650>
+
+.center[
+Whenever we find $\hat{\mu}$, compute the confidence interval.
+
+If $H\_0$ is true, $\hat{\mu}$ will often be close enough to $\mu$ to cover it.
+
+]
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci4.png" width = 650>
+
+.center[However, $\alpha$% of the time it won't!]
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+.right-column[
+## Duality with two-tailed Hypothesis Testing
+
+<img src="ci6.png" width = 650>
+
+.center[What does this imply about hypothesis testing?]
+
+]
+
+
+---
+.left-column[
+## Preliminaries
+## Trade-off 
+## Algorithm
+## Fixed width 
+## Choosing width
+## Hypothesis testing
+]
+
+.right-column[
+## Takeaway
+
+<br><br><br>
+
+To test a two-tailed hypothesis with significance level $\alpha$.red[*]:
+
++ Compute $\hat{\mu}$
+
++ Compute a $(1-\alpha)$% confidence interval around $\hat{\mu}$
+
++ Check if the interval covers $\mu_{hyp}$ 
+
+If it does not, then reject the hypothesis.
+
+.footnote[.red[*] i.e., you'll be making a Type 1 error $\alpha$% of the time.]
+
+]
+
+
+	
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+

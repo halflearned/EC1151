@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Regression (Round 2)
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+]
+
+.right-column[
+## Summarizing numbers
+
+.center[
+You are given a list of numbers.
+<font size = 5>
+<br>3 &nbsp;&nbsp;  4 &nbsp;&nbsp;  6 &nbsp; &nbsp; 7<br>
+</font>
+<br><br>
+<font size = 4>
+How would you summarize them?
+</font>
+]
+]
+
+---
+count: false
+# Conditional Expectation
+.left-column[
+## Numbers 
+]
+
+.right-column[
+## Summarizing numbers
+
+.center[
+You are given a list of numbers.
+<font size = 5>
+<br>3 &nbsp;&nbsp;  4 &nbsp;&nbsp;  6 &nbsp; &nbsp; 7<br>
+</font>
+<br><br>
+<font size = 4>
+How would you summarize them?
+<br><br>
+One answer is the <b>mean</b>: 5.
+<br><br>
+But why?
+</font>
+]
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers
+## Squared Errors
+]
+
+.right-column[
+## Summarizing numbers
+.center[
+Suppose the criterion is the **smallest squared error**.
+<br><br><br>
+That is, look for number $c$ that minimizes
+<font size = 4>
+$$(3 - c)^2 + (4 - c)^2 + (6 - c)^2 + (7 - c)^2$$
+</font>
+<br><br>
+Take derivatives wrt $c$, set to zero:
+<font size = 3.5>
+$$0 = -2(3 - c) - 2(4 - c) - 2(6 - c) - 2(7 - c)$$
+</font>
+<br><br>
+Solve for $c$, what do you get?
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+]
+
+.right-column[
+## Summarizing numbers
+.center[
+Solving for $c$:
+
+$$c = \frac{1}{4} 3 + \frac{1}{4} 4 + \frac{1}{4} 6 + \frac{1}{4} 7$$
+<br><br>
+Takeaway:
+
+If the criterion is **smallest squared error**, <br>
+the .red[mean] is the best we can do.
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+]
+
+.right-column[
+## Summarizing numbers
+.center[
+Suppose the criterion is the **weighted smallest squared error**.
+<br><br><br>
+That is, look for number $c$ that minimizes
+<font size = 4>
+	$$\frac{1}{2}(3 - c)^2 + \frac{1}{6}(4 - c)^2 + \frac{1}{6}(6 - c)^2 + \frac{1}{6}(7 - c)^2$$
+</font>
+<br><br>
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+]
+
+.right-column[
+## Summarizing numbers
+.center[
+Suppose the criterion is the **smallest weighted squared error**.
+<br><br><br>
+That is, look for number $c$ that minimizes
+<font size = 4>
+	$$\frac{1}{2}(3 - c)^2 + \frac{1}{6}(4 - c)^2 + \frac{1}{6}(6 - c)^2 + \frac{1}{6}(7 - c)^2$$
+</font>
+<br><br>
+Same deal. Take derivatives wrt $c$, set to zero:
+<font size = 3.5>
+$$0 = -2\frac{1}{2}(3 - c) - 2\frac{1}{6}(4 - c) - 2\frac{1}{6}(6 - c) - 2\frac{1}{6}(7 - c)$$
+</font>
+
+Solve for $c$, what do you get?
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+]
+
+.right-column[
+## Summarizing numbers
+.center[
+Solving for $c$:
+
+$$c = \frac{1}{2} 3 + \frac{1}{6} 4 + \frac{1}{6} 6 + \frac{1}{6} 7$$
+<br><br>
+Takeaway:
+
+If the criterion is **smallest weighted squared error**, <br>
+the .red[weighted mean] is the best we can do.
+]
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+]
+
+.right-column[
+## Summarizing random variables 
+
+For us, the most important kind of **weighted mean** is the expectation
+
+(i.e., the one where the weights are probabilities!)
+<br><br>
+$$
+Y = 
+\begin{cases}
+3 \qquad \frac{1}{2} \\\
+4 \qquad \frac{1}{6} \\\
+6 \qquad \frac{1}{6} \\\
+7 \qquad \frac{1}{6}
+\end{cases}
+$$
+
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+]
+
+.right-column[
+## Summarizing random variables 
+
+If $Y$ is that random variable, then this
+
+$$\frac{1}{2}(3 - c)^2 + \frac{1}{6}(4 - c)^2 + \frac{1}{6}(6 - c)^2 + \frac{1}{6}(7 - c)^2$$
+<br>
+.center[
+is 
+<br><br>
+$$E[(Y - c)^2]$$
+]
+.footnote[<font size = 1>Think of $E[g(Y)]$ when $g(y) = (y - c)^2$  </font>]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+]
+
+.right-column[
+## Summarizing random variables 
+
+Also, if $Y$ is that random variable, then this
+
+$$\frac{1}{2} 3 + \frac{1}{6} 4 + \frac{1}{6} 6 + \frac{1}{6} 7$$
+<br>
+.center[
+is 
+<br><br>
+$$E[Y]$$
+]
+]
+
+
+---
+count:false
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+]
+
+.right-column[
+## Summarizing random variables 
+
+Also, if $Y$ is that random variable, then this
+
+$$\frac{1}{2} 3 + \frac{1}{6} 4 + \frac{1}{6} 6 + \frac{1}{6} 7$$
+<br>
+.center[
+is 
+<br><br>
+$$E[Y]$$
+
+<br><br>
+Conclusion:
+
+E[Y] minimizes the **expected squared error**.
+]
+]
+
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+So if I give you some data on $Y$...
+
+<img src ="scatter1.png" width = 650>
+
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+...you could summarize it by telling me its mean.
+
+<img src ="scatter2.png" width = 650>
+
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+But what if you knew about a related variable $X$?
+
+<img src ="scatter3.png" width = 650>
+
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+...you guess would be more refined!
+
+<img src ="scatter4.png" width = 650>
+
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+.center[
+Note that this your guess in a **function**
+<img src ="scatter5.png" width = 650>
+<font size= 3>I tell you the value of $x$, you tell me the value of your guess for $Y$.</font>
+]
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+
+.center[
+This function is the **conditional mean**.
+<img src ="scatter5.png" width = 650>
+<font size= 3>I tell you the value of $x$, you tell me the value of .red[$E[Y|X = x]$].</font>
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+.center[
+The conditional mean also minimizes **expected squared errors**...
+<img src ="scatter6.jpg" width = 650>
+]
+]
+
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+.center[
+...except that now it's not the **number** that minimizes squared error...
+
+<br><br>
+<font size =5>$c = E[Y]$<br><br> minimizes <br><br>$E[(Y - c)^2]$</font>
+]
+]
+
+---
+# Conditional Expectation
+.left-column[
+## Numbers 
+## Squared Errors
+## Weighted
+## Expectations
+## Joint rvs
+]
+
+.right-column[
+## Introducing more information
+.center[
+...now it's the **function of x** that minimizes squared error!.red[*]
+
+<br><br>
+<font size =5>$g(x) = E[Y|X=x]$ <br><br> minimizes <br><br>$E[(Y - g(X))^2]$</font>
+]
+<br><br>
+.footnote[<font size = 1>.red[*] And the expectation is taken wrt the <b>joint</b> distribution of $(X, Y)$.]
+]
+
+---
+# Regression
+.left-column[
+## Estimation
+]
+
+.right-column[
+## Estimation
+.center[
+Recall that to **regress Y on X** means to **estimate $E[Y|X=x]$**
+<br><br>
+You already know how to do it when $X$ is discrete.
+]
+]
+
+---
+# Regression
+.left-column[
+## Estimation
+]
+
+.right-column[
+## Estimation
+.center[
+Recall that to **regress Y on X** means to **estimate $E[Y|X=x]$**
+<br><br>
+You already know how to do it when $X$ is discrete.
+<br><br>
+<br><br>
+<img src="discrete.png" width= 400>
+]
+]
+
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous 
+]
+
+.right-column[
+## Continuous random variables
+.center[
+But how would you find $E[Y | X = 2]$ in this case?
+<img src="scatter7.png" width = 650>
+]
+]
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous 
+]
+
+.right-column[
+## Continuous random variables
+.center[
+One method is use $y_i$ whose $x_i$ is close to 2. 
+<img src="scatter8.png" width = 650>
+]
+.footnote[<font size = 1>.red[*] This is called <b>kernel regression</b></font>]
+]
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous 
+]
+
+.right-column[
+## Continuous random variables
+.center[
+Or use $y_i$ whose $x_i$ are the nearest neighbors of 2.
+<img src="scatter8.png" width = 650>
+]
+.footnote[<font size = 1>.red[*] This is called <b>K-nearest neighbor regression</b></font>]
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+]
+
+.right-column[
+## Local vs. Global Solutions 
+.center[
+<br><br>
+<font size = 3>
+These were all kind of "local" solutions. Let's try something "global".
+</font>
+<br><br>
+We'll <b>assume</b> that $E[Y|X = x]$ is a <b>linear</b> function.
+
+<br><br>
+<font size = 5>
+$$E[Y|X = x] = a + bx$$
+</font>
+]
+]
+
+
+---
+count: false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+]
+
+.right-column[
+## Local vs. Global Solutions 
+.center[
+Here's $E[Y|X = x]$ as a <b>linear</b> function.
+<img src="scatter10.png" width = 650>
+]
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+The problem is: what are $a$ and $b$?
+<br><br>
+To solve this, we remember:
+.center[
+<br>
+<font size =5>$g(x) = E[Y|X=x]$ <br><br> minimizes <br><br>$E[(Y - g(X))^2]$</font>
+]
+<br><br>
+]
+
+---
+count:false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+The problem is: what are $a$ and $b$?
+<br><br>
+To solve this, we remember:
+.center[
+<br>
+<font size =5>$g(x) = a + bX$ <br><br> minimizes <br><br>$E[(Y - g(X))^2]$</font>
+]
+<br><br>
+]
+
+---
+count:false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+The problem is: what are $a$ and $b$?
+<br><br>
+To solve this, we remember:
+.center[
+<br>
+<font size =5>$a, b$ <br><br> minimize <br><br>$E[(Y - a - bX)^2]$</font>
+]
+<br><br>
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+How exactly? Usual way: take derivatives, set to zero.
+<br><br>
+.center[
+<font size =5>
+	$$\text{Deriv wrt a} \qquad E[2(Y - a - bX)] = 0$$
+	$$\text{Deriv wrt b} \qquad E[2(Y - a - bX)X] = 0$$
+</font>
+]
+<br><br>
+.footnote[.red[*]<font size=1>The derivative "passes through" the expectation. Why? </font>]
+]
+
+
+---
+count:false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+How exactly? Usual way: take derivatives, set to zero.
+<br><br>
+.center[
+<font size =5>
+	$$\text{Deriv wrt a} \qquad E[Y] - a - bE[X] = 0$$
+	$$\text{Deriv wrt b} \qquad E[YX] - a - bE[X^2] = 0$$
+</font>
+]
+<br><br>
+.footnote[.red[*]<font size=1>The derivative "passes through" the expectation. Why? </font>]
+]
+
+
+---
+count:false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+How exactly? Usual way: take derivatives, set to zero.
+<br><br>
+.center[
+<font size =5>
+	$$\text{Deriv wrt a} \qquad E[Y] - a - bE[X] = 0$$
+	$$\text{Deriv wrt b} \qquad E[YX] - a - bE[X^2] = 0$$
+</font>
+This is just a system of 2 equations, 2 unknowns.
+]
+
+<br><br>
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+A bit of algebra [&#128211;] shows that this equals
+<br><br>
+.center[
+<font size =5>
+	$$b = \frac{E[(X - EX)(Y - EY)]}{E[(X - EX)^2]}$$
+	$$a = E[Y] - bE[X]$$
+</font>
+<font size = 3>
+You'll often.red[*] do this sort of thing in Econometrics.
+</font>
+]
+
+<br><br>
+.footnote[.red[*] <font size=1><i>Waaaaaaaaaay too many times.</i></font>]
+]
+
+---
+count:false
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+]
+
+.right-column[
+## Finding coefficients
+
+A bit of algebra [&#128211;] shows that this equals
+<br><br>
+.center[
+<font size =5>
+	$$b = \frac{Cov(X,Y)}{Var(X)}$$
+	$$a = E[Y] - bE[X]$$
+</font>
+<font size = 3>
+You'll often.red[*] do this sort of thing in Econometrics.
+</font>
+]
+
+<br><br>
+.footnote[.red[*] <font size=1><i>Waaaaaaaaaay too many times.</i></font>]
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+## Estimation again
+]
+.right-column[
+
+## Back to estimation
+
+Those are *theoretical quantities*. To estimate,
+
+<br>
+.center[
+<font size =5>
+	$$\hat{b} = \frac{\frac{1}{n}\sum_i (Y_i -\hat{\mu}_Y)  (X_i - \hat{\mu}_X) }{\frac{1}{n}\sum_i  (X_i - \hat{\mu}_X)^2}$$
+	$$\hat{a} = \hat{\mu}_Y - \hat{b} \hat{\mu}_X$$
+</font>
+]
+]
+
+
+---
+# Regression
+.left-column[
+## Estimation
+## Continuous
+## Global
+## Solution
+## Estimation again
+]
+.right-column[
+<img src="olspython.png" height = 400><bR>
+.footnote[.red[*] <font size =2><i>Don't try to do it by hand!</i></font>]
+]
+
+---
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+]
+.right-column[
+## Linearity goes a long way
+
+.center[
+What if your data looks like this?
+<img src="scatter11.png" width = 600>]
+]
+
+---
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+]
+.right-column[
+## Linearity goes a long way
+
+.center[
+No problem. 
+<img src="scatter12.png" width = 600>
+<br>**Assume** $E[Y|X = x] = a + bX + cX^2 + dX^3$
+]
+]
+
+---
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+]
+.right-column[
+## Linearity goes a long way
+
+.center[
+Is this still **linear regression**? YES.
+
+Please kindly drill this into your heads
+
+<font color = "blue", size=5>
+	<i>Linear</i> means linear in <i>functions of X</i>
+</font>
+<br><br>
+]
+]
+
+---
+count:false
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+]
+.right-column[
+## Linearity goes a long way
+
+.center[
+Is this still **linear regression**? YES.
+
+Please kindly drill this into your heads
+
+<font color = "blue", size=5>
+	<i>Linear</i> means linear in <i>functions of X</i>
+</font>
+<br><br>
+
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + bX + cX^3 + d\sqrt{X}$
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + b\log(X) + c \exp(x)$
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + b\sin(X)+ c \cos(X)$
+]
+]
+
+---
+count:false
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+]
+.right-column[
+## Linearity goes a long way
+
+.center[
+Is this still **linear regression**? YES.
+
+Please kindly drill this into your heads
+
+<font color = "blue", size=5>
+	<i>Linear</i> means linear in <i>functions of X</i>
+</font>
+<br><br>
+
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + bX + cX^3 + d\sqrt{X}$
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + b\log(X) + c \exp(x)$
+<font color="green">Ok!&#10004;</font> $E[Y|X=x] = a + b\sin(X)+ c \cos(X)$
+<font color="red">Not ok!&#10060;</font> $E[Y|X=x] = sin(a + bX)$
+<font color="red">Not ok!&#10060;</font> $E[Y|X=x] = |a + bX|$
+]
+]
+
+---
+count:false
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+## Multivariate
+]
+.right-column[
+## Linearity goes a long way
+.center[
+Linear regression also subsumes the many variable case
+<img src="ols2dlinear.png" width = 400>
+]
+$$E[Y|X = x, Z = z] = a + bX + cZ$$
+]
+
+---
+count:false
+# "Advanced" topics
+
+.left-column[
+## Nonlinear 
+## Multivariate
+## Both
+]
+.right-column[
+## Linearity goes a long way
+.center[
+Linear regression also subsumes the many variable case
+<img src="ols2dnonlinear.png" width = 400>
+]
+$$E[Y|X = x, Z = z] = a + bX + cX^2 + dZ + eZ^2 + fZ^3$$
+]
+
+
+
+
+
+
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+

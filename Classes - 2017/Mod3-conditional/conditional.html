@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+
+class: inverse, middle, center
+# Conditional probability
+
+---
+.left-column[
+## Overview
+]
+
+.right-column[
+## How much will you earn after college?
+
+<center><img src="college.png" height = 300></center>
+
+Pick a random person living in the US.
+]
+--
+.right-column[
+Ask about their salary.
+]
+--
+.right-column[
+What's the probability it's less than 20000 per year?
+]
+
+
+
+---
+.left-column[
+## Overview
+]
+
+.right-column[
+## How much will you earn after college?
+
+<center><img src="college.png" height = 300></center>
+
+<center><font size = 7>$\approx 50\%$</font></center>
+]
+--
+.right-column[
+<center>But why is this information not so useful for <i>you</i>?</center>
+]
+
+
+---
+.left-column[
+## Overview
+]
+.right-column[
+## You're not a random person
+
+This doesn't take into account:
+
++ Geography
++ Educational attainment
++ Field of work
++ Gender, Age, Race
++ Family and marriage status
++ Manual and cognitive abilities
+]
+--
+.right-column[
+<center>
+	<img src="poehler.jpg" height = 200><br>
+	<font size=1> Maybe you're a single white woman with a Theather degree from Boston College.</font></center>
+]
+
+
+---
+.left-column[
+## Overview
+]
+.right-column[
+## Introducing information
+
+We want to *refine* our probabilities using information we already know.
+
+It has to do with <b>reducing the sample space</b>.
+]
+--
+.right-column[
+.center[<img src="d6.png" height = 300> <br> What's the size of the sample space <br> of a six-faced die?]
+]
+
+
+---
+.left-column[
+## Overview
+]
+.right-column[
+## Introducing information
+
+We want to *refine* our probabilities using information we already know.
+
+It has to do with <b>reducing the sample space</b>.
+]
+.right-column[
+.center[<img src="d20.jpg" height = 300> <br> What's the size of the sample space <br> of a twenty-faced die?]
+]
+
+---
+.left-column[
+## Overview
+]
+.right-column[
+## Introducing information
+
+We want to *refine* our probabilities using information we already know.
+
+It has to do with <b>reducing the sample space</b>.
+
+<br><br>
+.center[
+Reducing the sample space <br><br> leads to <br><br> reducing uncertainty
+]
+]
+
+
+
+
+
+---
+class: middle
+.left-column[
+## Overview 
+## Reduce
+]
+
+.right_column[
+## Reducing the sample space
+.center[
+
+Let $A = ${sum of rolls is 8 or greater}
+
+<img src="eight_or_greater.png", width = 500>
+
+What is $P(A)$?]
+
+]
+
+
+
+---
+class: middle
+
+.left-column[
+## Overview 
+## Reduce
+]
+
+.right_column[
+
+## Reducing the sample space
+
+.center[
+
+Let $B = $ {at least one &#9859;}
+
+<img src="fours.png", width = 500>
+
+What is $P(B)$?]
+]
+--
+.right-column[
+.center[Now suppose you <i>know</i> that $B$ happened for sure. <br><br>
+What is the probability that <br>the sum of rolls is 8 or greater?  
+]
+]
+
+
+---
+class:middle
+.left-column[
+## Overview 
+## Reduce
+]
+.right_column[
+
+## Reducing the sample space
+
+.center[Let's discard elements not in $B$.
+
+<img src="only_fours.png", width = 500>
+
+What happened to the sample space? ]
+]
+--
+.right_column[
+.center[
+What's the total probability.red[*] of this sample space?
+	]
+
+.footnote[.red[*] <font size=2>Always try to think of probability as a <i>relative size</i></font> ]
+
+]
+
+
+
+---
+
+class:middle
+
+.left-column[
+## Overview 
+## Reduce
+]
+
+.right_column[
+## Updating the probabilities
+.center[
+Now these are the only elementary outcomes that matter.
+<img src="eight_or_greater_only_fours.png", width = 500>
+
+What set is this, in terms of $A$ and $B$?
+
+What is its size relative to the <i>new</i> sample space?
+]
+]
+
+
+---
+
+.left-column[
+## Overview 
+## Reduce
+]
+
+.right_column[
+.center[
+### Recap
+
+We started by looking at A:
+.center[<img src="eight_or_greater.png", width = 100>]
+
+But then we learned only a subset B could have happened:
+
+.center[<img src="only_fours.png", width = 100>]
+
+The relevant outcomes became those in $ P(A \cap B) $
+
+
+.center[<img src="eight_or_greater_only_fours.png", width = 100>]
+
+
+Since there are 5 elements in $ A \cap B $ and 11 in $ B $
+
+$$\frac{P(A \cap B)}{P(B)} = \frac{5}{11}$$
+
+This resulting number is called the <b>probability of A conditioning on B</b> or the <b>conditional probability of A given B</b>
+]
+]
+
+
+---
+class:middle
+.left-column[
+## Overview 
+## Reduce
+## Formula
+]
+
+.right_column[
+## The conditional probability formula
+
+In general, given two sets $A$ and $B$, we have that
+
+<font size=6>
+$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+</font>
+
+In words, it's the size of the *overlap* relative to the *reduced sample space*.
+
+.center[<img src="venn.png" height = 300>]
+
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce
+## Formula
+## Table
+]
+
+.right_column[
+## Joint probability tables
+
+Our next example will use this <b>probability table</b>.
+.center[
+<img src= "cpd.png" width = 400>
+]
+
+The elements in the middle are called <b>joint probabilities</b>.
+
+The elements in the outer parts are called <b>marginal probabilities</b>.
+
+]
+
+
+
+---
+
+.left-column[
+## Overview 
+## Reduce
+## Formula
+## Table
+]
+
+.right_column[
+
+## Non-naive probability example
+.center[
+<img src= "cpd.png" width = 400>
+]
+Think about the probabilities of:
+
+$P(High \cap A) = $
+
+$P(High) = $
+
+$P(C) = $
+
+$P(High | C) = $
+
+$P(C | High) = $
+
+<font size=2>
+Much more in your homeworks [&#128211;]
+</font>
+]
+
+
+---
+
+.left-column[
+## Overview 
+## Reduce
+## Formula
+## Table
+]
+
+.right_column[
+
+## Non-naive probability example
+
+<img src= "cpd.png" width = 400>
+
+Think about the probabilities of:
+
+$P(High \cap A) = 0.18$
+
+$P(High) = 0.3$
+
+$P(C) = 0.38$
+
+$P(High | C) = \frac{0.03}{0.38}$
+
+$P(C | High) = \frac{0.03}{0.3}$
+
+Much more in your homeworks [&#128211;]
+
+]
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[I like to think in terms of <i>trees</i>.]
+
+.center[<img src="tree1.jpg" height = 400>]
+
+.center[<font size=3>What do these numbers correspond to?</font>]
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Suppose that we know $High$ is true.]
+
+.center[<img src="tree2.jpg" height = 400>]
+
+.center[<font size=3>What's the size of the new sample space?</font>]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Suppose that we know $High$ is true.]
+
+.center[<img src="tree3.jpg" height = 400>]
+
+.center[<font size=3>Normalization. Think about probability as <i>relative size</i>! </font>]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Suppose that we know $High$ is true.]
+
+.center[<img src="tree3.jpg" height = 400>]
+
+.center[<font size=3>Normalization. Think about probability as <i>relative size</i>! </font>]
+]
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Now suppose we know $A$ is true.]
+
+.center[<img src="tree4.jpg" height = 400>]
+
+.center[<font size=3>You should have a good guess about what's coming next.</font>]
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Now suppose we know $A$ is true.]
+
+.center[<img src="tree5.jpg" height = 400>]
+
+.center[<font size=3>Yup, normalization by the size of the "new" sample space $P(A)$.</font>]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Recap: this is the conditional probability formula.]
+
+.center[<img src="fmla1.jpg" height = 150>]
+
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[The "greying out" part is represented by the numerator.]
+
+.center[<img src="fmla2.jpg" height = 150>]
+
+.center[We only care about events that are consistent with $B$. <br><br><br>
+<font size=2>
+.red[*]If an event doesn't overlap, it gets zero probability: $P(A\cap B) = P(\emptyset) = 0$]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+]
+.right_column[
+## Conditioning Tree
+
+.center[Then the denominator normalizes <br>the new probabilities to sum to one.]
+
+.center[<img src="fmla3.jpg" height = 150>]
+
+.center[We only care about events that are consistent with $B$. <br><br><br>
+<font size=2>
+.red[*]If an event doesn't overlap, it gets zero probability: $P(A\cap B) = P(\emptyset) = 0$]
+]
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Events that give us no information 
+.center[
+
+You roll a die and flip a coin at the same time.
+
+<img src="coindice.png" height = 200>
+
+<font size=5>
+$$A  = \\{&#9859; \\} \qquad B = \\{ Heads \\}$$
+</font>
+What is $P(A)$? What is $P(A|B)$?
+]]
+--
+.right-column[
+We say that $A$ and $B$ are <b>independent events</b> whenever
+$$P(A|B) = P(A)$$
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+
+## Example
+
+In a certain company, 60% of employees are women and 40% of them are men.
+
+Also, 6% of the employees are male executives and 9% are women executives.
+
+In this company, is being an executive independent of gender?
+]
+--
+.right-column[
+$P(Exec) = 0.09 + 0.06 = 0.15$
+]
+--
+.right-column[
+$P(Exec | Woman) = \frac{P(Exec \cap Woman)}{P(Woman)} = \frac{0.09}{0.6} = 0.15$
+$P(Exec | Man) = \frac{P(Exec \cap Man)}{P(Man)} = \frac{0.06}{0.4} = 0.15$
+]
+--
+.right-column[
+<font color="darkgreen">YES!</font> *Gender gives no information about exec status*
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Example
+
+.center[<img src="menwomen.png", height= 350>
+
+You can also think in terms of <i>relative proportions</i>:
+<br><br>
+Is a woman employee more likely to be an exec?
+]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Example
+
+.center[<img src="menwomen2.png", height= 350>
+
+You can also think in terms of <i>relative proportions</i>:
+<br><br>
+<font color="red">No</font>: $\frac{MenExecs}{Men} = \frac{WomenExecs}{Women} = 15\%$]
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Example
+
+.center[<img src="menwomen3.png", height= 350>
+
+Here gender and rank are <i>not independent</i>.
+]
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Example
+
+.center[<img src="tree6.png", height= 350>
+
+What does independence mean in a tree graph?
+]
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Example
+
+.center[<img src="tree7.png", height= 350>
+
+The ratio of purple numbers should equal the ratio of orange numbers.
+]
+]
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+]
+.right-column[
+## Independent $\neq$ Exclusive
+
+A common mistake is to think that mutually exclusive events are independent.
+
++ Event A: Tomorrow there will be war
++ Event B: Tomorrow there will not be war
+
+Are A and B independent events?
+]
+--
+.right-column[
+
+<b>Definitely not:</b>
+
+If we knew A happened, we'd have <i>a lot</i> of information about B!
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+]
+.right-column[
+
+## Factorization property
+
+There's another useful way to characterize independence.
+
+On the one hand:
+$$P(A|B) = P(A)$$ 
+]
+--
+.right-column[
+On the other hand
+$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+]
+--
+.right-column[
+For both of these to be right, we need:
+
+$$P(A \cap B) = P(A)P(B)$$
+
+.center[*The probabilities of independent events factorize*.]
+]
+
+
+---
+
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+]
+.right-column[
+
+## Factorization property
+
+In a certain company, 60% of employees are women and 40% of them are men.
+
+Also, 6% of the employees are male executives and 9% are women executives.
+
+In this company, is being an executive independent of gender?
+]
+--
+.right-column[
+$P(Exec) = 0.09 + 0.06 = 0.15$<br>
+$P(Woman) = 0.6$<br>
+$P(Man) = 0.4$]
+--
+.right-column[
+$P(Exec \cap Woman) = 0.09$
+$P(Exec)P(Woman) = 0.15 \times 0.6 = 0.09$
+<br><br>
+$P(Exec \cap Man) = 0.06$
+$P(Exec)P(Man) = 0.15 \times 0.4 = 0.06$
+]
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+## Problems
+]
+.right-column[
+## How long will you live?
+
+$A_{n}$: event that a person will live for $n$ years.
+
+$$P(A_{50}) = .8$$
+
+$$P(A_{55}) = .7$$
+
+If you are $50$ years old, what's the probability that you'll reach $55$?
+
+<br><br>
+
+$P(A\_{55} | A\_{50}) = \frac{P(A\_{55} \cap A\_{50})}{P(A\_{50})}\qquad$ CP formula
+
+$\qquad \qquad = \frac{P(A\_{55})}{P(A\_{50})}\qquad$ Since $A\_{55} \subset A\_{50}$
+
+$\qquad \qquad = \frac{0.7}{0.8}\qquad$ 
+
+]
+
+
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+## Problems
+]
+.right-column[
+## How long will you live?
+
+$A_{n}$: event that a person will live for $n$ years.
+
+$$P(A_{55}) = .7$$
+
+$$P(A\_{60} | A\_{55}) = .1$$
+
+How likely is anyone to die at 60?
+
+<br><br>
+The probability that someone will *live* to 60 is
+$P(A\_{60}) = P(A\_{60} | A\_{55})P(A\_{55}) = 0.1 \times 0.7 = 0.07\qquad$
+
+Hence the probability that someone will *die* before that is.red[*]
+$P(A\_{60}^{C}) = 1 - 0.07 = 0.63 \qquad$
+
+
+.footnote[.red[*] <font size=1>Note that in class I forgot to compute the probability of <i>dying</i>.</font>]
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+## Problems
+]
+.right-column[
+## Is this coin double-headed? (HW3Q6)
+
+Suppose that a bag contains 20 coins: 
+
++ 10 are fair
+
++ 6 are bent so that probability of heads is $\frac{2}{3}$
+
++ 4 are double-headed
+
+You draw a coin at random from the bag and toss it.
+<br>
+
+What's the probability it will land $H$?
+
+<font size=3>
+
+The event of interest, $H$, can be decomposed into:
+
++ $H \cap Fair$ --\> the coin is fair AND lands on $H$
+
+<center>OR</center>
+
++ $H \cap Bent$ --\>  the coin is bent AND lands on $H$
+
+<center>OR</center>
+
++ $H \cap Double$ --\>  the coin is double headed AND lands on $H$
+]
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+## Problems
+]
+.right-column[
+## Is this coin double-headed? (HW3Q6)
+
+Suppose that a bag contains 20 coins: 
+
++ 10 are fair
+
++ 6 are bent so that probability of heads is $\frac{2}{3}$
+
++ 4 are double-headed
+
+You draw a coin at random from the bag and toss it.
+<br>
+
+What's the probability it will land $H$?
+
+<font size=3>
+Therefore,
+
+$$P(H) = P(H \cap Fair) + P(H \cap Bent) + P(H \cap Double)$$
+
+But what are the values of, e.g, $P(H \cap Fair)$?
+
+From the conditional probability formula:
+
+$$P(H | F) = \frac{P(H \cap F)}{P(F)} \implies P(H \cap F) = P(H | F)P(F) = \frac{1}{2}\times \frac{10}{20}$$
+]
+
+
+---
+.left-column[
+## Overview 
+## Reduce 
+## Table
+## Tree
+## Indep
+## Fact
+## Problems
+]
+.right-column[
+## Is this coin double-headed? (HW3Q6)
+
+Suppose that a bag contains 20 coins: 
+
++ 10 are fair
+
++ 6 are bent so that probability of heads is $\frac{2}{3}$
+
++ 4 are double-headed
+
+You draw a coin at random from the bag and toss it.
+<br>
+
+What's the probability it will land $H$?
+
+<font size=3>
+
+Putting it all together,
+<br><br>
+
+$P(H) = P(H \cap Fair) + P(H \cap Bent) + P(H \cap Double)$
+
+
+$\qquad = P(H | Fair) P(Fair) + P(H | Bent) P(Bent) + P(H | Double)P(Double)$
+
+$\qquad = \frac{1}{2}\frac{10}{20} + \frac{2}{3}\frac{6}{20} + \frac{1}{1}\frac{4}{20}$
+
+</font>
+
+]
+
+
+---
+## Implications
+
+From [Sally Clark's child murder case](https://en.wikipedia.org/wiki/Sally_Clark)
+
+<font size=2>
+Sally Clark (August 1964 – 15 March 2007) was a British solicitor who, in November 1999, became the victim of a miscarriage of justice when she was found guilty of the murder of two of her sons. 
+</font>
+
+"...the calculation was based on the assumption that two [Sudden Infant Death Syndrome] deaths in the same family are independent."
+
+It is true that:
+
+$$P(\text{Once death by SIDS}) = \frac{1}{8500}$$
+
+The jury didn't understand independence, and were convinced that
+
+$$P(\text{Two deaths by SIDS}) = \frac{1}{8500^{2}}$$
+
+<font size=2>
+"Although the conviction was overturned and she was freed from prison in 2003, the experience caused her to develop serious psychiatric problems and she died in her home in March 2007 from alcohol poisoning."
+</font>
+
+
+
+---
+class: inverse, middle, center
+# Quick Check
+
+---
+## Quick Check
+
+<b>What is conditioning?</b>
+
+<b>What is independence?</b>
+
+<b>Suppose we roll ten dice. What is the probability that all of them roll 3s?</b>
+
+<b> Our example company suffered some restructuring and now only 20% of the employees are men, while 80% are women. If 5% of the employees are female executives <i>and</i> 2% of employees are male executives. Does gender continue to be independent from rank?
+
+<b>Suppose we roll two fair dice. Let $A$ be the event "one of the dice rolls a 3", and $B$ be the event "sum is 7".
++ What is $P(A)$?
++ What is $P(B)$?
++ What is $P(A\cap B)$?
++ What is $P(A|B)$?
++ Are the two events independent?</b>
+
+
+---
+## Quick Check
+
+<b>What is conditioning?</b>
+<font size=2>It's the act of reducing the original state space using information that some event in it has occurred.</font>
+
+<b>What is independence?</b>
+<font size=2>If A and B are independent, then B does not help reduce the state space where A lives, and vice-versa. In other words, B provides no information useful to reduce the uncertainty about A.</font>
+
+<b>Suppose we roll ten dice. What is the probability that all of them roll 3s?</b>
+<font size=2>We know $P(\{ &#9858; \} ) = \frac{1}{6}$. Since all rolls are independent, $P(\{&#9858;&#9858;&#9858;&#9858;&#9858;&#9858;&#9858;&#9858;&#9858;&#9858;\}) = P(\{ &#9858; \})^{10} = \left(\frac{1}{6} \right)^{10}$</font>
+
+---
+## Quick Check
+
+
+<b> Our example company suffered some restructuring and now only 20% of the employees are men, while 80% are women. If 5% of the employees are female executives <i>and</i> 2% of employees are male executives. Does gender continue to be independent from rank?
+
+<font size=2>Let's see.
+	<br>
+$P(Man \cap Exec) = 0.02$, while $P(Man) = 0.2$ and $P(Exec) = 0.07$.
+<br>
+Since $P(Man)P(Exec) = 0.014 \neq 0.02 = P(Man \cap Exec)$, we conclude that they are *not* independent.</font>
+
+
+<b>Suppose we roll two fair dice. Let $A$ be the event "one of the dice rolls a 3", and $B$ be the event "sum is 7".
+	<font size=2>
+	
++ What is $P(A)$?</b> $\frac{1}{6}$
++ <b>What is $P(B)$?</b> $\frac{1}{6}$ (Why? Look at the sample space in page 31 of the textbook and mark how many sum to 7).
++ <b>What is $P(A\cap B)$?</b> $\frac{2}{36}$ (In the same figure, count how many of those that sum to 7 AND have a &#9858; in it.).
++ <b>What is $P(A|B)$?</b> $\frac{1}{3}$  (count how many OF those that sum to 7 ALSO have a &#9858; in it.).
++ <b>Are the two events independent?</b> No, since $P(A|B) \neq P(A)$. Alternatively: No, since $P(A\cap B) \neq P(A)P(B)$.
+
+</font>
+
+
+
+
+	
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

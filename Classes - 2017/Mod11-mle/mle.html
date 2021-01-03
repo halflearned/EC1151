@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Maximum likelihood
+
+
+---
+
+.left-column[
+## Bernoulli
+]
+
+
+.right-column[
+## Find $p$
+
+Eight voters are randomly chosen and polled if they are voting for Trump ($T$) or Hillary ($H$).
+
+.center[
+Voter 1: $T$ <br>
+Voter 2: $H$ <br>
+Voter 3: $T$ <br>
+Voter 4: $H$ <br>
+Voter 5: $T$ <br>
+Voter 6: $H$ <br>
+Voter 7: $T$ <br>
+Voter 8: $T$ <br>
+
+<font size=3>
+Let $p$ be the true probability that a random voter chooses Hillary.
+<br>
+What value of $p$ could <i>most likely</i> generate this data?
+</font>
+]
+]
+
+
+---
+
+.left-column[
+## Bernoulli
+]
+.right-column[
+## Intuition
+
+Probabilistic model: our data is $X_i \sim Bernoulli(p)$.
+
+.center[
+Data: $0, 1, 0, 1, 0, 1, 0, 0$ 
+]
+
+What is the most likely value of $p$?
+
++ $p < 0$ or $p > 1$ wouldn't make sense
+
++ $p \approx 0$ or $p \approx 1$ also unlikely
+
++ Any guesses?
+
+]
+
+---
+
+.left-column[
+## Bernoulli
+## Likelihood
+]
+
+
+.right-column[
+## Likelihood function
+
+Fix some $p$. Say $p = \frac{1}{3}$. Since $X_i \sim Bernoulli(p)$
+<br><br>
+
+$$P(X_1 = 0) = \frac{2}{3}$$
+$$P(X_2 = 1) = \frac{1}{3}$$
+$$\cdots$$
+$$P(X_8 = 0) = \frac{2}{3}$$
+
+]
+
+
+---
+
+.left-column[
+## Bernoulli
+## Likelihood
+]
+
+
+.right-column[
+## Likelihood function
+
+Fix some $p$. Say $p = \frac{1}{3}$. Since $X_i \sim Bernoulli(p)$
+<br><br>
+$$P(X_1 = 0\text{ and } X_2 = 1 \text{ and } \cdots X_8 = 0)$$
+$$= (\frac{1}{3})^{3} (\frac{2}{3})^5$$
+$$0.00391$$
+]
+
+
+---
+
+.left-column[
+## Bernoulli
+## Likelihood
+]
+
+
+.right-column[
+## Likelihood function
+
+Fix some other $p$. Say $p = \frac{9}{10}$.
+
+<br><br>
+$$P(X_1 = 0\text{ and } X_2 = 1 \text{ and } \cdots X_8 = 0)$$
+$$= (\frac{9}{10})^{3} (\frac{1}{10})^5$$
+$$= 0.00000728$$
+]
+
+
+---
+
+.left-column[
+## Bernoulli
+## Likelihood
+]
+
+
+.right-column[
+## Likelihood function
+
+Fix some other $p$. Say $p = \frac{3}{8}$.
+
+<br><br>
+$$P(X_1 = 0\text{ and } X_2 = 1 \text{ and } \cdots X_8 = 0)$$
+$$= \frac{5}{8}\frac{3}{8}\frac{5}{8}\frac{3}{8} \frac{5}{10}\frac{3}{8}\frac{5}{8}\frac{5}{8} $$
+$$= (\frac{3}{8})^{3} (\frac{5}{8})^5$$
+$$= 0.005028$$
+]
+
+
+
+---
+
+.left-column[
+## Bernoulli
+## Likelihood
+]
+
+
+.right-column[
+## Likelihood function
+
+The **likelihood function** relates the parameter $p$ to how likely it is to have generate the data.
+
+.center[<img src="like_bern.png">]
+]
+--
+.right-column[
+The method that maximizes the function above is called <b>maximum likelihood estimation</b>.
+]
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+]
+.right-column[
+## Warning
+
+&#9760; The likelihood function does not integrate to 1!
+
+$$\int_0^1 L(p) dp \neq 1$$
+
+
+We should <font color="red">not</font> think of
+
+.center[<i>the probability of that $p = 3/8$</i>]
+
+Instead we <font color="darkgreen">do</font> think of
+
+.center[<i>the likelihood of $p = 3/8$ having generated the data</i>]
+
+]
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+]
+
+.right-column[
+## Estimation
+
+Estimating a parameter is an **optimization** problem..red[*]
+
+$$\hat{p} = \arg\max_p L(p)$$
+
+Most of the time this is done by numerical routines.
+
+.center[<img src = "code.png" height = 200>]
+
+.footnote[.red[*] <font size = 1> $\arg\max$ means "the value of $p$ that maximizes L". Contrast with $\max$, which is "the maximum value of L" </font>]
+
+]
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+]
+
+
+.right-column[
+## Estimation
+<font size=3>
+But for simple problems we can take logs.red[*] and use calculus.
+</font>
+.center[<img src="mle.png" height = 300>]
+
+.footnote[<font size=1>.red[*] Taking logs is optional (why?), <br> but it makes the algebra easier. </font>]
+
+]
+
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Arrivals are $X_i \sim Poisson(\lambda)$.
+
+$$Data = [2, 9, 6, 2, 6, 7, 7, 5, 6, 4]$$
+
+Same deal:
+
+$$P(X_1 = 2) = \frac{e^{-\lambda}\lambda^2}{2!}$$
+
+$$P(X_2 = 9) = \frac{e^{-\lambda}\lambda^9}{9!}$$
+
+$$\cdots$$
+
+]
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Arrivals are $X_i \sim Poisson(\lambda)$.
+
+$$Data = [2, 9, 6, 2, 6, 7, 7, 5, 6, 4]$$
+
+Likelihood:
+
+$$L(\lambda) = \frac{e^{-\lambda}\lambda^2}{2!} \times \frac{e^{-\lambda}\lambda^9}{9!} \times \cdots \times \frac{e^{-\lambda}\lambda^4}{4!}$$
+
+]
+
+
+---
+count: false
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Arrivals are $X_i \sim Poisson(\lambda)$.
+
+$$Data = [2, 9, 6, 2, 6, 7, 7, 5, 6, 4]$$
+
+Likelihood:
+
+$$L(\lambda) = \frac{e^{-\lambda}\lambda^2}{2!} \times \frac{e^{-\lambda}\lambda^9}{9!} \times \cdots \times \frac{e^{-\lambda}\lambda^4}{4!}$$
+
+$$L(\lambda) = e^{-(10)\lambda}\frac{\lambda^{2 + 9 + \cdots + 4}}{2!9!\cdots 4!}$$
+
+]
+---
+count: false
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Arrivals are $X_i \sim Poisson(\lambda)$.
+
+$$Data = [2, 9, 6, 2, 6, 7, 7, 5, 6, 4]$$
+
+Likelihood:
+
+$$L(\lambda) = \frac{e^{-\lambda}\lambda^2}{2!} \times \frac{e^{-\lambda}\lambda^9}{9!} \times \cdots \times \frac{e^{-\lambda}\lambda^4}{4!}$$
+
+$$L(\lambda) = e^{-(10)\lambda}\frac{\lambda^{2 + 9 + \cdots + 4}}{2!9!\cdots 4!}$$
+
+Log-likelihood:
+
+$$\log L(\lambda) = -10\lambda + (2 + 9 + \cdots + 4) \log(\lambda) + \log(2!9!\cdots 4!)$$
+]
+
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Maximize the log-likelihood:
+
+$$\frac{d}{dp}\log L(\lambda) = -10 + (2 + 9 + \cdots + 4) \frac{1}{\lambda} + 0 = 0$$
+
+Solve for $\lambda$, call that $\hat{\lambda}$.
+
+$$\hat{\lambda} = \frac{2 + 9 + \cdots + 4}{10}$$
+
+
+]
+
+---
+count: false
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Customers per hour 
+
+Maximize the log-likelihood:
+
+$$\frac{d}{dp}\log L(\lambda) = -10 + (2 + 9 + \cdots + 4) \frac{1}{\lambda} + 0 = 0$$
+
+Solve for $\lambda$, call that $\hat{\lambda}$.
+
+$$\hat{\lambda} = \frac{2 + 9 + \cdots + 4}{10} = 5.4$$
+
+<br><br>
+
+.center[What is this, and why should it be familiar?]
+]
+
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+]
+
+.right-column[
+## Important properties
+
+The likelihood function is *random*.
+
+<img src="like_bern_random.png" height = 300>
+.center[<font size=2>$Bernoulli(p)$ likelihood for different samples from same distribution ($n = 10$)</font>] 
+
+]
+
+---
+.left-column[
+## Bernoulli
+## Likelihood
+## Caveat
+## Estimation
+## Poisson 
+## Randomness
+]
+
+.right-column[
+## Important properties
+
+If the data has large variance, the likelihood will:
+
++ Have less curvature.red[*]
+
++ Bounce around more
+
+
+As a result, $\hat{p}$ will have large spread.
+
+
+.footnote[<font size=2>In Econometrics, you'll use the <i>Fisher information</i>, which is the second derivative of $L$.</font>]
+]
+
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+

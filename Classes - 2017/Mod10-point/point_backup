@@ -1,0 +1,520 @@
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Defective brass tacks
+
+A factory outputs brass tacks that may or may not come out defective.
+
+.center[<img src="tacks.png" height = 300>]
+
+.footnote[<font size=2>.red[*] Textbook page 98.</font>]
+]
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Defective brass tacks
+
+Each tack can be good (1) or bad (0) with certain probability $p$ (a YES/NO event).
+
+Let $X$ be the sum of bad tacks in a batch of size $n$.
+]
+--
+.right-column[
+.center[<img src="tacks2.png" height = 300>]
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Defective brass tacks
+
+Each tack can be good (1) or bad (0) with certain probability $p$ (a YES/NO event).
+
+Let $X$ be the sum of bad tacks in a batch of size $n$.
+]
+.right-column[
+.center[<img src="tacks3.png" height = 250>]
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Defective brass tacks
+.center[<img src="tacks5.png" height = 250>]
+]
+--
+.right-column[
+.center[<img src="tacks6.png" height = 200>]
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Defective brass tacks
+.center[<img src="tacksrv.png" width = 500>]
+
+]
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps
+
+We'd like to continue making the distinction between random variables and their outcomes.
+]
+--
+.right-column[
+So far, we used upper case for random, lower case for outcome.
+
+<img src="bigx.png" height = 250>
+
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps
+
+Our textbook does a good job in continuing this notation, and it also adds a "hat" to indicate when something is not only a random variable, but also an estimator.
+]
+--
+.right-column[
+<img src="notation1.png" height = 250>
+
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps
+
+Our textbook does a good job in continuing this notation, and it also adds a "hat" to indicate when something is not only a random variable, but also an estimator.
+]
+.right-column[
+<img src="notation2.png" height = 250>
+
+.center[See how $\hat{P}$ is random?]
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps
+
+However, the book makes two exceptions:
+
++ Estimates of means are denoted by $\overline{X} = \frac{1}{n}\sum_i X_i$
+
++ Estimates of variances are denoted by $S^2 = \frac{1}{n} \sum_i (X_i - \overline{X})^2$
+
+Then the outcomes are denoted by $\bar{x}$ and $s^2$.
+
+]
+--
+.right-column[
+.center[
+<img src="xbar.png" height =100>
+<font size=2>From page 153</font>
+]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps
+
+However, the book makes two exceptions:
+
++ Estimates of means are denoted by $\overline{X} = \frac{1}{n}\sum_i X_i$
+
++ Estimates of variances are denoted by $S^2 = \frac{1}{n} \sum_i (X_i - \overline{X})^2$
+
+Then the outcomes are denoted by $\bar{x}$ and $s^2$.
+
+]
+.right-column[
+.center[
+<img src="xbar2.png" height = 150>
+<font size=2>From page 105</font>
+]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+]
+.right-column[
+## Hats and Caps 
+
+Unfortunately, sometimes you'll see "hatted" objects like these:
+
+$$\widehat{E}[X], \qquad \widehat{Var}[X] \qquad  \widehat{\mu} \qquad \widehat{\sigma}^2$$
+.footnote[.red[*]<font size=1>I'm guilty of this, too.</font>]
+]
+--
+.right-column[
+In that case, you must decide by yourself if the author means a random variable or a number, because:
+
++ No one writes "$\widehat{e}[X]$" or "$\widehat{var}[X]$"
+
++ Upper case $\mu$ doesn't exist
+
++ Upper case sigma is $\Sigma$, and it's reserved for summation.
+
+I'll try to avoid these as much as I can, but they are quite common in the literature
+.center[<img src="shrug.png" height = 40>]
+]
+
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+.center[<img src="tacks4.png" height = 200>]
+]
+--
+.right-column[
+.center[Note the lower case!]
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $X$ like this: 
+
+$$X = Y_1 + Y_2 + \cdots + Y_n \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's a <i>sum</i>. What do we know about <i>sums</i>?
+]
+--
+.right-column[
+By the CLT, the sum of a bunch of independent random variables $Y_i$ with mean $m$ and variance $v$ is approximately Normal,
+
+$$X = \sum_{i} Y_i \sim Normal(nm, nv)$$
+
+But what are $m$ and $v$?
+]
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $X$ like this: 
+
+$$X = Y_1 + Y_2 + \cdots + Y_n \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's a <i>sum</i>. What do we know about <i>sums</i>?
+]
+.right-column[
+
+Since each $Y_i$ is Bernoulli, we can calculate that
+
+$$m \equiv E[Y_i] = p$$
+
+$$v \equiv Var[Y_i] = p(1-p)$$
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $X$ like this: 
+
+$$X = Y_1 + Y_2 + \cdots + Y_n \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's a <i>sum</i>. What do we know about <i>sums</i>?
+]
+.right-column[
+By the CLT, the sum of a bunch of independent random variables $Y_i$ with mean $p$ and variance $p(1-p)$ is approximately Normal,
+
+$$X = \sum_{i} Y_i \sim Normal(np, np(1-p))$$
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $\hat{P}$ like this: 
+
+$$\hat{P} = \frac{Y_1 + Y_2 + \cdots + Y_n}{n} \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's an <i>average</i>. What do we know about <i>averages</i>?
+]
+--
+.right-column[
+By the CLT, the <i>average</i> of a bunch of independent random variables $Y_i$ with mean $m$ and variance $v$ is approximately Normal,
+
+$$\hat{P} = \frac{1}{n}\sum_{i} Y_i \sim Normal(m, \frac{v}{n})$$
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $\hat{P}$ like this: 
+
+$$\hat{P} = \frac{Y_1 + Y_2 + \cdots + Y_n}{n} \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's an <i>average</i>. What do we know about <i>averages</i>?
+]
+.right-column[
+By the CLT, the <i>average</i> of a bunch of independent random variables $Y_i$ with mean $p$ and variance $p(1-p)$ is approximately Normal,
+
+$$\hat{P} = \frac{1}{n}\sum_{i} Y_i \sim Normal \left(p,\ \frac{p(1-p)}{n}\right)$$
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Now, if $\hat{P}$ is a random variable, what is its distribution?
+
+<b>Hint</b> We can alternatively model $\hat{P}$ like this: 
+
+$$\hat{P} = \frac{Y_1 + Y_2 + \cdots + Y_n}{n} \qquad Y_i \sim Bernoulli(p)$$
+
+Now it's an <i>average</i>. What do we know about <i>averages</i>?
+]
+.right-column[
+By the CLT, the <i>average</i> of a bunch of independent random variables $Y_i$ with mean $p$ and variance $p(1-p)$ is approximately Normal,
+
+$$\hat{P} = \frac{1}{n}\sum_{i} Y_i \sim Normal \left(p,\ \frac{p(1-p)}{n}\right)$$
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Putting together
+
+<img src="tacks8.png" height = 300>
+]
+
+</font>
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+]
+.right-column[
+## Defective brass tacks
+
+Suppose the "true" (unknown!) probability is $p = 0.85$.
+
+<img src="tacks9.png" height = 250>
+]
+--
+.right-column[
+<font size=3>
+The number $68\%$ comes from the fact that about $68\%$ of the outcomes of a Normal distribution fall within one standard deviation of the mean..red[*]
+
+
+</font>
+
+.footnote[.red[*] <font size=1>Didn't remember that? No worries, I can never remember that either.</font>]
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+## Errors 
+]
+.right-column[
+## Standard error
+<font size=3>
+The <b>standard error</b> is an estimate of the standard deviation of the estimator.
+
+Make sure to understand the difference.
+
+$$Var[\hat{P}] = \frac{p(1-p)}{n} \qquad \qquad StdDev[\hat{P}] = \sqrt{\frac{p(1-p)}{n}}$$
+]
+--
+.right-column[
+But this is depends on $p$, which is an unknown quantity! <br>
+So we plug in our estimate of $p$.
+The result is the <b>standard error</b> of $\hat{P}$.
+
+$$StdErr[\hat{P}] = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## Notation
+## Tacks
+## Errors 
+## Stats
+]
+.right-column[
+## We'll be doing this a lot
+
+1. Posit an appropriate probability model with unknown parameters
+
+2. Come up with an estimator for these parameters
+
+3. Compute the distribution of the estimator
+
+4. Use the estimator to come up with a guess (estimate)
+
+<b>5. Report how good or bad our guess could be</b>
+]
+--
+.right-column[
+We've done 1 through 4 today, and we'll have more to say about 5 later.
+]
+
+

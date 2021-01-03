@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Common tests 
+
+---
+
+# Common tests
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Fair coin testing
+
+To test a hypothesis, we need a **statistic** and its **distribution**.
+
+$$H\_0: p = \frac{1}{2} \qquad H_1: p \neq \frac{1}{2}$$
+
+Our *estimate* of the mean was $\hat{p}$. 
+
+However: what's the distribution of $\hat{p}$?
+
+We ended up working with $n\hat{p} \sim Binomial(n, \frac{1}{2})$.red[*]
+
+.footnote[<font size = 2>.red[*]Assuming $H_0$]
+
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+]
+.right-column[
+## Tests and their distributions
+
+This sort of thing happens very often.
+
+<img src="stats.png" width = 500>
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+]
+.right-column[
+## Tests and their distributions
+
+There's a plethora of tests out there: 
+
+.center[**Binomial test**,&nbsp; **t-test**,&nbsp; **$\chi^2$ test**, &nbsp;**F-tests**, &nbsp;$\cdots$] 
+
+#### Keep this in mind:
+
+<center>
+<font color="darkorange"><b>The only thing that will change is <br>the distribution of the statistic</b> 
+</font>
+</center>
+
+That is:
+
++ "t-test" uses the *Student-t distribution*
+
++ a $\chi^2$ test uses a distribution called $\chi^2$ 
+
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Suppose that $X_1, \cdots, X_n \sim Normal(\mu, 2)$, and our estimate is $\hat{\mu} = 1$. 
+
+Let's test:
+
+$$H_0: \mu = 0 \qquad H_1: \mu \neq 0$$
+
+at the $\alpha = 0.10$ significance level, when $n = 10$.
+
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Suppose that $X_1, \cdots, X_n \sim Normal(\mu, 2)$, and our estimate is $\hat{\mu} = 1$. 
+
+Let's test:
+
+$$H_0: \mu = 0 \qquad H_1: \mu \neq 0$$
+
+at the $\alpha = 0.10$ significance level, when $n = 10$.
+
+The statistic is:
+
+$$\frac{\hat{\mu} - \mu}{\sqrt{\frac{\sigma^2}{n}}} \sim Normal(0, 1)$$ 
+
+.footnote[<font size = 1>We have used $\hat{mu}$ as our statistic, but this will look more similar to the next examples.]
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+How would you find the rejection regions for this test?
+
+<img src="ci1.png" width = 500>
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+How would you find the rejection regions for this test?
+
+<img src="ci1.png" width = 500>
+
+We're looking for numbers $m_1$ and $m_2$ that satisfy:
+
+$$P(\hat{\mu} \leq m_1) = \frac{\alpha}{2} \qquad P(\hat{\mu} \geq m_2) = \frac{\alpha}{2}$$
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+.center[<img src="cdf.png" width = 350>]
+
+In terms of the CDF of $Normal(0,1)$, our numbers $m_1$ and $m_2$ satisfy:
+
+$$F(m_1) = \frac{\alpha}{2} \qquad 1 - F(m_2) = \frac{\alpha}{2}$$]
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Ok, so how would you find $m_1$? Guess and verify?
+
+<img src="guess.png" height = 200>
+
+Possible... but time-consuming!
+]
+
+
+---
+
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Wouldn't it be great if we had some sort of... inverse function?
+
+$$m_1 = F^{-1}\left(\frac{\alpha}{2}\right) 
+\qquad \qquad m_2 = F^{-1}\left(1 - \frac{\alpha}{2}\right)$$
+
+This function exists! 
+
+It is called: 
+
++ the **inverse CDF**
+
++ the **quantile function**
+
++ **percentile function**
+
++ **percent point function** (in Python)
+]
+
+---
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+<img src="inversecdf.png" width = 500>
+
+]
+
+
+
+---
+# Common tests
+
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Python Usage:
+
+```python
+import scipy.stats as ss
+
+m1 = ss.norm(0, 1).ppf(alpha/2)        
+m2 = ss.norm(0, 1).ppf(1 - alpha/2) 
+print("Critical values: ", m1, m2)
+```
+```python
+Critical values:  -1.95996398454 1.95996398454
+```
+]
+
+---
+# Common tests
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+]
+.right-column[
+## Normal test
+
+Python Usage:
+
+```python
+import scipy.stats as ss
+
+m1 = ss.norm(0, 1).ppf(alpha/2)        
+m2 = ss.norm(0, 1).ppf(1 - alpha/2) 
+print("Critical values: ", m1, m2)
+```
+```python
+Critical values:  -1.95996398454 1.95996398454
+```
+The value of our test statistic is:
+
+$$\frac{\hat{\mu} - \mu_{hyp}}{\sqrt{\frac{\sigma^2}{n}}} = \frac{1 - 0}{\sqrt{\frac{2}{10}}} = 2.236$$ 
+
+.center[Do you reject $H_0$? (Why)?]
+
+]
+
+
+
+---
+# Common tests
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+## Inverting
+]
+.right-column[
+## Confidence intervals by inverting
+
+Remember we want boundaries $\hat{L}, \hat{U}$ such that:
+
+$$P(\hat{L} < \mu < \hat{U}) = 1 - \alpha$$
+
+The easiest way to do so is by **inverting** the statistic.
+]
+
+
+---
+# Common tests
+.left-column[
+## Preliminaries
+## Distributions
+## Normal
+## Inverting
+]
+.right-column[
+## Confidence intervals by inverting
+
+1) Putting the statistic in the middle:
+
+$$P(\hat{L} < \frac{\hat{\mu} - \mu}{\sqrt{\frac{\sigma^2}{n}}} < \hat{U}) = 1 - \alpha$$
+
+2) Solve for $\hat{L}, \hat{U}$
+
+```python
+Critical values:  -1.95996398454 1.95996398454
+```
+	 
+3) Solve for $\hat{L}, \hat{U}$
+
+```python
+Critical values:  -1.95996398454 1.95996398454
+```
+
+
+]
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+

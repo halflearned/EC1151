@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Last class!
+
+---
+class: inverse, middle, center
+# Final FAQ
+
+---
+
+#### Is the final cumulative?
+
+--
+
+<font color="green">Yes.</font>
+
+--
+
+#### But is the stuff from before the midterm going to be in the final?
+
+--
+
+<font color="green">Yes.</font>
+
+--
+
+#### Like, everything?
+
+--
+
+<font color="green">Yes - well, maybe I'll go easy on the combinatorics.</font>
+
+--
+
+#### How long is the final going to be?
+
+--
+
+<font color="green">Like 8 questions or so, not much longer than the midterm.</font>
+
+--
+
+#### Cheat sheets?
+
+--
+
+<font color="green">Yes, up to three A4 sheets filled front and back, preferably by hand.</font>
+
+--
+
+#### Can you say more?
+
+--
+
+<font color="green">I'll send more details like I did for the midterm, but only close to Sunday night.</font>
+
+---
+
+.center[<img src="attention.jpg" width = 600>]
+
+--
+
+## .center[Your health matters more than any exam. <br>  There's no need to burn out and break down. <br> Please let me know if you are having (serious) trouble.]
+
+---
+class: inverse, middle, center
+# Stuff we didn't have time for
+### (but contact me for more details!)
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+--
+
+.center[For discrete X, that's pretty straightforward]
+
+.center[<img src="condmean1.png" width = 300>]
+
+.center[Just take the average $Y$ for each value of $X$.]
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+.center[<img src="reg1a.png" width = 600>]
+
+.center[How would you estimate $E[Y|X=2]$?]
+
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+.center[<img src="reg3.png" width = 600>]
+
+.center[One way is to take the average of the $Y$ data *near* $X$]
+
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+.center[<img src="reg4.png" width = 600>]
+
+.center[Another way is try to **parametrize** $E[Y|X=x] = a + bx$]
+
+--
+
+.center[Now we need to estimate the **parameters** $a,b$!]
+
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+.center[<img src="reg5.png" width = 600>]
+
+.center[Very flexible idea. To accommodate nonlinearities: $E[Y|X=x] = b_0 + b_1 x + b_2 x^2 + b_3 x^3$]
+
+
+---
+## Regression
+
+To **regress Y on X** is to **estimate the  conditional mean of Y given X**, or <br>
+$$E[Y|X=x]$$
+
+.center[<img src="surf.png" width = 400>]
+
+.center[Multivariate? No problem: $$E[Y|X_1=x_1, X_2 = x_2] = b_0 + b_1 x_1 + b_2 x_1^2 + b_3 x_1^3 + b_4x_2 + b_5 x_2^2 + \cdots$$]
+
+
+---
+## Advanced regression concepts
+
+.center[<img src="tech.png" width = 650>]
+
+.center[Check out EC3389 - Big Data (Spring 2018)]
+
+---
+## Bias and efficiency
+
+.center[<img src="biasvariance.jpg" width = 650>]
+
+.center[Which estimator would you choose?]
+
+---
+## Time Series
+
+.center[<img src="timeseries.png" width = 650>]
+
+.center[What if your data is not independent?]
+
+
+---
+## Causality
+
+.center[<img src="alttemp1.png" width = 600>]
+
+.center[Does an increase in altitude **cause** a drop in temperature?]
+
+---
+## Causality
+
+.center[<img src="alttemp3.png" width = 600>]
+
+.center[Does an increase in altitude **cause** a drop in temperature?]
+
+---
+## Causality
+
+.center[<img src="alttemp2.png" width = 600>]
+
+.center[Does an increase in temperature **cause** a drop in altitude?]
+
+
+---
+## Causality
+
+.center[<img src="alttemp5.png" width = 600>]
+
+### .center[How can you tell?]
+
+---
+## Bayesian Statistics
+
+We've exclusively learned **frequentist** statistics. 
+
+There's a whole other *school* of thought called **Bayesian statistics**.
+
+.center[<img src="bayes.png" height = 450>]
+
+---
+## My own research
+
+.center[<img src="transplant_vs_waiting.png" width = 500>]
+
+---
+## My own research
+
+.center[<img src="twoway1.png" width = 500>]
+
+---
+## My own research
+
+.center[<img src="twoway2.png" width = 500>]
+
+---
+## My own research
+
+.center[<img src="twoway3.png" width = 500>]
+
+---
+## My own research
+
+.center[<img src="threeway1.png" height = 500>]
+
+---
+## My own research
+
+.center[<img src="threeway2.png" height = 500>]
+
+---
+## My own research
+
+.center[<img src="threeway3.png" height = 500>]
+
+---
+## My own research
+
+.center[<img src="nway1.png" width = 500>]
+
+
+---
+## My own research
+
+.center[<img src="nway2.png" width = 500>]
+
+
+---
+## My own research
+
+.center[<img src="nway3.png" width = 500>]
+
+---
+## My own research
+
+.center[<img src="nway4.png" width = 500>]
+
+
+--
+
+### .center[Explosive number of combinations!]
+
+---
+## My own research
+
+#### .center[Reinforcement learning AKA fancy trial-and-error]
+
+.center[<img src="rl.png" width = 500>]
+
+
+.center[Can we learn to *predict* the value of each match?]
+
+--
+
+.center[<img src="dqn.png" width = 500>]
+.center[Maybe! :)]
+
+---
+class: inverse, middle, center
+# Closing Thoughts
+
+
+    </textarea>
+      <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+      <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+      <script type="text/javascript">
+        var slideshow = remark.create();
+
+        // Setup MathJax
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+                return(elem.SourceElement());
+            }).parent().addClass('has-jax');
+        });
+
+        MathJax.Hub.Configured();
+      </script>
+    </body>
+  </html>

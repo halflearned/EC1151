@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Modern Probability
+
+---
+
+.left-column[
+## History
+]
+.right-column[
+## Probability is the relative size of a set
+
+For a long time, people only talked about *odds*:
+<br><br>
+.center[
+<font size=5 face="Apple Chancery">
+	Knew that we ventured on such dangerous seas <br>
+	That if we wrought out life 'twas <b>ten to one</b> <br>
+</font><font size=2>
+— William Shakespeare, Henry IV, Part II, Act I, Scene 1 lines 181–2.
+</font>
+
+<br><br>
+<img src="shakes.jpg" height = 200>
+]
+]
+
+---
+.left-column[
+## History
+]
+.right-column[
+## History Tidbit
+
+.center[In the 20th Century,<br>
+we decided to normalize those odds to they sum up to one.<br><br>]
+<center>
+<figure>
+<img src="ship1.jpg" width = 300 height = 300>
+</figure>
+$P(\text{Getting Killed}) = \frac{10}{11} \approx 0.09$
+</center>
+]
+
+
+---
+.left-column[
+## History
+]
+.right-column[
+## History Tidbit
+
+.center[In the 20th Century,<br>
+we decided to normalize those odds to they sum up to one.<br><br>]
+<center>
+<figure>
+<img src="ship2.jpg" width = 300 height = 300>
+</figure>
+$P(\text{Coming back}) = \frac{1}{11}  \approx 0.09$
+</center>
+]
+
+---
+
+.left-column[
+## History
+]
+.right-column[
+## History Tidbit
+
+<font size=3>	
+Most of the modern theory of probability by was created by Russian mathematicians who relied on <i>set theory</i> to express randomness mathematically.
+
+<figure>
+.center[<img src="kolmog.jpg" height = 350>
+<figcaption><font size=2>Andrey Kolmogorov</font></figcaption>]
+</figure>
+</font>
+]
+
+
+
+
+---
+
+.left-column[
+## History
+## Sets
+]
+
+.right-column[
+
+## Remember sets?! &#128680;
+Let A = {1,2,3}, B = {2,4,5} be two subsets of $S$ = {1, ..., 10}
+
+.left[
+Operations:
+
++ Union: $A \cup B = $ <br><br>
++ Intersection: $A \cap B = $ <br><br>
++ Subtraction: $A - B \text{ or } A \backslash B = $ <br><br>
++ Complement: $A^{c} = S \backslash A = $ <br><br>
+]
+]
+
+---
+
+.left-column[
+## History
+## Sets
+]
+
+.right-column[
+
+## Remember sets?! &#128680;
+Let A = {1,2,3}, B = {2,4,5} be two subsets of $S$ = {1, ..., 10}
+
+.left[
+Operations:
+
++ Union: $A \cup B = \\{ 1,2,3,4,5 \\}$ <br><br>
++ Intersection: $A \cap B = \\{ 2 \\}$ <br><br>
++ Subtraction: $A - B \text{ or } A \backslash B = \\{ 1, 3 \\}$ <br><br>
++ Complement: $A^{c} = S \backslash A = \\{ 4,5,6,7,8,9,10 \\}$ 
+]]
+--
+.right-column[
+Cardinality: $|A| = 3$, $|S| = 10$ 
+
+Subset: $A \subset S$, $B \subset S$
+
+
+Empty set: $ \emptyset = \\{ \\} $
+]
+
+
+---
+
+.left-column[
+## History
+## Sets
+## Why?
+]
+.right-column[
+## Sets encode what happens 
+
+Let $S$ be the sample space associated with a die roll.
+<font size=6>
+.center[S = {	&#9856;,	&#9857;,	&#9858;,	&#9859;,	&#9860;, 	&#9861;}]
+</font>
+]
+--
+.right-column[
+The event "the outcome is odd" can be represented by:
+<font size=6>
+.center[A = {	&#9856;,	&#9858;, 	&#9860;}]
+</font>
+]
+--
+.right-column[
+Here's the event "the outcome is more than four":
+<font size=6>
+.center[B = {&#9860;, 	&#9861;}]
+</font>
+]
+--
+.right-column[
+.center[Can you see why we defined <i>events</i> as <br><i>subsets of the sample space</i>?]
+]
+
+
+---
+
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+]
+.right-column[
+## Set operations
+
+*"Either the number of pips is odd <b>OR</b> it is more than four"*
+]
+.right-column[
+.center[Odd pips: <br> <font size=6>A = {	&#9856;,	&#9858;, 	&#9860;}</font>]
+]
+--
+.right-column[
+.center[More than four pips: <br> <font size=6>B = {&#9860;, 	&#9861;}</font>]
+]
+--
+.right-column[
+.center[Odd OR More than four:  <br> <font size=6>$A \cup B$ = {&#9856;,	&#9858;, &#9860;, &#9861;}</font>]
+]
+--
+.right-column[
+<font size=6>
+.center[Union $\bigcup = $ OR]
+</font>
+]
+
+---
+
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+]
+.right-column[
+## Set operations
+
+*"The number of pips is odd <b>AND</b> it is more than four"*
+]
+.right-column[
+.center[Odd pips: <br> <font size=6>A = {	&#9856;,	&#9858;, 	&#9860;}</font>]
+]
+.right-column[
+.center[More than four pips: <br> <font size=6>B = {&#9860;, 	&#9861;}</font>]
+]
+--
+.right-column[
+.center[Odd AND More than four:  <br> <font size=6>$A \cap B$ = {&#9860;}</font>]
+]
+--
+.right-column[
+<font size=6>
+.center[Intersection $\bigcap = $ AND]
+</font>
+]
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+]
+.right-column[
+## Set operations
+
+*"The number of pips is odd and <b>NOT</b> more than four"*
+]
+.right-column[
+.center[Odd pips: <br> <font size=6>A = {	&#9856;,	&#9858;, 	&#9860;}</font>]
+]
+.right-column[
+.center[More than four pips: <br> <font size=6>B = {&#9860;, 	&#9861;}</font>]
+]
+--
+.right-column[
+.center[Odd and NOT More than four:  <br> <font size=6>$A \backslash B$ = {&#9856;,	&#9858;}</font>]
+]
+--
+.right-column[
+<font size=6>
+.center[Negation $\backslash = $ NOT]
+</font>
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+]
+.right-column[
+## Probability functions
+
+A <b>probability function</b> $P$ is a "machine" that eats sets and outputs numbers.
+
+.center[
+<font size=7>
+	$P$({&#9860;, 	&#9861;}) = 
+</font>
+]
+.center[<font size=2>What's the output here?</font>]
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+]
+.right-column[
+## Probability functions
+
+A <b>probability function</b> $P$ is a "machine" that eats sets and outputs numbers.
+
+.center[
+<font size=7>
+	$P_{classical}$({&#9860;, 	&#9861;}) = $\frac{2}{6}$
+</font>
+]
+.center[<font size=2>For a fair die</font>]
+<br><br>
+We've seen one such example of probability functions.
+<br><br>
+.center[But what if the dice were loaded?]
+]
+--
+.right-column[
+.center[
+<font size=7>
+	$P$({&#9860;, 	&#9861;}) = $\frac{1}{27}$
+</font>
+]
+.center[Nothing prevents us from modelling our dice like this!]
+]
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+]
+.right-column[
+## Probability functions
+
+Also, what about events that don't have the same probability?
+.center[
+<font size=7>
+	S = { &#9748;, &#127784;, &#9728;} 	<br><br>$P$({&#9748;}) = $\frac{1}{5}$
+</font>
+<br><br>
+<font size=2>This is also very reasonable</font>
+]
+]
+--
+.right-column[
+However, what do you think about this?
+.center[
+<font size=7>
+	$P$({&#9748;}) = $-3$
+</font>
+]
+]
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+]
+.right-column[
+## Probability functions
+
+Also, what about events that don't have the same probability?
+.center[
+<font size=7>
+	S = { &#9748;, &#127784;, &#9728;} 	<br><br>$P$({&#9748;}) = $\frac{1}{5}$
+</font>
+<br><br>
+<font size=2>This is also very reasonable</font>
+]
+]
+.right-column[
+However, what do you think about this? Or this?
+.center[
+<font size=7>
+	$P$({&#9748;}) = $\pi^2$
+</font>
+]
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+.right-column[
+## Properties of probability
+
+Actually, $P$ can be any kind of function <i>as long as</i> it respects some properties. 
+]
+--
+.right-column[
+<font size=3>
+<b>Non-negativity</b> For any event $A$,
+
+$$P(A)\geq 0 $$
+
+<font size=1>(Negative probabilities make no sense!)</font>
+]
+--
+.right-column[
+<b>Sums to one</b> If $S$ is the whole sample space
+
+$$P(S) = 1$$
+
+<font size=1>(The probability that <i>something</i> happens is one)</font>
+</font>
+]
+--
+.right-column[
+Can you think of any other properties?
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+.right-column[
+## Properties of probability
+
+Let's investigate a little further.
+
+.center[<img src="double_die.png", width = 400>]
+
+We'll use a double die roll as our running example.
+<br><br><br><br><br><br><br>
+.footnote[.red[*] <font size=1>What's the sample space here? How about the elementary outcomes? Give some examples of events. ]
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Complement (NOT) Rule 
+.center[
+<font size=5>A = { (&#9856;, &#9856;)} </font>, i.e. the event "double ones". 
+<img src="not_event.png", width = 400><br><br>
+What's $P(A^{c})$? 
+]
+]
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Complement (NOT) Rule 
+.center[
+<font size=5>A = { (&#9856;, &#9856;)} </font>, i.e. the event "double ones". 
+<img src="not_event.png", width = 400><br><br>
+$$P(A^{c}) = \frac{35}{36}$$
+]
+]
+--
+.right-column[
+.center[
+In general, we have the <b>complement rule</b> or <b>NOT Rule</b>
+<font size=6>
+$$P(A^{c}) = 1 - P(A)$$
+</font>
+]
+]
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Addition (OR) rule
+.center[
+<font size=4>A = "white die rolls one" </font> $\qquad $<font size=4>B = "black die rolls one" </font>
+
+<img src="or_event.png", width = 400><br>
+What's $P(A\cup B)$?
+]
+]
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Addition (OR) rule
+.center[
+<font size=4>A = "white die rolls one" </font> $\qquad $<font size=4>B = "black die rolls one" </font>
+
+<img src="or_event.png", width = 400><br>
+$$P(A\cup B) = \frac{6}{36} + \frac{6}{36} - \frac{1}{36}$$
+]
+]
+--
+.right-column[
+.center[
+In general, we have the <b>addition rule</b> or <b>OR Rule</b>
+<font size=6>
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+</font>
+]
+]
+
+
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Addition (OR) rule [Special case]
+.center[
+<font size=4>A = "sum is three" </font> $\qquad $<font size=4>B = "sum is six" </font>
+
+<img src="or_disjoint.png", width = 400><br>
+$$P(A\cup B) = \frac{5}{36} + \frac{2}{36}$$
+]
+]
+--
+.right-column[
+.center[
+If $A$ and $B$ have no elements in common,
+<font size=6>
+$$P(A \cup B) = P(A) + P(B)$$
+</font>
+]
+]
+
+
+
+---
+.left-column[
+## History
+## Sets
+## Why?
+## Ops
+## Prob
+## Properties
+]
+
+.right-column[
+## Non-fair dice
+
+Just keep in mind these rules always apply, even if the elementary outcomes have different probabilities.
+
+Suppose we knew this is true.
+<font size=5>
+	.center[S = { &#9748;, &#127784;, &#9728;} $\qquad	P$({&#9748;}) = $\frac{1}{5} \qquad$ $P$({&#127784;}) = $\frac{2}{5}$] <br>
+</font>
+Then these must be true as well:
+]
+--
+.right-column[
+<font size=5>
+	$P$({&#9728;}) = P({ &#9748;, &#127784;}$^{c}$) = $1 - (\frac{1}{5} + \frac{2}{5}) = \frac{2}{5}$
+</font>
+]
+--
+.right-column[
+<font size=5>
+	$P$({ &#9748;} $\cup$ { &#9728;}) = $\frac{2}{5} + \frac{2}{5} = \frac{4}{5}$
+</font>
+]
+--
+.right-column[
+<font size=5>
+	$P$({ &#9748;, &#127784;} $\cup$ { &#9728;, &#127784;}) = $P$({ &#9748;, &#9728;, &#127784;}) = P(S) = 1 </font>
+]
+--
+.right-column[
+<font size=3>	Alternatively, this last one can also be reasoned like this:<br>
+
+$P$({ &#9748;, &#127784;} $\cup$ { &#9728;, &#127784;}) = $P$({ &#9748;, &#127784;}) + P({ &#9728;, &#127784;}) - $P$({&#127784;}) = $\frac{3}{5} + \frac{3}{5} - \frac{1}{5} = 1$
+
+</font>
+]
+
+
+
+---
+class: middle, center, inverse
+# Quick check
+
+---
+# Quick check
+
+Why are sets useful in probability?
+
+What is the modern definition of probability?
+
+How does it differ from the classical/naive definition?
+
+Suppose that the experiment is one die roll, and our probability function says:
+.center[$P(\\{ &#9856;,	&#9857;,	&#9858; \\}) = 0.6$ and $P(\\{ &#9859;,	&#9860;, &#9861;\\}) = 0.5$]
+Is this a valid probability function?
+
+Suppose that the experiment is one die roll, and our probability function says:
+.center[$P(\\{ &#9856;\\}) =	P(\\{ &#9857; \\})  = P(\\{ &#9858; \\}) = P(\\{&#9861; \\}) = 0.2$ 
+and $P(\\{ &#9859;\\}) = P\\{&#9860;\\}) = 0.1$]
+Is this a valid probability function?
+
+---
+# Quick check
+
+<b>Why are sets useful in probability?</b>
+<font size=2>Because they encode what could happen.</font>
+
+<b>What is the modern definition of probability?</b>
+<font size=2>A function that eats events and outputs a number between 0 and 1 that respects certain properties. It represents the relative weight of the event when compared to the whole sample space.</font>
+
+<b>How does it differ from the classical/naive definition?</b>
+<font size=2>Not all elementary outcomes need to have the same probability.</font>
+
+---
+# Quick check
+<font size= 3>
+
+#### Suppose that the experiment is one die roll, and our probability function says:
+#### .center[$P(\\{ &#9856;,	&#9857;,	&#9858; \\}) = 0.6$ and $P(\\{ &#9859;,	&#9860;, &#9861;\\}) = 0.5$]
+#### Is this a valid probability function?</b>
+
+<font size=2>No. These two sets have no elements in common, so the probability of their union is the sum of each probability 
+	
+$P(\\{ &#9856;,	&#9857;,	&#9858; \\} \cup \\{ &#9859;,	&#9860; 	&#9861;\\}) = P(\\{ &#9856;,	&#9857;,	&#9858; \\}) + P(\\{ &#9859;,	&#9860; 	&#9861;\\}) = 0.6 + 0.5 = 1.1$
+<br><br>
+However, their union is the entire sample space, so the output should be one.
+
+$P(\\{ &#9856;,	&#9857;,	&#9858; \\} \cup \\{ &#9859;,	&#9860; 	&#9861;\\}) = P(S) = 1$
+<br><br>
+Since the two numbers disagree, this is not a valid probability function.
+
+<font size= 3>
+
+<br><br>
+#### Suppose that the experiment is one die roll, and our probability function says:
+#### .center[$P(\\{ &#9856;\\}) =	P(\\{ &#9857; \\})  = P(\\{ &#9858; \\}) = P(\\{&#9861; \\}) = 0.2$ and  $P(\\{ &#9859;\\}) = P\\{&#9860;\\}) = 0.1$]
+#### Is this a valid probability function?</b>
+
+<font size=2>
+Yes. The data above doesn't violate any of the properties we've seen (Check it for yourself!).
+
+
+
+
+
+	
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

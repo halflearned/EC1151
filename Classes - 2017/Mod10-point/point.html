@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Point Estimation
+
+---
+## Warmup 1
+
+I simulated a $Bernoulli(p)$ random variable in Python and got this:
+
+.center[1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0]
+
+--
+
+.center[What $p$ did I use?]
+
+--
+
+.center[Can you *definitely* rule out some values of $p$?]
+
+--
+
+.center[How confident are you of your guess?]
+
+
+---
+## Warmup 2
+
+I simulated a $Uniform(a, b)$ random variable in Python and got this:
+
+.center[<img src="u_data.png" height = 150>]
+
+--
+
+.center[What $a,b$ did I use?]
+
+--
+
+.center[Can you *definitely* rule out some values of $a,b$?]
+
+--
+
+.center[How confident are you of your guess?]
+
+--
+
+.center[For ease of computation: <br> <img src="u_table.png" height = 80>]
+  
+
+---
+.left-column[
+## Today
+]
+.right-column[
+## Probability vs Statistics
+<font size=3>
+Today we finally start working on statistics.
+
+What's the difference?
+]
+--
+.right-column[
+Until now, we worked on problem like:
+
+.center[*Suppose that $X \sim Exponential(\lambda)$ with $\lambda = \frac{1}{2}$. 
+<br>What is $E[X]$?
+<br>What is $P(X < 3)$?*]
+]
+--
+.right-column[
+We can compute these quantities (by hand, or via programming)
+
+$$E[X] = \int x \cdot \frac{1}{2} e^{-\frac{1}{2} x} \ dx = 2$$
+
+$$P(X <  3) = F_X(3) = 1 - e^{-\frac{1}{2}3} \approx 0.78$$
+]
+--
+.right-column[
+.center[Where's the <i>data</i>?]
+]
+</font>
+
+
+
+---
+.left-column[
+## Today
+]
+.right-column[
+## Probability vs Statistics
+<font size=3>
+From today on, we'll start inverting our problems.
+.center[*Suppose you know $X \sim Exponential(\lambda)$ for an unknown $\lambda$.<br>
+<br>However, you have <i>data</i> on $X$.<br>
+<img src="data1.png" height = 300>
+<br><br>
+<br>The average value in your data is 1.98.
+<br>Also, 79% of your data is smaller than 3. 
+<br>
+<br>What is your best guess for $\lambda$?*]
+</font>
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+<font size=3>
+	What will be crucial going forward is to see<br> <b>data</b> as the <b>outcome of random variables</b>..red[*]
+
+<img src="data1.png" width = 120>
+
+So even though this time we got these data...
+
+(in which the first person has value $4.97$,<br> the average is 1.98 and 79% is smaller than 3)
+]
+</font>
+
+.footnote[<font color="red">*</font><font size=1>In <i>frequentist statistics. In <i>Bayesian</i> statistics, that's not true. We might discuss this informally later on.</i></font>]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+<font size=3>
+	What will be crucial going forward is to see<br> <b>data</b> as the <b>outcome of random variables</b>..red[*]
+
+<img src="data2.png" width = 120>
+
+...had we asked a different set of 100 people, we might get these data...
+
+(in which the first person has value 6.04,<br> the average is 2.05 and 83% is smaller than 3)
+]
+</font>
+
+.footnote[<font color="red">*</font><font size=1>In <i>frequentist statistics. In <i>Bayesian</i> statistics, that's not true. We might discuss this informally later on.</i></font>]
+]
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+<font size=3>
+	What will be crucial going forward is to see<br> <b>data</b> as the <b>outcome of random variables</b>..red[*]
+
+<img src="data3.png" width = 120>
+
+...or these data...
+
+(in which the first person has value 0.74, <br>the average is 1.92 and 80% is smaller than 3)
+]
+</font>
+
+.footnote[<font color="red">*</font><font size=1>In <i>frequentist statistics. In <i>Bayesian</i> statistics, that's not true. We might discuss this informally later on.</i></font>]
+]
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+<font size=3>
+What will be crucial going forward is to see<br> <b>data</b> as the <b>outcome of random variables</b>..red[*]
+
+<img src="data4.png" width = 120>
+
+...or these ones!
+
+(in which the first person has value 4.02, <br>the average is 2.09 and 71% is smaller than 3)
+]
+</font>
+
+.footnote[<font color="red">*</font><font size=1>In <i>frequentist statistics. In <i>Bayesian</i> statistics, that's not true. We might discuss this informally later on.</i></font>]
+]
+
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+The data is random because it's the outcome of <br><b>random sampling</b> from a population.
+
+<img src="xkcd1.jpg" width = 450>
+
+]
+]
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+The data is random because it's the outcome of <br><b>random sampling</b> from a population.
+
+<img src="xkcd2.jpg" width = 450>
+
+<img src="xkcddata1.png" width = 250>
+]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+
+In fact, it's useful to think of data as <br>samples from an infinite population.
+
+<img src="xkcd3.jpg" width = 450>
+<img src="xkcddata2.png" width = 300>
+
+]
+]
+
+---
+.left-column[
+## Today
+## Data
+]
+.right-column[
+.center[
+## What is data? 
+
+In fact, it's useful to think of data as <br>samples from an infinite population.
+
+<img src="xkcd4.jpg" width = 450>
+<img src="xkcddata3.png" width = 300>
+]
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+]
+.right-column[
+## Estimation
+
+To **estimate** is to guess the "true" value of a parameter using the data.
+]
+--
+.right-column[
+### Step 1: Gather data
+.center[1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0]
+]
+--
+.right-column[
+### Step 2: Model data
+$$X\_1, X\_2, \cdots X\_{20} \sim Bernoulli(p)$$
+]
+--
+.right-column[
+### Step 3: Find a guess for the parameter 
+
+.center["I think the true $p$ is 0.5."🤔]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+]
+.right-column[
+## How to guess?
+An **estimator** is a formula to map the data to a guess. There are two ways of constructing such formulas.
+]
+--
+.right-column[
+## Method of Moments
++ Find expressions for distribution moments 
++ Compute data moments
++ Equate the two, solve for parameters
+]
+--
+.right-column[
+## Maximum Likelihood
++ Choose the parameters that increase the chances of your *data* 
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+
+<img src="mom1.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+
+<img src="mom2.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+
+<img src="mom3.png" width = 600>
+]
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+
+<img src="mom4.png" width = 600>
+]
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+
+<img src="mom5.png" width = 600>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom6.png" width = 600>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom7.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom8.png" width = 600>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom9.png" width = 600>
+.footnote[.red[*] <font size=2>We could have used the uncentered moment as well.]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom10.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom14.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom11.png" width = 600>
+]
+
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom12.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom13.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+]
+.right-column[
+## Method of Moments
+<img src="mom15.png" width = 600>
+]
+
+
+---
+class: inverse, middle, center
+# Your turn
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+<img src="est1.png" width = 600>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+<img src="est3.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+<img src="est4.png" width = 600>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+<img src="est2.png" width = 600>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## Estimates are random variables
+<img src="fmla1.png">
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## Estimates are random variables
+
+<img src="fmla2.png">
+
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## Estimates are random variables
+
+<img src="fmla3.png">
+
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## Estimates are random variables
+<img src="fmla4.png">
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## So what's the probability distribution?
+
+For the $\beta$ parameter of the Exponential distribution, the formula for our guess given by the method of moments is:
+
+$$\beta_{MOM} = \frac{X_1 + \cdots + X_n}{n}$$
+
+.footnote[.red[*] <font size=2>Other parameters of other distributions might have different formulas.</font>]
+]
+--
+.right-column[
+
+Since the data is random, $\beta_{MOM}$ is also a random variable.
+
+But then what's its probability distribution?
+
+]
+--
+.right-column[
+<b>Hint</b> In this particular case, it's an **average** of independent random variables...
+]
+
+
+
+---
+class: middle, center
+.center[<img src="betamom_10.png" width = 800>]
+.center[Blue: simulation results <br> Green: Normal approximation via CLT]
+
+---
+class: middle, center
+.center[<img src="betamom_100.png" width = 800>]
+.center[Blue: simulation results <br> Green: Normal approximation via CLT]
+
+---
+class: middle, center
+.center[<img src="betamom_5000.png" width = 800>]
+.center[Blue: simulation results <br> Green: Normal approximation via CLT]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## So what's the probability distribution?
+
+By the Central Limit Theorem,
+
+<img src="clt1.png", width = 500>
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## So what's the probability distribution?
+
+By the Central Limit Theorem,
+
+<img src="clt2.png", width = 500>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## So what's the probability distribution?
+
+By the Central Limit Theorem,
+
+<img src="clt3.png", width = 500>
+]
+--
+.right-column[
+This is useful because:
+
++ Now we know how to make a guess
++ We can quantity our uncertainty
++ (For this example) we know that as $n\rightarrow\infty$, our guess converges to the "true" value $\beta$.
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+]
+.right-column[
+## What if my data is not Exponential?
+
+Then you might end up with a totally different formula (e.g. what's the formula for $a$, $b$ in the Uniform case?)
+]
+--
+.right-column[
+However, *many* estimators are constructed as *some* kind of average, so that the same argument goes through.
+]
+
+--
+.right-column[
+More examples in the homeworks! 😈
+]
+
+
+---
+# HW10
+
+<font size=1>This will be another example of another method of moments estimator that happens to be an average.</font>
+
+<font size=3>
+
+The Poisson distribution is used to model the number of rare and independent events. One such use is the number of bankruptcies in a region during a certain period (assuming they are independent). 
+
+<br>Suppose you have the following data on bankrupcties:
+
+.center[<img src="poisson.png" width = 700>]
+
+These data were generated by 
+
+$$X\_1, \cdots, X\_{10} \sim Poisson(\lambda)$$
+
+1) Find the **method of moments** estimator for the parameter $\lambda$ and compute an estimate using the data above.
+
+2) What is the approximate distribution of the estimator? Give its name and parameters.
+
+3) Suppose the true value of $\lambda$ is 6. Compute $P(\lambda\_{MOM} < 5)$ and $P(\lambda\_{MOM} > 7)$ 
+
+
+---
+class: inverse, middle, center
+# Maximum Likelihood Estimation
+## .red[The rest of this module is NOT going to be in the final]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+MLE is another method to find estimators (i.e., functions from data to estimates).
+]
+--
+.right-column[
+A lot of the time, the formulas found by MOM and MLE will coincide.
+
+However, MLE tends to be "better".red[*], in a sense we'll see later.
+
+<br><br><br><bR><bR><br>
+.footonote[.red[*] <font size=1>Better: statistically efficient. </font>]
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+]
+--
+.right-column[
+Obviously, $X_i \sim Bernoulli(p)$. But what $p$ is more **likely** to have generated this data?
+]
+--
+.right-column[
++ $p = 0$
++ $p = \frac{1}{10}$
++ $p = \frac{3}{5}$
++ $p = \frac{9}{10}$
++ $p = 1$
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_2 = 0)?$ 
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_2 = 0)?$ <font color="blue">$\frac{1}{3}$</font>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_2 = 0)?$ <font color="blue">$\frac{1}{3}$</font>
+
++ What is $P(X_1 = 1 \ \ AND \ \  X_2 = 2)?$
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_2 = 0)?$ <font color="blue">$\frac{1}{3}$</font>
+
++ What is $P(X_1 = 1 \ \ AND \ \  X_2 = 2)$?  <font color="blue">$P(X_1 = 1) \times P(X_2 = 2) = \frac{2}{3}\frac{1}{3}$
+
+<br> 
+We can multiply the probabilities together since $X_1$ and $X_2$ are independent.
+</font>
+]
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_2 = 0)?$ <font color="blue">$\frac{1}{3}$</font>
+
++ What is $P(X_3 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_4 = 1)?$ <font color="blue">$\frac{2}{3}$</font>
+
++ What is $P(X_5 = 0)?$ <font color="blue">$\frac{1}{3}$</font>
+
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
++ What is $P(X_1 = 1 \ \ AND \ \ X_2 = 0 \ \ AND \cdots AND  \ \ X_5 = 0)?$ 
+
+<font color="blue">
+Since the $X_i$s are all independent of each other, that's 
+
+$$P(X_1 = 1) \times P(X_2 = 0) \times \cdots \times P(X_5 = 0)$$
+</font>
+]
+--
+.right-column[
+<font color="blue">
+$$\frac{2}{3} \times \frac{1}{3} \times \cdots \times \frac{2}{3} = (\frac{2}{3})^3 (\frac{1}{3})^2 \approx 0.03$$
+</font>
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Let's start with an example.
+
+.center[<img src="mle1.png" height = 120>]
+
+Here's a systematic way of going about this. Say $p = \frac{2}{3}$.
+
+<font color="blue">
+$$P(X_1 = 1 \ \ AND \ \ X_2 = 0 \ \ AND \cdots AND  \ \ X_5 = 0) \approx 0.03$$
+
+
+We can this number the <b>likelihood of $p$</b> given the data. 
+</font>
+]
+--
+.right-column[
+What is the likelihood of $p = \frac{9}{10}$?  
+
+What is the likelihood of $p = \frac{3}{5}$?
+
+For an given $p$, how do you find the likelihood from the data above?
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+.center[<img src="like1.png" width = 600>]
+
+.center[$L(p) = p^3(1-p)^2$]
+
+.center[For this data, this is out **likelihood function**.]
+
+<br>
+.center[Which $p$ would you pick?]
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+Without eyeballing, we can solve this using calculus:
+
+$L(p) = p^3(1-p)^2$
+
+Trick of the trade: take natural **logs** first. [Otherwise...?]
+]
+--
+.right-column[
+$log L = 3\log p + 2\log(1-p)$ $\leftarrow$ **Log-likelihood** function
+]
+--
+.right-column[
+Now maximize!
+
+$0 = \frac{d}{dp}log L(p) = 3\frac{1}{p} - 2\frac{1}{1-p}$ $\leftarrow$ **Log-likelihood** function
+]
+--
+.right-column[
+Solve for $p$:
+
+$$p_{MLE} = \frac{3}{5}$$
+]
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+]
+.right-column[
+## Maximum Likelihood Estimation (MLE)
+
+.center[<img src="mle1.png" height= 50>]
+
+### Step 1: Get the likelihood function
+
+Multiply the probability mass/density of each data point under a parameter
+
+<font size=2>
+$$L(p) = p \times (1-p) \times p \times p \times (1-p) = p^3 (1-p)^2$$
+</font>
+]
+--
+.right-column[
+### Step 2: Maximize
+
+Take logs, derivatives, set to zero and solve for the parameter
+
+<font size=2>
+$$\frac{d}{dp}log L(p) = 0 \implies p_{MLE} = \frac{3}{5}$$
+</font>
+]
+
+
+
+---
+.left-column[
+## Today
+## Data
+## Estimation
+## MOM
+## Random
+## MLE
+## Comparing
+]
+.right-column[
+## MLE vs MOM
+
+Both MLE and MOM are systematic procedures to derive estimators.
+
+A lot of the time -- but not always -- the two will produce the same estimator.
+
+<font size=2>
+<center>$X_1, X_2, \cdots, X_n \sim Bernoulli(p) \qquad \implies \qquad p_{MOM} = p_{MLE} = \frac{X_1 + \cdots X_n}{n}$</center>
+</font>
+
+.center[What if they don't?]
+]
+--
+.right-column[
+Short answer: use MLE whenever possible.
+
+One can prove that MLEs are superior to MOM estimators in terms of **statistical efficiency**. 
+
+We'll study this in a later module (perhaps!), but roughly: MLEs can get closer to the true value $p$ with fewer data points.  
+]
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

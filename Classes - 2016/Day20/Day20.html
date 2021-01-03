@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# More Inference
+
+---
+
+# Inference
+.left-column[
+## Review
+]
+.right-column[
+## From last time
+
+Our boss asked us to figure out $\lambda$ given a random sample from $Poisson(\lambda)$.
+
+We gave her a guess $\hat{\lambda} = 2.9$.
+
+We then compared that against the hypothesis $\hat{\lambda} = 5$, by considering:
+
+><center><i>If the true lambda were 5, then what are the chances of getting $\hat{\lambda} = 2.9$?</center></i>
+
+As it turns out, the chances were very low.
+
+]
+
+---
+# Inference
+.left-column[
+## Review
+## Step-by-step
+]
+.right-column[
+## Before seeing the data (Example)
+
+Step 1.1) We **model the experiment** using a distribution with unkown parameter $\lambda$.
+
+<font size=2> 
+	<ul>
+		<li>Let $X$ denote the number of customer per hour
+		<li>Assume $X \sim Poisson(\lambda)$
+	</ul>
+</font>
+
+Step 1.2) We figure out an appropriate estimator for $\lambda$
+
+<font size=2> 
+	<ul>
+		<li>We know that $E[X] = \lambda$
+		<li>We know that $\frac{1}{n}\sum_i X_i \rightarrow^p \lambda$
+	</ul>
+</font>
+
+Step 1.3) We consider the distribution of $\hat{\lambda}$ as a function of $\lambda$
+<font size=2> 
+	<ul>
+		<li>By CLT, $\frac{1}{n}\sum_i X_i \sim^a Normal(\lambda, \frac{\lambda}{n})$
+		<li>So $Prob(\hat{\lambda} < r) \approx F(r)$, where $F$ is the CDF of $Normal(\lambda, \frac{\lambda}{n})$	</ul>
+</font>
+]
+
+
+
+
+---
+# Inference
+.left-column[
+## Review
+## Step-by-step
+]
+.right-column[
+## Before seeing the data
+
+Step 1.1) We **model the experiment** using a distribution with unkown parameter $\theta$.
+
+<font size=2> 
+	<ul>
+		<li>Let $X$ encode the event of interest
+		<li>Assume $X \sim Distribution(\theta)$
+	</ul>
+</font>
+
+Step 1.2) We figure out an appropriate estimator for $\theta$
+
+<font size=2> 
+	<ul>
+		<li> We have some estimator $\hat{\theta} = \hat{\theta}(X_1,\cdots,X_n)$ that is somehow related to the true parameter $\theta$
+	</ul>
+</font>
+
+Step 1.3)We consider the <b><font color="blue">sampling distribution</b></font> of $\hat{\theta}$ as  a function of $\theta$
+<font size=2> 
+	<ul>
+		<li>We can compute its exact distribution by hand <i>[hard!]</i>, or
+		<li>We can simulate it, or
+		<li>We can appeal to the CLT whenever applicable
+	</ul>
+</font>
+]
+
+
+---
+# Inference
+.left-column[
+## Review
+## Step-by-step
+]
+.right-column[
+## After seeing the data (Example)
+
+Step 2.1) We compute our **estimate** $\hat{\theta}$
+<font size=2> 
+	<ul>
+		<li> $\hat{\lambda} = \frac{1}{10}[1 + 4+ \cdots + 0 + 6] = 2.9$
+	</ul>
+</font>
+
+Step 2.2) We compute the chances of getting a value as extreme as $\hat{\lambda} = 2.9$ under some hypothetical $\lambda_{hyp} = 5$
+<font size=2> 
+	<ul>
+		<li>$p = Prob(\hat{\lambda} \leq 2.9) \approx F(2.9) = 0.0015$, where $F$ is the CDF of $Normal(5, \frac{5}{10})$	</ul>
+</font>
+
+Step 2.3) If chances are "small", we *reject the hypothesis*.
+<font size=2> 
+	<ul>
+		<li> Since $p < threshold$, we reject the hypothesis $\lambda_{hyp} = 5$. 
+	</ul>
+]
+
+
+
+
+---
+# Inference
+.left-column[
+## Review
+## Step-by-step
+]
+.right-column[
+## After seeing the data 
+
+Step 2.1) We compute our **estimate** $\hat{\theta}$
+
+
+Step 2.2) We the compute the <b><font color="darkgreen">p-value</font></b>: the **chances** of getting a value as extreme as $\hat{\theta}$ under some hypothetical $\theta_{hyp}$
+
+Step 2.3) If chances are smaller than some pre-established threshold, called the <b><font color="purple">significance level</font></b>, we reject the hypothesis.
+]
+
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+## Example 1: Estimating a variance
+
+Q: Suppose you know that log-returns of companies in your portfolio are normally distributed with mean 2.
+
+You have 16 data points. Test whether the **variance** of the returns is 4 or larger.
+
+x = [ 0.61,  1.37,  4.59,  2.32,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	3.87, 5.75, -2.75, -1.32, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	3.41,  3.33,  0.57,  4.51,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	2.87,  1.2 ,  1.83,  0.75] <br>
+
+]
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+
+## Before seeing the data
+
+### 1.1) Model the experiment.
+
+$$X_i \sim Normal(2, \sigma^2)$$
+
+]
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+## Before seeing the data
+
+### 1.2) Figure out an appropriate estimator
+	
+$$\hat{\sigma}^2(X_1, \cdots, X_n) = 
+	\frac{1}{n}\sum_i(X_i - 2)^2$$
+]
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+## Before seeing the data
+
+### Determine how to compute the sampling distribution of your estimator.
+
+```python
+from scipy.stats import norm
+from numpy import var, sqrt    # Variance function
+def monte_carlo(sigmasq, n_sims, n):
+	X = norm(2, sqrt(sigma)).rvs((n_sims, n)) 
+	s2_hat_draws = mean((X - 2)**2, axis = 1) 
+	return s2_hat_draws
+```
+
+This function creates a table of shape `n_sims`$\times$`n` using numbers drawn from the Normal distribution with mean 2 and variance `sigmasq`, then computes the rowwise variance.
+
+]
+
+
+
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+```python
+from matplotlib.pyplot import hist, legend
+sims1 = monte_carlo(sigma = .3, n_sims = 50000, n = 16)
+sims2 = monte_carlo(sigma = .7, n_sims = 50000, n = 16)
+sims3 = monte_carlo(sigma = .5, n_sims = 50000, n = 16)
+hist(sims1, bins = 50, alpha = .5, label = "$\sigma^2=.3^2$");
+hist(sims2, bins = 50, alpha = .5, label = "$\sigma^2=.7^2$");
+hist(sims3, bins = 50, alpha = .5, label = "$\sigma^2=.5^2$");
+legend(fontsize = 20)
+```
+<center><img src="hists.png", height = 250></center>
+
+.footnote[<font size=1>Note that for small $n$, these are not Normal, so we can't use the CLT yet!</font>]
+]
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+
+## After seeing the data
+
+### 2.1) Compute the estimate
+
+$$\hat{\sigma}^2(x_1, \cdots, x_n) = \frac{1}{n}\sum_i(x_i - 2)^2$$
+
+```python
+x = [ 0.61,  1.37,  4.59,  2.32,  3.87,  5.75, -2.75, -1.32, 
+	  3.41,  3.33,  0.57,  4.51,  2.87,  1.2 ,  1.83,  0.75]
+s2_hat = mean((x-2)**2) 
+print(s2_hat)
+
+4.71
+```
+]
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+
+## After seeing the data
+
+### 2.2) Compute the p-value
+
+$$\text{p-value} = P(\hat{\sigma}^2 \geq 4.71) \qquad \text{ assuming } \sigma^2 = 4, n = 16$$
+
+```python
+from numpy import mean
+sigmasq_hyp = 4
+sims = monte_carlo(sigmasq = sigmasq_hyp, 
+				   n_sims = 50000, 
+				   n = 16)
+p_value = mean(sims > s2_hat)  
+print(p_value)
+
+0.22122
+```
+
+<center>Interpretation?</center>
+
+]
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+]
+.right-column[
+
+## After seeing the data
+
+### 2.3) Decide whether to reject the hypothesis or not.
+
+Suppose our **significance level** is $\alpha = 0.05$.red[*]
+
+The p-value we computed is approx $0.22$.
+
+Since p-value $> \alpha$, we fail to reject the hypothesis.
+
+(That is, as far as we know, $\sigma^2$ could be 4)
+
+
+.footnote[<font size = 2>.red[*] Remember this is set <b>before</b> you see the estimates!</font>]
+]
+
+
+
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+## Errors 
+]
+.right-column[
+.center[## Congratulations! Your first error!
+<img src="evil.jpg" height = 300> <br>
+$\sigma^2$ was actually 5!
+]
+]
+
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+## Errors 
+]
+.right-column[
+# Errors
+
+There are two types of error.
+
++ **Type 1:** The hypothesis is true, but you reject it.
+
++ **Type 2:** The hypothesis is false, but you fail to reject it.
+
+You just committed a Type 2 error.
+
+
+.footnote[<font size=1>.red[*] Confession: I can never remember which is which :( </font>]
+
+]
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+## Errors
+## Rejection region
+]
+.right-column[
+
+## Rejection regions
+
+.left[<img src="rejection_regions.png", width=550>]
++ Distribution of $\hat{\sigma}^2$ assuming $\sigma^2 = 4$.
++ In .red[red]: **rejection regions**
+
+]
+
+
+
+
+---
+# Inference
+.left-column[
+## Estimate variance 
+## Errors 
+## Rejection region
+## Trade-off
+]
+.right-column[
+# Trade-off
+
+**High $\alpha$**
+
++ Only "accept" the hypothesis if there is overwhelming evidence for it
+
++ Big rejection region
+
++ Might end up making Type 1 errors
+<br><br>
+
+**Low $\alpha$**
+
++ "Accept" most hypotheses.
+
++ Small rejection region
+
++ Might end up making Type 2 errors
+<br><br>
+
+]
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+

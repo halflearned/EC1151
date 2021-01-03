@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 30px #777;
+        -webkit-box-shadow: 0 0 30px #777;
+        box-shadow: 0 0 30px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# What makes a good estimator?
+
+
+---
+.left-column[
+## Thought Experiment
+] 
+
+.right-column[
+## How much beer? &#127866; 
+
+I want to know how the average amount of beer (in pints) that undergraduates drink every weekend.
+
+Let's assume that this amount is $Exponential$ with true mean $\mu$.
+
+]
+
+---
+.left-column[
+## Thought Experiment
+] 
+
+.right-column[
+## How much beer? &#127866; 
+
+I want to know how the average amount of beer (in pints) that undergraduates drink every weekend.
+
+Let's assume that this amount is $Exponential$ with true mean $\mu$.
+
+
+#### Scenario 1: 
+
+I'll survey 30 students.
+
+Their answers will be $B\_{1}, \cdots, B\_{30}$.
+
+My estimator will be the .red[mean of the 30 answers]:
+
+$$\hat{\mu}\_1 = \frac{1}{30} \sum\_{i}^{30} B\_{i}$$
+
+]
+
+
+---
+.left-column[
+## Thought Experiment
+] 
+
+.right-column[
+## How much beer? &#127866; 
+
+I want to know how the average amount of beer (in pints) that undergraduates drink every weekend.
+
+Let's assume that this amount is $Exponential$ with true mean $\mu$.
+
+
+#### Scenario 2: 
+
+I'll survey 30 students.
+
+Their answers will be $B\_{1}, \cdots, B\_{30}$.
+
+Then I'll discard 80% of the answers.
+
+My estimator will be the .red[mean of 6 answers]:
+
+$$\hat{\mu}\_2 = \frac{1}{6} \sum\_{i}^{6} B\_{i}$$
+
+]
+
+---
+.left-column[
+## Thought Experiment
+] 
+
+.right-column[
+## How much beer? &#127866; 
+
+I want to know how the average amount of beer (in pints) that undergraduates drink every weekend. 
+
+Let's assume that this amount is $Exponential$ with true mean $\mu$.
+
+
+#### Scenario 3: 
+
+I'll survey 30 students.
+
+Their answers will be $B\_{1}, \cdots, B\_{30}$.
+
+My estimator will be the .red[this modified mean]:
+
+$$\hat{\mu}\_3 = \frac{1}{30 + r} \sum\_{i}^{30} B\_{i}$$
+
+for some small positive number $r$. (Here $r = 0.5$).
+
+.footnote[.red[*] <font size = 1>We call this <i>shrinking</i></font>]
+]
+
+
+---
+.left-column[
+## Thought Experiment
+] 
+
+.right-column[
+## How much beer? &#127866; 
+
+I want to know how the average amount of beer (in pints) that undergraduates drink every weekend.
+
+Let's assume that this amount is $Exponential$ with true mean $\mu$.
+
+
+#### Scenario 4: 
+
+I don't care about the data.
+
+My estimator will be .red[3.5] (pints):
+
+$$\hat{\mu}\_4 = 3.5$$
+
+]
+
+---
+class: middle, center
+<img src ="hists1.png" width = 800>
+
+<font size = 3>Monte Carlo simulation. Dotted line is true $\mu$.</font>
+
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+] 
+
+.right-column[
+## What do you care about in an estimator? 
+
+<br><br>
++ For which ones <font color="darkgreen">the mean is the true value</font>?
+
+<br><br>
++ Which ones <font color="purple">have smaller variance</font>? 
+
+<br><br>
++ What happens to their distribution <font color = "orange">as $n$ increases</font>?
+
+]
+
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+] 
+
+.right-column[
+## For which ones <font color="darkgreen">the mean is the true value</font>?
+
+The difference between the mean of the estimator and the true value is caleld the <font color="darkgreen"><b>bias</b></font>.
+
+We say an estimator is <font color="darkgreen"><b>unbiased</b></font> if it has zero bias.
+
+Which ones are equal to the true mean $\mu$ (set to 4, here)?
+
+.center[
+$E[\hat{\mu}\_1] = $
+
+$E[\hat{\mu}\_2] = $
+
+$E[\hat{\mu}\_3] = $
+
+$E[\hat{\mu}\_4] = $
+]
+
+]
+
+
+---
+count:false
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+] 
+
+.right-column[
+## For which ones <font color="darkgreen">the mean is the true value</font>?
+
+The difference between the mean of the estimator and the true value is caleld the <font color="darkgreen"><b>bias</b></font>.
+
+We say an estimator is <font color="darkgreen"><b>unbiased</b></font> if it has zero bias.
+
+Which ones are equal to the true mean $\mu$ (set to 4, here)?
+.center[
+$E[\hat{\mu}\_1] = 4$
+
+$E[\hat{\mu}\_2] = 4$
+
+$E[\hat{\mu}\_3] = 4/4.5 = 3.934$
+
+$E[\hat{\mu}\_4] = 3.5$
+]
+]
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+] 
+
+.right-column[
+## Which ones <font color="purple">have smaller variance</font>?
+
+Let's try to rank from largest to smallest variance.
+
+]
+
+
+---
+count:false
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+] 
+
+.right-column[
+## Which ones <font color="purple">have smaller variance</font>? 
+
+Let's try to rank from largest to smallest variance.
+
+$$Var(\hat{\mu}_1) \approx 0.533$$
+
+$$Var(\hat{\mu}_2) \approx 2.67$$
+
+$$Var(\hat{\mu}_3) \approx 0.516$$
+
+$$Var(\hat{\mu}_4) = 0$$
+
+]
+
+
+---
+count:false
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+] 
+
+.right-column[
+## Which ones <font color="purple">have smaller variance</font>? 
+
+Let's try to rank from largest to smallest variance.
+
+$$Var(\hat{\mu}_1) \approx 0.533$$
+
+$$Var(\hat{\mu}_2) \approx 2.67$$
+
+$$Var(\hat{\mu}_3) \approx 0.516$$
+
+$$Var(\hat{\mu}_4) = 0$$
+
+<br>
+
+
+<i>Among unbiased estimators</i>, we say that the one with smaller variance is more <b>efficient</b>.
+
+]
+
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+## Consistency
+] 
+
+.right-column[
+## What happens as  <font color="orange">$n\rightarrow\infty$</font>?
+<img src ="hists2.png" width = 600>
+
+.center[
+$\hat{\mu}\_1, \hat{\mu}\_2, \hat{\mu}\_3$ are <font color="orange">consistent</font>
+
+$\hat{\mu}\_4$ is <font color="orange">inconsistent</font>
+]
+
+]
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+## Consistency
+## Discussion
+] 
+
+.right-column[
+## What's the best criterion?
+
+<br><br>
+Consistency is very reasonable.
+<font size=1>If you can't get it right with infinite data, you suck.</font>
+
+<br>
+But there is a <b>trade-off</b> between bias and variance.
+
+<br>
+Most of Econometrics will be concerned with choosing the most efficient unbiased estimators.
+
+<font size=2>
+(You'll spend a lot of time proving that linear regression coefficients belong to this category)
+</font>
+]
+
+
+
+---
+.left-column[
+## Thought Experiment
+## Estimator Properties
+## Bias
+## Variance
+## Consistency
+## Discussion
+] 
+
+.right-column[
+## [Advanced] Bias-variance trade-off
+
+<img src="overfitting_poly.png" width = 650>
+
+]
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

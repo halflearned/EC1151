@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Population Moments
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+
+]
+.right-column[
+## Preliminaries 
+
+The **expectation** is the sum of the outcomes that $X$ can take, weighted by their probabilities.red[*]
+<br><br>
+<img src="analogy.png" height=90>
+
+.footnote[.red[*] Probability <b>mass</b> in the case of a discrete rv, and <b>density</b> in the case of a continuous rv.]
+]
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+
+]
+.right-column[
+## Preliminaries
+
+Today we'll generalize the expectation to this: 
+
+Given any function $g$, if $X$ is discrete, then: 
+
+$$E[g(X)] = \sum_i g(x_i)p_X(x_i)$$ 
+
+and if $X$ is continuous, then:
+
+$$E[g(X)] = \int g(x)f_X(x)dx$$ 
+
+]
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+
+]
+.right-column[
+## Preliminaries
+
+For example, take 
+
++ $g(x) = \sqrt{x^2 + 7}$
+
++ $X \sim Binomial(2, 1/2)$.
+
+Let's compute $E[g(X)] = E[X^2]$
+
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Definition
+
+When $g(x) = x^{k}$ for some natural number $k$, we say that's the **$k^{th}$ moment of X**.
+<br><br><br>
+For example, take 
+
++ $g(x) = x^2$
+
++ $X \sim Binomial(2, 1/2)$.
+
+Let's compute the **second moment of X**: $E[X^2]$
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## First moments
+
+The **expectation** summarizes the center of the distribution.
+
+.center[<img src="norm0.png" width = 600>]
+
+Two identical distributions *centered* in different places.
+
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Second moments
+
+The **second moment** summarizes the spread of distributions centered at zero.
+
+.center[<img src="norm1.png" width = 600>]
+
+Two identical distributions except for second moments.
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Second moments
+
+Unfortunately, if we shift the distribution, the second moment explodes:
+
+.center[<img src="norm3.png" width = 600>]
+
+]
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Second moments
+
+Actually, is that a big problem?
+
+<br>
+If $E[X] = 17$, what is the expectation of $Z = X - 17$?
+
+<br>
+We always just shift the random variables so that they're centered at zero.
+
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Variance
+
+If we *re-center* $X$ before taking the second moments, we get a quantity called the **variance**:
+
+$$\sigma_X^2 := Var(X) = E[(X - EX)^2]$$
+
+For example, suppose $X \sim Bernoulli(p)$:
+
++ What is $EX$?
+
++ What is the pmf of $X - EX$?
+
++ What is $Var(X)$?
+
++ When is $Var(X)$ small? When is it big?
+
+<br>
+What are examples of **high-variance** events?
+
+]
+
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+
+]
+.right-column[
+## Standard deviation.red[*]
+
+An issue with the variance is that the units are weird.
+
+<font size = 3>
+If $X$ was "how many miles John runs in a day", then the units of $Var(X)$ are "miles-squared".
+<br><br>
+If $X$ was "how many cakes John eatas in a day", then the units of $Var(X)$ are... "cakes-squared"?
+</font>
+
+So people usually like to reason about its square-root, and call that the **standard deviation**.
+
+$$\sigma_X := \sqrt{Var(X)}$$
+
+
+.footnote[<font size=1>.red[*]This is a pretty stupid name. What's standard about it?</font>]
+]
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+## Higher moments
+]
+.right-column[
+## Skewness
+The **skewness** is related to the third moment. 
+<br>
+.center[<img src="skew.png" width = 600>]
+
+<br><br>
+Do these events have positive or negative skew?
++ Income distribution in the USA 
++ 
+
+]
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+## Higher moments
+]
+.right-column[
+## Kurtosis
+Whereas the **kurtosis** is related to the fourth
+.center[<img src="kurtosis.png" width = 600>]
+
+<font size=3>High-kurtosis has "fat tails", meaning that it's more likely that an extreme event may occur.</font>
+
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+## Higher moments
+## Why care?
+]
+.right-column[
+## What are moments good for? 
+
++ Many distributions have the same **first moment**.
+
+<img src="same1.png" width = 600>
+
+]
+
+
+---
+# Population Moments
+
+.left-column[
+## Preliminaries 
+## Moments
+## Higher moments
+## Why care?
+]
+.right-column[
+## What are moments good for? 
+
++ Many distributions have the same **first moment**
+
++ Fewer distributions have the same **second moment**
+
++ Even fewer distributions have the same **third moment**
+
+.center[$\cdots$]
+
+If *all* the moments are the same, then the distributions are the same!.red[*]
+
+.footnote[.red[*] <font size =2>This is a bit of a lie, but it saying the correct thing here requires a bunch of technicalities that fall <i>way</i> outside the scope of the course. If you're interested, ask on Piazza or during OH.</font>]
+]
+
+---
+class: inverse, middle, center
+
+# Sample Moments
+
+
+---
+# Sample Moments
+
+.left-column[
+## Remark
+]
+.right-column[
+## IMPORTANT
+
+So far, we have not worked with data. 
+
+Everything we've done today is **Probability**, not Statistics!
+
+However, recall from last Friday:
+
+$$P(A) \approx \frac{\\# successes}{\\# trials} $$
+
+```python
+from scipy.stats import uniform
+from numpy import mean
+# Event is "waiting for more than three minutes" 
+W = uniform(0, 10).rvs(1000000)
+W3 = W > 3
+P = mean(W3)  # Number of "successes" / Number of draws
+```
+]
+
+
+---
+# Sample Moments
+
+.left-column[
+## Remark
+## Sample mean
+]
+.right-column[
+## Sample mean
+
+This framework allows us to compute the *sample mean*, or *empirical first moment*.
+
+**Example**
+
+X = [3, 3, 1, 4, 5, 2, 1, 3, 5, 3]
+
+$\frac{1}{10}\sum_i X_i = \frac{1}{10}(3 + 3 + 1 + 4 + 5 + 2 + 1 + 3 + 5 +3)$
+$\qquad  \ \ \ \ \ = \frac{1}{10}[2\times (1) + 1\times(2) + 4 \times (3) + 1\times (4) + 2\times 5]$
+$\qquad  \ \ \ \ \ = \frac{2}{10}\times (1) + \frac{1}{10}\times(2) + \frac{4}{10} \times (3) + \frac{1}{10}\times (4) + \frac{2}{10}\times 5$
+
+<br>
+Each one of these fractions is an *empirical* probability. 
+
+]
+
+
+---
+# Sample Moments
+
+.left-column[
+## Remark
+## Sample mean
+]
+.right-column[
+## Sample mean
+
+In general, the **sample mean** or **empirical first moment** is
+
+$$\widehat{E}[X] = \frac{1}{n}\sum_i X_i$$
+
+which (in the discrete rv) case this is the same as 
+
+
+$$\widehat{E}[X] = \sum_i \frac{n_i}{n} X_i \qquad n_i = \text{\# successes for outcome }i$$
+
+In the continuous case the analogy works similarly.
+
+]
+
+
+---
+# Sample Moments
+
+.left-column[
+## Remark
+## Sample mean
+## Sample variance
+]
+.right-column[
+## Sample variance
+
+Other moments follow basically the same reasoning
+
+$$\widehat{Var}[X] = \frac{1}{n}\sum_i (X_i - \widehat{E}X)^2$$
+
+which (in the discrete rv) case this is the same as 
+
+
+$$\widehat{Var}[X] = \sum_i \frac{n_i}{n} (X_i - \widehat{E}X)^2$$
+
+In the continuous case the analogy works similarly.
+
+.footnote[.red[*] <font size = 2>Sometimes you'll see n-1 instead of n in the formula above. Don't worry, we'll get to that</font>.]
+
+]
+
+---
+# Sample Moments
+
+.left-column[
+## Remark
+## Sample mean
+## Sample variance
+## Sample std. deviation
+]
+.right-column[
+## Sample standard deviation
+
+Other functions follow basically the same reasoning
+
+$$\widehat{Std}[X] = \sqrt{\frac{1}{n}\sum_i (X_i - \widehat{E}X)^2}$$
+
+which (in the discrete rv) case this is the same as 
+
+
+$$\widehat{Var}[X] = \sqrt{\sum_i \frac{n_i}{n} (X_i - \widehat{E}X)^2}$$
+
+In the continuous case the analogy works similarly.
+
+.footnote[.red[*] <font size = 2>Sometimes you'll see n-1 instead of n in the formula above. Don't worry, we'll get to that</font>.]
+
+]
+
+
+---
+class: inverse, middle, center
+# Bottom line
+
+---
+# Don't confuse these two!
+
+.left-column[
+## Population 
+]
+.right-column[
+## *Theoretical* or *Population quantities* 
+
+$X \sim Normal(\mu, \sigma^2)$
+
+$E[X] = \int_{-\infty}^{\infty}x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}dx = \mu $
+
+$Var[X] = \int_{-\infty}^{\infty}(x - \mu)^2 \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}dx = \sigma^2 $
+
+<br><br>
+
+You work with a **probabilistic model**. There's no data!
+
+]
+
+
+
+---
+# Don't confuse these two!
+
+
+.left-column[
+## Population
+## Sample
+]
+.right-column[
+
+## *Empirical* or *Sample quantities* 
+
+$X = [-1.324,  0.551, -0.555,  0.205,  0.654,  0.114]$
+
+
+$\widehat{E}[X] = \frac{1}{n}\sum_{i}^{n} X_i = -0.05916$<br><br>
+
+$\widehat{Var}[X] = \frac{1}{n}\sum_{i}^{n} (X_i - (-0.5916))^2 = 0.4710$
+
+<br><br>
+
+You work with **data**. There's no probabilistic model!
+
+]
+
+---
+# Don't confuse these two!
+
+
+.left-column[
+## Population
+## Sample
+## Hyp. Testing
+]
+.right-column[
+
+## Why should we care?
+
+Because soon we'll work with this sort of problems:
+
+> <font size = 2>We see data $X = [ 5.58 ,  8.177,  6.789,  3.259,  3.945,  3.248]$, and we can compute its sameple mean and variance. How likely is it that this data came from a $Normal(4, 2)$ distribution?</font>
+
+From the data:
++ $\widehat{E}[X] = 5.16$ 
++ $\widehat{Var}[X] = 3.44$
+
+From the hypothesis:
++ $E[X] = 4$ 
++ $Var[X] = 2$
+
+]
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

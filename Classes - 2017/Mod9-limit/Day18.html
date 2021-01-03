@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Midterm Review 
+
+---
+# Basics
+.left-column[
+## Probability
+]
+.right-column[
+We started by defining **experiments** and their **elementary outcomes**. Using set theory, we collected the elementary outcomes in sets called **sample spaces**, whose subsets are **events**.
+
+<img src="eight_or_greater.png", width = 500>
+]
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+]
+.right-column[
+Next, we defined probability as a measure of **size of an event** relative to the size of the sample space. 
+
+To make sure that this notion of size would make sense, we decided upon three **Probabiliy Axioms**: 
+
+Let $\Omega$ be the sample space, and let  $A$ be an event.
+
+1. Positivity $$P(A)\geq 0 $$
+
+2. Unitarity $$P(\Omega) = 1$$
+
+3. Additivity.red[*]  If A and B are disjoint
+$$P(A \cup B) = P(A) + P(B)$$
+
+.footnote[<font size=1>.red[*] Actually this holds for infinite unions.</font>]
+]
+
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP 
+]
+.right-column[
+Set theory notation allowed us to come up with useful formulas, like the **Law of Total Probability**.
+
+<img src=lotp.jpeg>
+
+$$P(B) = P(B \cap A_1) + \cdots + P(B \cap A_n)$$
+
+]
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP 
+]
+.right-column[
+Set theory notation allowed us to come up with useful formulas, like the **Law of Total Probability**.
+
+<img src="cpt.png" height = 300>
+
+$$P(GradeA) = P(GradeA \cap Low) + P(GradeA \cap High)$$
+
+]
+
+
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP
+## Conditioning
+]
+.right-column[
+
+Next we want to discard events that we already know didn't happen, so we invented **Conditional Probability**. 
+<font size = 2>
+ We are interested in $A$
+.center[<img src="eight_or_greater.png", width = 100>]
+
+but then we learned only a subset B could have happened.
+.center[<img src="only_fours.png", width = 100>]
+
+So $B$ is our new, reduced sample space. The relevant outcomes because those in $ P(A \cap B) $
+
+
+.center[<img src="eight_or_greater_only_fours.png", width = 100>]
+
+
+and since there are 5 elements in $ A \cap B $ and 11 in $ B $
+
+$$P(A | B ) = \frac{P(A \cap B)}{P(B)} = \frac{5}{11}$$
+</font>
+
+]
+
+
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP
+## Conditioning
+## Chain rule
+]
+.right-column[
+
+A straightforward consequence of the conditional probability formula was this **chain rule** of probability. It that the the *joint probability* of two events can be broken into a *conditional* and a *marginal* probability.
+
+$$P(A \cap B) = P(A \ | \ B) P(B)$$
+
+or symmetrically,
+
+$$P(A \cap B) = P(B \ | \ A) P(A)$$
+
+
+]
+
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP
+## Conditioning
+## Chain rule
+## Bayes
+]
+.right-column[
+
+The chain rule, in turn, gave rise to the formula known as **Bayes Theorem**.
+<font size = 2>
+Start with
+
+$$P(A \cap B) = P(A \ | \ B) P(B)$$
+$$P(A \cap B) = P(B \ | \ A) P(A)$$
+
+Noting the left-hand sides are the same,
+
+$$P(A \ | \ B) P(B) = P(B \ | \ A) P(A) $$
+
+Diving through by $P(B)$,
+
+</font>
+$$P(A \ | \ B) = \frac{P(B \ | \ A) P(A)}{P(B)} $$
+
+<br><br>
+Bayes Theorem is useful which was useful when we know $P(B|A)$, but we're actually interested in $P(A|B)$.
+
+]
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP
+## Conditioning
+## Chain rule
+## Bayes
+]
+.right-column[
+
+We alternatively derived the same formula by reasoning through a "branching" process
+<br><br>
+.center[<img src="medical.jpg" width = 400>
+<font size=1>
+$$P(D | +) =
+\frac{P(+ \cap D)}{P(+ \cap D) + P(+ \cap D^c)} =
+\frac{P(+ | D)P(D)}{P(+)} =
+\frac{P(+ | D)P(D)}{P(+)} 
+$$
+</font>
+]
+]
+
+
+---
+# Basics
+.left-column[
+
+## Probability
+## LoTP
+## Conditioning
+## Chain rule
+## Bayes
+## Independence
+]
+.right-column[
+
+But not all events are informative (i.e., they don't help reduce the sample space). So we created the concept of **independence**. If $A \perp B$, then
+
+$$P(A \ | \ B) = P(A)$$
+
+Or equivalently (why?),
+
+$$P(A \cap B) = P(A)P(B)$$
+
+]
+
+
+
+---
+# Random Variables
+.left-column[
+## Random Variables
+]
+.right-column[
+
+Thinking about sets and their elements has its limitations.
+
+For example, what does "&#9856; + &#9857;" mean? 
+
+We need to map the outcome to a numerical representation first. 
+
+That's what **random variables**.red[*] do.
+
+<img src="die_map.jpg", height= 200>
+<br><br>
+.footnote[<font size=2>.red[*] Despite the name, random variables are <b>functions</b> from $\Omega$ to $\mathbb{R}$!</font>]
+]
+
+---
+# Random Variables
+.left-column[
+## Random Variables
+## PMFs
+]
+.right-column[
+It's great that we can use numbers now. But how can we compute probabilities? **Probability mass functions** to the rescue. 
+
+
+They map the outcome back to the sample space and pass it through the probability function. 
+
+<font size = 3>
+Example: let $X$ be the "sum of the numerical outcome of two dice rolls".
+
+
+$p_X(3) := P(X^{-1}(3)) $
+
+$\qquad \ \  = P(\\{&#9856;, &#9857;\\}\cup \\{ &#9857;, &#9856;\\})$
+
+$\qquad \ \  = P(\\{&#9856;, &#9857;\\}) +  P(\\{ &#9857;, &#9856;\\})$
+
+$\qquad \ \  = \frac{1}{36} +  \frac{1}{36}$
+
+$\qquad \ \  = \frac{1}{18}$
+
+]
+
+
+---
+# Random Variables
+.left-column[
+## Random Variables
+## PMFs
+## CDFs
+]
+.right-column[
+
+Very often we will be talking about probabilities of $X \leq k$ for some real number $k$. So for convenience we invented **cumultive distribution functions**.
+
+$$F_X(k) = P(\{\text{Event that leads to } X \leq k\})$$
+
+<img src="cdf1.png" height = 200>
+
+$F_X(3) := P(X^{-1}(3) \cup X^{-1}(2) \cup X^{-1}(1)) $
+
+$\qquad \ \  = P(\\{&#9856;, &#9856;\\}\cup 
+							    \\{&#9856;, &#9857;\\}\cup 
+								\\{ &#9857;, &#9856;\\})$
+
+$\qquad \ \  = \frac{3}{36}$
+
+]
+
+---
+# Random Variables
+.left-column[
+## Random Variables
+## PMFs
+## CDFs
+## PDFs
+]
+.right-column[
+
+So now we can easily talk about probabilities of numerical outcomes. 
+
+The problem is that some experiments have such a huge sample space that we can't give positive probability to each elementary outcome.
+.center[
+<img src="supp3.png" height = 120>
+<img src="supp10.png" height = 120>
+<img src="supp25.png" height = 120>
+]
+
+So by analogy with the discrete case we define the **probability density function**, thatells us about an infinitesimal change in the CDF:
+
+$$f_X(x) = \frac{d}{dx}F_X(x)$$
+]
+
+
+---
+# Random Variables
+.left-column[
+## Random Variables
+## PMFs
+## CDFs
+## PDFs
+## Named distributions
+]
+.right-column[
+
+Some settings we encounter over and over again, giving rise to the same distribution. In these cases, it's convenient to give these distributions names.
+
+
++ Uniform: Every outcome has same probability
+
++ Bernoulli: YES/NO events
+
++ Binomial: Counts YES in $n$ YES/NO trials
+
++ Geometric: Number of trials (or failures) before success
+
++ Exponential: Continuous waiting times
+
++ Normal: Many natural phenomena
+
++ Student-t: Extreme, rare events
+
+...And many more to come!
+]
+
+
+---
+# Moments 
+.left-column[
+## Expectation 
+]
+.right-column[
+We saw three measures of centrality (mean, median, mode). The most important of these is the **mean**, or **expectation**. 
+
+
+It was the **center of mass** of the distribution, and in symbols it's denoted by 
+
+$$E[X] = \sum_k k \cdot p_X(k)  \qquad E[X] = \int x \cdot f_X(x) dx $$
+
+
+The most important property of expectation was **linearity**
+
+$$E[aX + bY] = aE[X] + bE[Y]$$
+
+]
+
+
+---
+# Moments 
+.left-column[
+## Expectation 
+## Second moments
+]
+.right-column[
+
+We might also be interested in its spread, or how slanted it is, or if it has fat tails, etc.
+
+It turns out that the **moments** of an r.v. $X$, denoted by $E[X^k]$ can summarize these properties.<br><br>
+<img src="norm1.png" height = 200>
+<br>
+The **second moment** $E[X^2]$ tells us about the spread of zero-centered distributions.
+]
+
+---
+# Moments 
+.left-column[
+## Expectation 
+## Second moments
+## Variance
+]
+.right-column[
+For $X$ such that $E[X] \neq 0$, the second moment didn't help us much. No problem: we can just center the random variable first, and compute its **centered second moment**.
+
+$$Var(X) = E[(X - EX)^2]$$
+
+This is such an important quantity that it receives its own name: **variance**. 
+
+Moreover, its square-root is called the **standard deviation**.
+
+<br><br>
+Note that the variance does **not** share the linearity property. In general,
+
+$$Var(X + Y) \neq Var(X) + Var(Y)$$
+
+However, this is true if $X \perp Y$.
+
+]
+
+
+---
+# Moments 
+.left-column[
+## Expectation 
+## Second moments
+## Variance
+## Higher moments
+]
+.right-column[
+
+Higher moments such as $E[X^3], E[X^4],\cdots$ are important, but they are harder to interpret.
+<br><br><br><br>
+You should, however, remember this:
+
+If $X$ and $Y$ are such that $E[X^k] = E[Y^k]$ for all $k$, then $X$ and $Y$ have the same distribution. .red[*]
+
+.footnote[<font size=1>.red[*] Under some technical conditions you won't worry about until grad school.</font>]
+]
+
+
+
+---
+# Limit Theorems
+.left-column[
+## Sums and means 
+]
+.right-column[
+
+Last week, we started thinking about what happens when we **sum** or **average** more and more random variables.
+<br><br>
+$$S_n = X_1 + \cdots + X_n$$
+$$Z_n = \frac{1}{n}[X_1 + \cdots + X_n]$$
+<br><br>
+When $X_i$'s are independent samples from a distribution, then $Z_n$ is the **sample mean** of $X_i$.
+
+A very important caveat here was that:
+
+.center[<b>Both of these are random variables!</b>]
+
+]
+
+
+---
+# Limit Theorems
+.left-column[
+## Sums and means 
+## CLT
+]
+.right-column[
+
+<img src="clt.png" height = 400>
+
+The **central limit theorem** says that the distribution of the sum $S_n = X_1 + \cdots + X_n$ becomes Normal when $n$ is large.
+]
+
+---
+# Limit Theorems
+.left-column[
+## Sums and means 
+## CLT
+## LLN
+]
+.right-column[
+<img src="lln.png", width = 500>
+<font size = 4>The **law of large numbers** says that this distribution collapses on the true mean:
+$$Z_n = \frac{1}{n}[X_1 + \cdots + X_n] \rightarrow^p E[X_i]$$
+]
+
+
+---
+# Limit Theorems
+.left-column[
+## Sums and means 
+## CLT
+## LLN
+]
+.right-column[
+
+### Summary
+
+$Z_n= \frac{1}{n}\sum_i^n X_i$ with $E[X_i] = \mu$ and $Var(X_i) = \sigma^2$, then
+<br><br>
++ **CLT:** When $n$ is large, $Z$ is approximately normal:
+
+$$Z_n \sim^a Normal(\mu, \frac{\sigma^2}{n})$$
+<br>
++ **LLN: ** As $n$ approaches infinity, the probability that $Z$ is far from $E[X_i] = \mu$ goes to zero
+
+$$Z_n \rightarrow^p E[X_i] = \mu$$
+
+
+
+
+]
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

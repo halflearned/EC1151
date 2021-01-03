@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 30px #777;
+        -webkit-box-shadow: 0 0 30px #777;
+        box-shadow: 0 0 30px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+count: false
+# Hypothesis Testing
+--
+
+(Without Python)
+
+---
+
+class: inverse, middle, center
+count: false
+# Testing proportions with large $n$
+
+---
+class: middle, center
+<img src="fig1.png" width = 700>
+
+---
+class: middle, center
+<img src="fig2.png" width = 700>
+
+We polled 1000 voters and 550 said they'd vote for *Astute* for president.
+<br><br>
+Does that mean that Astute holds a majority *in the population*?
+
+---
+class: middle, center
+<img src="fig3.png" width = 400>
+
+---
+class: middle, center
+<img src="fig4.png" width = 400>
+
+--
+<br><br>
+<font size=2>
+Note: This is the same as having $H_0: p \leq .50$ <br>
+
+because if we reject $p = .5$, we'll certainly reject $p = .3$, for example
+</font>
+---
+class: middle, center
+<img src="fig5.png" width = 400>
+
+
+---
+class: center
+# Test statistic and its distribution
+
+Model each vote as $Bernoulli(p)$.
+
+$$E[X_i] =   \qquad \qquad \qquad Var[X_i] = $$
+
+
+
+---
+count: false
+class: center
+# Test statistic and its distribution
+
+Model each vote as $Bernoulli(p)$.
+
+$$E[X_i] = p \qquad \qquad Var[X_i] = p(1-p)$$
+
+--
+<br><br>
+Our statistic is a sample mean,
+
+$\hat{p} = \frac{1}{n} \sum_{i} X_i$
+
+so if $n$ is large we can use the CLT,
+
+$\hat{p} \sim^a N( \qquad, \qquad )$
+
+
+---
+count: false
+class: center
+# Test statistic and its distribution
+
+Model each vote as $Bernoulli(p)$.
+
+$$E[X_i] = p \qquad \qquad Var[X_i] = p(1-p)$$
+<br><br>
+Our statistic is a sample mean,
+
+$\hat{p} = \frac{1}{n} \sum_{i} X_i$
+
+so if $n$ is large we can use the CLT,
+
+$\hat{p} \sim^a N(p, \frac{p(1-p)}{n} )$
+<br><br><br>
+
+--
+This is a Normally distributed r.v., so if we standardize it
+
+$\frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}} \sim^a N(0, 1)$
+
+
+
+
+
+---
+class: center
+<br><br>
+
+<img src="fig6.png" width = 400>
+
+--
+<img src="fig11.png" width = 400>
+
+--
+<br><br>
+By the way: if the null is *false*, what is the distribution of this statistic? 
+
+
+---
+class: middle, center
+<img src="fig7.png" width = 400>
+
+---
+class: center
+<img src="fig8.png" width = 400>
+--
+<img src="fig13.png" width = 400>
+
+
+---
+class: center
+<img src="fig9.png" width = 300>
+--
+<br><br><br>
+<img src="fig14.png" width = 300>
+
+---
+class: inverse, middle, center
+count: false
+# Testing means <br> large $n$ <br> or <br> known variance
+
+---
+class: center, middle
+<img src="fig15.png" width = 600>
+
+---
+class: center, middle
+<img src="fig15.png" width = 600>
+
+---
+class: center
+# Step 1) Hypothesis
+<br>
+.center[<img src="fig16.png" width = 300>]
+
+---
+class: center
+# Step 2) Statistic and its distribution
+<br>
+The obvious statistic is the **sample mean**
+
+$$\bar{X} = \frac{1}{n} \sum_i X_i \qquad \text{Each $X_i$ is one cereal box's weight}$$
+
+--
+By the CLT, if $E[X_i] = \mu$ and $Var[X_i] = \sigma^2$, then
+
+$$\bar{X} \sim^a Normal( \qquad, \qquad)$$
+
+---
+count:false
+class: center
+# Step 2) Statistic and its distribution
+<br>
+The obvious statistic is the **sample mean**
+
+$$\bar{X} = \frac{1}{n} \sum_i X_i \qquad \text{Each $X_i$ is one cereal box's weight}$$
+
+By the CLT, if $E[X_i] = \mu$ and $Var[X_i] = \sigma^2$, then
+
+$$\bar{X} \sim^a Normal( \mu, \frac{\sigma^2}{n})$$
+--
+Therefore, after standardization, we have
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\sigma^2}{n}}} \sim^a Normal( \qquad , \qquad)$$
+
+
+---
+count:false
+class: center
+# Step 2) Statistic and its distribution
+<br>
+The obvious statistic is the **sample mean**
+
+$$\bar{X} = \frac{1}{n} \sum_i X_i \qquad \text{Each $X_i$ is one cereal box's weight}$$
+
+By the CLT, if $E[X_i] = \mu$ and $Var[X_i] = \sigma^2$, then
+
+$$\bar{X} \sim^a Normal( \mu, \frac{\sigma^2}{n})$$
+
+Therefore, after standardization, we have
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\sigma^2}{n}}} \sim^a Normal(0, 1)$$
+
+---
+count:false
+class: center
+# Step 2) Statistic and its distribution
+<br>
+The obvious statistic is the **sample mean**
+
+$$\bar{X} = \frac{1}{n} \sum_i X_i \qquad \text{Each $X_i$ is one cereal box's weight}$$
+
+By the CLT, if $E[X_i] = \mu$ and $Var[X_i] = \sigma^2$, then
+
+$$\bar{X} \sim^a Normal( \mu, \frac{\sigma^2}{n})$$
+
+Therefore, after standardization, we have
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\sigma^2}{n}}} \sim^a Normal(0, 1)$$
+
+---
+class: center
+# Step 2) Statistic and its distribution
+<br>
+From the data: the sample mean is $\bar{X} = 15.9$.
+
+The sample variance is $\hat{\sigma}^2 = .35^2$
+
+--
+
+<b>Important</b> Our statistic is not quite the same as the one <br>
+in the previous slide because we're estimating $\sigma$.
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\widehat{\sigma}^2}{n}}} \qquad \qquad \qquad$$
+
+
+---
+class: center
+# Step 2) Statistic and its distribution
+<br>
+From the data: the sample mean of 49 boxes is $\bar{X} = 15.9$.
+
+The sample variance is $\hat{\sigma}^2 = .35^2$
+
+<b>Important</b> Our statistic is not quite the same as the one <br>
+in the previous slide because we're estimating $\sigma$.
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\widehat{\sigma}^2}{n}}} \sim^a Normal(0, 1)$$
+
+However if $n$ is large, this is also approximately standard $Normal$!
+<br><br>
+--
+.center[<img src="fig17.png" width = 400>]
+
+---
+class: center
+## Step 3) P-values and &nbsp; &nbsp; &nbsp; 4) (Do not) reject $H_0$
+<br>
+.center[<img src="fig18.png" width = 300>]
+
+---
+class: center
+## Step 3) P-values and &nbsp; &nbsp; &nbsp; 4) (Do not) reject $H_0$
+<br>
+.center[<img src="fig19.png" width = 300>]
+
+---
+# What's going on?
+<br>
+.center[<img src="na.png" width = 500>]
+
+---
+# What's going on?
+<br>
+.center[<img src="nb.png" width = 500>]
+
+---
+# What's going on?
+<br>
+.center[<img src="nc.png" width = 500>]
+--
+<br>
+.center[Since -2 falls inside the rejection region, we reject $H_0$.]
+
+
+---
+class: center, middle, inverse
+# Testing means when $n$ small <br> and $\sigma$ unknown
+
+---
+class: center
+# What if $n$ were small?
+
+In that case the Normal approximation is a bad approximation.
+--
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\widehat{\sigma}^2}{n}}} \sim t_{n-1}$$
+--
+.center[<img src="fig20.png" width = 300>]
+
+---
+count:false
+class: center
+# What if $n$ were small?
+
+In that case the Normal approximation is a bad approximation.
+
+$$\frac{\bar{X} - \mu}{\sqrt{\frac{\widehat{\sigma}^2}{n}}} \sim t_{n-1}$$
+
+.center[<img src="fig21.png" width = 300>]
+
+---
+class: middle, center
+# Checking the t-table
+
+.center[<img src="tab1.png" width = 600>]
+
+---
+class: middle, center
+# Checking the t-table
+
+.center[<img src="tab2.png" width = 600>]
+--
+<br><font size = 2>
+	Note: the table assumes the one-tailed test is of the "$\geq$" kind, i.e., $H_0: \mu \geq [\text{some value}]$. <br>
+For "$\leq$", just take multiply all values by $-1$.
+</font>
+
+---
+class: middle, center
+# Checking the t-table
+
+.center[<img src="t48a.png" width = 600>]
+
+---
+class: middle, center
+# Checking the t-table
+
+.center[<img src="t48b.png" width = 600>]
+
+
+---
+class: middle, center
+# Checking the t-table
+
+.center[<img src="t48c.png" width = 600>]
+
+In this case we would $not$ reject the null hypothesis!
+
+
+---
+class: middle, center, inverse
+# Hypothesis Testing <br>and<br> Confidence Intervals
+
+---
+# Duality
+
+Confidence intervals allows us to **test many hypotheses at once**.
+<br><br>
+--
+
+<br>
+.center[That's because saying]
+
+<br>
+
+> *Given the data, there's a 95% chance that $[\hat{L}, \ \hat{U} ]$ will cover $\mu$*
+
+<br>
+
+.center[is equivalent to saying]
+
+<br>
+--
+
+> *Given the data, any reasonable.red[*] $\mu$ must fall within $[\hat{L}, \ \hat{U} ]$*
+
+--
+<br><br>
+<font size=2>
+.red[*] Where "reasonable" means that it would be unlikely that a true $\mu$ would like outside the random interval. </font>
+
+
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci0.png" width = 600>]
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci1.png" width = 600>]
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci3.png" width = 600>]
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci5.png" width = 600>]
+
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci4.png" width = 600>]
+
+
+---
+class: middle, center
+# Duality
+.center[<img src="ci6.png" width = 600>]
+
+---
+# Takeaway
+
+In short, if STATA, Python, etc outputs a 95% confidence interval by default
+
+.center[<img src="tab3.png" width = 600>]
+<br>
+Any hypothesis with parameters outside the range of 95% confidence interval would be automatically rejected (at 5% significance level).
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

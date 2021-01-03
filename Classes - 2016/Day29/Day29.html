@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Regression as Maximum Likelihood
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+
+.right-column[
+
+Given some data on $(X,Y)$...
+
+<img src="dataxy.png", width = 500>
+
+]
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+Find a good guess function $Y \approx g(x)$.
+
+<img src="dataxy_wg.png", width = 500>
+
+Usually $g(x) = E[Y|X = x]$.
+
+]
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 1) Assume a probabilistic model
+
+How does $Y$ depend on $X$? Example:
+
+$$Y|X = x \sim Normal(\mu(x), \sigma^2)$$
+
+### 2) Assume a functional model
+
+What kind of function is that?
+
+$$\mu(x) = E[Y|X = x] = a + bx$$
+
+### 3) Estimation
+
+What are the parameters of the function?
+
+$$\hat{\mu}(x) = 2 + 3x$$
+
+]
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 1) Assume a probabilistic model
+
+.center[<img src ="cond_norm_3d.png", width = 600>]
+
+]
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 1) Assume a probabilistic model
+
+.center[<img src ="norm_3d_alpha.png", width = 600>]
+
+]
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 1) Assume a probabilistic model
+
+.center[<img src ="norm_3d_contour_dataxy.png", width = 500>]
+
+]
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 2) Assume a functional model
+
+.center[<img src ="norm_3d_contour_exys.png", width = 500>]
+
+]
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+]
+
+.right-column[
+
+### 3) Estimate the parameters
+
+.center[<img src ="norm_3d_contour_exy.png", width = 500>]
+
+]
+
+
+---
+
+# Today's goal 
+.left-column[
+## Objective 
+## Issue
+]
+
+.right-column[
+
+### Main problem
+
+<br><br>
+(Assuming parts 1 and 2 are correct)
+<br><br>
+What parameters $(a,b)$ are **most likely** to have generated the data?
+<br><br>
+Solve by **maximum likelihood**.
+
+]
+
+
+---
+
+# Univariate case
+.left-column[
+## PDF
+]
+
+.right-column[
+
+Step back for a moment. Recall 1D case.
+
+The PDF of $Y \sim Normal(\mu, \sigma^2)$ looks like:
+<font size = 4>
+$$f_Y(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(y - \mu)^2}{\sigma^2}}$$
+</font>
+
+The **likelihood** is a function of the two parameters $\mu$ and $\sigma^2$
+
+]
+
+
+---
+
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+.right-column[
+
+Suppose our data is 
+<font size = 3>
+$y = [0.367,  1.7,  0.277,  0.184,  2.553, 3.151, -0.342,  3.44, 3.055,  2.873]$
+</font>
+
+Same reasoning as last class. Fix $\mu$, $\sigma^2$.
+
+$$f_Y(0.367) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(0.367 - \mu)^2}{\sigma^2}}$$
+
+$$f_Y(1.7) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(1.7 - \mu)^2}{\sigma^2}}$$
+
+$$\cdots$$
+
+$$f_Y(2.873) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(2.873 - \mu)^2}{\sigma^2}}$$
+
+]
+
+---
+
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+.right-column[
+
+Likelihood is product of all these terms.
+<font size = 3>
+$L(\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(0.367 - \mu)^2}{\sigma^2}} \times
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(1.7 - \mu)^2}{\sigma^2}} \times
+\cdots \times 
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(2.873 - \mu)^2}{\sigma^2}}$
+</font>
+
+]
+
+---
+count:false
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+.right-column[
+
+In general, if our data is $Y_1, \cdots, Y_n$
+<font size = 3>
+$L(\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_1 - \mu)^2}{\sigma^2}} \times
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_2 - \mu)^2}{\sigma^2}} \times
+\cdots \times 
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_n - \mu)^2}{\sigma^2}}$
+</font>
+
+Looks hairy! 
+]
+
+---
+count:false
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+.right-column[
+
+In general, if our data is $Y_1, \cdots, Y_n$
+<font size = 3>
+$L(\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_1 - \mu)^2}{\sigma^2}} \times
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_2 - \mu)^2}{\sigma^2}} \times
+\cdots \times 
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_n - \mu)^2}{\sigma^2}}$
+</font>
+
+Looks hairy! But if we maximize the log-likelihood, we get:
+
+$$\hat{\mu} = \frac{1}{n}\sum_{i} Y_i$$
+
+$$\hat{\sigma}^2 = \frac{1}{n}\sum_i (Y_i - \hat{\mu})^2$$
+
+What are these and why are they familiar?
+
+]
+
+
+---
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+.right-column[
+
+## Mean as MLE
+
+Let's zoom in the log-likelihood.
+$$ L(\mu, \sigma^2) = \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right)^n e^{-\frac{1}{2}\frac{\sum_i (Y_i - \mu)^2}{\sigma^2}} $$
+
+$$\log L(a, b, \sigma^2) = -n \log \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right) - \frac{1}{2}\frac{\sum_i (Y_i - \mu)^2}{\sigma^2} $$
+
+Concentrate on terms involving $\mu$:
+
+$$\log L(a, b, \sigma^2) \propto \frac{1}{2}\sum_i (Y_i - \mu)^2 $$
+
+.footnote[<font size= 1>.red[*] The symbol $\propto$ means "proportional to". It's \propto in $\LaTeX$. </font>]
+]
+
+
+---
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+.right-column[
+
+## Mean as MLE
+
+.center[
+Maximizing the log-likelihood 
+
+$$\Leftrightarrow$$ Minimizing <font color="red">sum of squared residuals</font>
+
+$$ -\log L(\mu, \sigma^2) \propto \frac{1}{2} \sum_i (Y_i - \mu)^2$$
+]
+
+
+]
+
+---
+# Univariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+.right-column[
+
+## Mean as MLE
+
+.center[
+The mean minimizes the squared residuals
+
+<img src="weights.png" width = 600>
+]
+
+.footnote[<font size =1>Figure adapted from Stahl, S. (2006). The evolution of the normal distribution. Mathematics magazine, 79(2), 96-113.</font>]
+
+]
+
+
+
+
+---
+
+# Bivariate case
+.left-column[
+## PDF
+]
+
+
+.right-column[
+
+Very few things change in the 2D case.
+<br>
+
+The PDF of $Y|X=x \sim Normal(\mu(x), \sigma^2)$ looks like:
+<font size = 4>
+$$f_Y(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(y - \mu(x))^2}{\sigma^2}}$$
+</font>
+<br>
+Furthermore, if we assume that $\mu(x) = a + bx$, then
+<font size = 4>
+$$f_Y(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(y - a - bx))^2}{\sigma^2}}$$
+</font>
+
+]
+
+---
+
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+
+.right-column[
+
+If our data is $(X_1, Y_1), \cdots, (X_n, Y_n)$,
+
+<font size = 3>
+$L(a, b, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_1 - a - bX_1)^2}{\sigma^2}} \times
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_2 - a - b X_2)^2}{\sigma^2}} \times
+\cdots \times 
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_n - a - b X_n)^2}{\sigma^2}}$
+</font>
+
+]
+
+---
+
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+]
+
+
+.right-column[
+
+If our data is $(X_1, Y_1), \cdots, (X_n, Y_n)$,
+
+<font size = 3>
+$L(a, b, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_1 - a - bX_1)^2}{\sigma^2}} \times
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_2 - a - b X_2)^2}{\sigma^2}} \times
+\cdots \times 
+\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(Y_n - a - b X_n)^2}{\sigma^2}}$
+</font>
+
+After a *lot* of awful algebra:.red[*]
+<font size =3>
+
+$$\hat{b} = \frac{\sum_i (X_i - \hat{\mu}_x)(Y_i - \hat{\mu}_Y)}{\sum_j (X_j - \hat{\mu}_X)}$$
+$$\hat{a} = \hat{\mu}_Y - b\hat{\mu}_X$$
+$$\hat{\sigma}^2 = \frac{1}{n}\sum_i (Y_i - \hat{\mu}_Y)^2$$
+</font>
+<font size=2>
+	where $\hat{\mu}_X = \frac{1}{n} \sum_i X_i$ and $\hat{\mu}_Y = \frac{1}{n} \sum_i Y_i$ are sample means.
+</font>
+
+.footnote[<font size =1>.red[*] These formulas work only for the case where we have only one variable $X$.</font>]
+]
+
+---
+
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+
+.right-column[
+
+## Regression as maximum likelihood
+
+Let's zoom in the log-likelihood.
+$$
+L(a, b, \sigma^2) = \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right)^n e^{-\frac{1}{2}\frac{\sum_i (Y_i - a - bX_i)^2}{\sigma^2}} $$
+
+$$
+\log L(a, b, \sigma^2) = -n \log \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right) - \frac{1}{2}\frac{\sum_i (Y_i - a - bX_i)^2}{\sigma^2} $$
+
+]
+
+
+---
+count:false
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+
+.right-column[
+
+## Regression as maximum likelihood
+
+Let's zoom in the log-likelihood.
+$$ L(a, b, \sigma^2) = \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right)^n e^{-\frac{1}{2}\frac{\sum_i (Y_i - a - bX_i)^2}{\sigma^2}} $$
+
+$$ \log L(a, b, \sigma^2) = -n \log \left( \frac{1}{\sqrt{2\pi\sigma^2}} \right) - \frac{1}{2}\frac{\sum_i (Y_i - a - bX_i)^2}{\sigma^2} $$
+
+Let's concentrate on the terms involving $a,b$ 
+
+$$ \log L(a, b, \sigma^2) \propto - \frac{1}{2} \sum_i (Y_i - a - bX_i)^2$$
+
+]
+
+
+---
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+
+.right-column[
+
+## Regression as maximum likelihood
+.center[
+Maximizing the log-likelihood 
+$$\Leftrightarrow$$ Minimizing <font color="red">sum of squared residuals</font>]
+
+$$ -\log L(a, b, \sigma^2) \propto \frac{1}{2} \sum_i (Y_i - a - bX_i)^2$$
+
+]
+
+
+---
+# Bivariate case
+.left-column[
+## PDF
+## Likelihood
+## Intuition
+]
+
+
+.right-column[
+
+## Regression as maximum likelihood
+.center[
+<img src="ols.png" width = 300>
+
+Blue line is 
+
+$$\hat{a} + \hat{b}x$$
+
+]
+
+]
+
+---
+# Going further
+.left-column[
+## Multivariate
+]
+
+
+.right-column[
+## Multivariate case 
+<font size =3>None of this will change in the multivariate case.</font>
+
+.center[
+<img src="ols2dlinear.png" width = 350>
+
+<img src="olsfmla1.png" width = 400>
+]
+
+]
+
+---
+# Going further
+.left-column[
+## Multivariate
+## Nonlinear
+]
+
+
+.right-column[
+## Multivariate case 
+<font size =3>None of this will change in the nonlinear case.</font>
+
+.center[
+<img src="olsnonlinear.png" width = 350>
+
+<img src="olsfmla2.png" width = 400>
+]
+
+]
+
+---
+# Going further
+.left-column[
+## Multivariate
+## Nonlinear
+## Both
+]
+
+
+.right-column[
+## Multivariate case 
+<font size =3>None of this will change in the nonlinear, multivariate case.</font>
+
+.center[
+<img src="ols2dnonlinear.png" width = 350>
+
+<img src="olsfmla3.png" width = 400>
+]
+
+]
+
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+

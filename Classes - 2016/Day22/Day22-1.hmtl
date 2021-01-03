@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Transformations
+---
+
+# Transformations
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Monotone functions
+<img src="monotone_functions.png" width = 600>
+]
+
+---
+
+# Transformations
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Monotone functions
+<img src="non_monotone_difference.png" height = 300 width = 600>
+
+Stricly monotone functions have inverses.
+]
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Inverses
+
+Remember how to find the inverse of a function?
+
+Let $g(x) = \sqrt{x^{2} + 7}$, for $x > 0$. 
+
+Our goal is to find $g^{-1}(y)$.
+
+$g(x) = y $
+
+$\sqrt{x^{2} + 7} = y$
+
+$x^{2} + 7 = y^2$
+
+$x^{2}= y^2 - 7$
+
+$x = \sqrt{y^2 - 7} = g^{-1}(y)$
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Inverses
+
+What happens if the function is not strictly monotone?
+
+Let $g(x) = x^{2}$.
+
+Then $y = \pm \sqrt{x}$
+
+<img src="two_inverses.png" height = 200>
+
+Two inverses!
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+]
+.right-column[
+## Inequalities
+
+If 
+$$a \leq b$$
+Then 
+$$-a \geq -b$$
+
+<br><br>
+In general, if $g$ monotone decreasing, then:
+$$a \leq b$$
+Then 
+$$g(a) \geq g(b)$$
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+]
+.right-column[
+## Discrete Random variables
+
+You know this case already. 
+
+$X \sim Binomial(3, \frac{1}{2})$, and $Z = \sqrt{X + 17}$
+
+Then 
+
+$$X = 
+\begin{cases}
+0 \qquad \frac{1}{8 }\\\
+1 \qquad \frac{3}{8 }\\\
+2 \qquad \frac{3}{8 }\\\
+3 \qquad \frac{1}{8 }\\\
+\end{cases}
+$$
+
+]
+
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+]
+.right-column[
+## Discrete Random variables
+
+You know this case already.
+
+$X \sim Binomial(3, \frac{1}{2})$, and $Z = \sqrt{X + 17}$
+
+Then 
+
+$$Z = 
+\begin{cases}
+\sqrt{0 + 17} \qquad \frac{1}{8 }\\\
+\sqrt{1 + 17} \qquad \frac{3}{8 }\\\
+\sqrt{2 + 17} \qquad \frac{3}{8 }\\\
+\sqrt{3 + 17} \qquad \frac{1}{8 }\\\
+\end{cases}
+$$
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+]
+.right-column[
+## Discrete Random variables
+
+You know this case already. 
+
+$X \sim Binomial(3, \frac{1}{2})$, and $Z = \sqrt{X + 17}$
+
+So if we wanted to know $p_Z(\sqrt{17})$ we check $p_X(0)$.
+
+<br>
+<font size = 3>
+First note:
+
+$Z = \sqrt{X + 17} \implies X = Z^2 - 17$ 
+
+Then 
+$$
+p_Z(\sqrt{17}) = P(Z = \sqrt{17}) = P(Z^2 - 17 = \sqrt{17}^2 - 17) = P(X = 0) = p_X(0)
+$$
+</font>
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+]
+.right-column[
+## Discrete Random variables
+You know this case already. 
+
+$X \sim Binomial(3, \frac{1}{2})$, and $Z = g(X)$, monotone
+
+So if we wanted to know $p_Z(z)$ we check $p_X(g^{-1}(z))$.
+
+After all,
+
+$$p_Z(z) = P(Z = z) = P(X = g^{-1}(z)) = p_X(g^{-1}(z))$$
+
+.footnote[What if $g$ not monotone? [&#128211;] ]
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+]
+.right-column[
+## Discrete Random variables
+You know this case already. 
+
+$X \sim Binomial(3, \frac{1}{2})$, and $Z = g(X)$, monotone
+
+So if we wanted to know $p_Z(z)$ we check $p_X(g^{-1}(z))$.
+
+After all,
+
+$$p_Z(z) = P(Z = z) = P(X = g^{-1}(z)) = p_X(g^{-1}(z))$$
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<br>
+**Step 1** Find CDF of transformed variable $Z$ in terms of $X$
+
+$F_Z(z) = P(Z \leq z)$
+
+$ \ \ \ \ \ \ \ \ \ = P(\frac{Z - 1}{2} \leq \frac{z-1}{2})$
+
+$ \ \ \ \ \ \ \ \ \ = P(X \leq \frac{z-1}{2})$
+
+$ \ \ \ \ \ \ \ \ \ = F_X(\frac{z-1}{2})$
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<br>
+**Step 1** Find CDF of transformed variable $Z$ in terms of $X$
+<br><br>
+Here, if we plug in $F_X(x) = 1 - e^{-\lambda x}$
+<br><br>
+$F_Z(z) = F_X(\frac{z-1}{2})$
+
+$ \ \ \ \ \ \ \ \ \ = 1 - e^{-\lambda \frac{z-1}{2}}$
+
+]
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<br>
+**Step 2** Take derivatives of the CDF to find the PDF
+
+<br><br>
+$f_Z(z) = \frac{d}{dz}F_Z(z)$
+
+$ \ \ \ \ \ \ \ \  = \frac{d}{dz}F_X(\frac{z-1}{2})$
+
+$ \ \ \ \ \ \ \ \  = f_X(\frac{z-1}{2})\frac{d}{dz} \left[ \frac{z-1}{2} \right] $
+
+$ \ \ \ \ \ \ \ \  = f_X(\frac{z-1}{2})\frac{1}{2}$
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<br>
+**Step 2** Take derivatives of the CDF to find the PDF
+
+Here, if we plug in $f_X(x) = \lambda e^{\lambda x}$
+
+<br>
+$f_Z(z) = f_X(\frac{z-1}{2})\frac{1}{2}$
+
+$ \ \ \ \ \ \ \ \  =  \lambda e^{\lambda \frac{z-1}{2}}\frac{1}{2}$
+
+]
+
+
+---
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<br>
+**Step 3** Find out new support
+
+The support of $X$ was $[0,\infty]$
+
+The support of $Z$ was $[2\cdot 0 + 1, 2\cdot \infty + 1] = [1,\infty]$
+
+]
+
+---
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+Example: $X \sim Exponential(\lambda)$ and $Z = 2X + 1$ 
+
+<img src="expo1.png" height = 350>
+
+]
+
+
+
+
+---
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+]
+.right-column[
+## Continuous Random variables ($g$ monotone)
+
+In general, we have the **change-of-variables formula**:
+
+<br><br>
+<font size=5>
+	$$f_Z(z) = f_X(g^{-1}(z))\left|\frac{d}{dz}g^{-1}(z) \right|$$
+</font>
+
+.footnote[Why do we need the absolute value? [&#128211;] ]
+]
+
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+## Standardization
+]
+
+
+.right-column[
+## Standardizing statistics 
+
+For reasons that will become apparent later, it's common to *standardize* statistics.
+
+To **standardize** a random variable means to subtract its mean and divide it by its standard deviation. 
+
+$$X \mapsto \frac{X - E[X]}{\sqrt{Var(X)}}$$
+
+Now the transformed random variable has zero mean and unit variance.red[*] 
+
+.footnote[<font size=1>.red[*]As you've checked in HW6</font>]
+
+]
+
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+## Standardization 
+]
+
+
+.right-column[
+## Standardizing statistics 
+
+Note, the word **normalization** has little to do with the Normal distribution.
+
+However, if the random variable is a sample mean, then by the CLT:
+
+$$Z = \frac{1}{n}\sum_i X_i \sim^a Normal(E[X], \frac{Var(X)}{n})$$
+
+And the normalized $Z$ is standard Normal
+
+$$\frac{Z - E[X]}{\sqrt{\frac{Var(X)}{n}}} \sim^a Normal(0, 1)$$
+
+]
+
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+## Standardization
+]
+
+
+.right-column[
+## Standardizing statistics 
+
+In fact, you will most often see the CLT stated like this:
+<br><br>
+> If $X_1, \cdots, X_n$ are independent random variables such that $E[X_i] = \mu$ and $Var(X_i) = \sigma^2 < \infty$, then
+
+$$\sqrt{n}(\frac{1}{n}\sum_i X_i - \mu) \sim^a Normal(0, \sigma^2)$$
+
+.footnote[Convince yourself that this makes sense.]
+
+]
+
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+## Normalizations
+## Common
+]
+
+
+.right-column[
+## Common transformations
+
+It's useful to know that many named distributions are connected to each other via transformations. For example:
+
++ If $X \sim Unif[0,1]$, then $-\log(X) \sim Expo(1)$ 
+<img src="unif_expo.png" height = 220>
+
+]
+
+
+---
+
+# Transformations 
+.left-column[
+## Preliminaries
+## Discrete
+## Continuous
+## Change-of-variables
+## Normalizations
+## Common
+]
+
+
+.right-column[
+## Common transformations
+
+It's useful to know that many named distributions are connected to each other via transformations. For example:
+
++ If $X \sim Normal(0,1)$, then $X^2 \sim \chi^2_1$ 
+<img src="normal_chi.png" height = 220>
+
+]
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+

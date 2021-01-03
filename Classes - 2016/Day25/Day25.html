@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Joint Distributions
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+]
+.right-column[
+Many weeks back, we worked with this kind of table...
+<br><br>
+.center[<img src="table.png" width = 300>]
+
+...and you learned to answer such questions as
+
++ What is $P(Low \cap B)$?
++ What is $P(B)$?
++ What is $P(High \ | \ B)$?
+]
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+]
+.right-column[
+A little after that, you learned about **random variables** mapping the sample space to the real numbers.
+<br><br>
+Ex: $Y$ maps letter grades to numerical values
+$$Y(\\{ A \\}) \rightarrow 100$$
+$$Y(\\{ B \\}) \rightarrow 80$$
+$$Y(\\{ C \\}) \rightarrow 60$$
+<br>
+Ex: $X$ maps effort levels to number of hours studying
+$$X(\\{ Low \\}) \rightarrow 1$$
+$$X(\\{ Medium \\}) \rightarrow 3$$
+$$X(\\{ High \\}) \rightarrow 10$$
+]
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+]
+.right-column[
+### Joint PMF
+
+$$p_{XY} = P(X = x, Y = y)$$
+
+.center[<img src="joint.png" width = 500>]
+
+Good news: everything we learned before carries over.
+
+.footnote[.red[*]<font size = 1>Darker colors = larger probability</font>]
+]
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF 
+]
+.right-column[
+### Joint PMF
+<font size=3>
+$p_{XY}(3, 80) = P(X^{-1}(3) \ \cap \  Y^{-1}(80))$ <br>
+$\qquad \qquad = P(Middle \cap B)$<br>
+$\qquad \qquad = 0.16$<br>
+</font>
+.center[<img src="pxy.png" width = 500>]
+
+]
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+]
+.right-column[
+### Joint PMF
+Keep in mind that this is actually a **bivariate function**
+
+<img src="prob3d.png" width = 400>
+
+]
+
+
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+## Joint CDF
+]
+.right-column[
+### Joint CDF
+
+.center[<img src="Fx.png" width = 450>]
+
+.center[<img src="CDF_fmla.png" height = 100>]
+
+]
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+## Joint CDF
+## Marginal
+]
+.right-column[
+### Marginal $p_X$ 
+
+.center[<img src="px.png" width = 450>]
+
+.center[<img src="margx_fmla.png" height = 100>]
+
+]
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+## Joint CDF
+## Marginal
+]
+.right-column[
+### Marginal $p_Y$ 
+
+.center[<img src="py.png" width = 450>]
+
+.center[<img src="margy_fmla.png" height = 100>]
+
+]
+
+
+---
+# Discrete joint distributions
+.left-column[
+## Preliminaries
+## Joint PMF
+## Joint CDF
+## Marginal
+## Conditional
+]
+.right-column[
+
+### Conditional distribution $p_{Y|X}$
+
+.center[<img src="cond.png" width = 450>]
+
+.center[<img src="cond_fmla.png" height = 100>]
+
+]
+
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+]
+.right-column[
+### Continuous joint distributions
+
+As we try to make the distributions finer and finer, we run into the same problem we ranin the univariate case...
+
+<img src="joint_hd1.png" width = 500>
+
+]
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+]
+.right-column[
+### Continuous joint distributions
+
+...if we try to give positive probability to more and more points, each point has probability *mass* zero!
+
+<img src="joint_hd2.png" width = 500>
+]
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+## Joint CDF
+]
+.right-column[
+### Continuous joint distributions
+
+As in the univariate case: first, define the CDF...
+
+<img src="gauss_CDF.png" width = 500>
+
+]
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+## Joint CDF
+## Joint PDF
+]
+.right-column[
+### Continuous joint distributions
+
+...then *define* the PDF to be the rate of change of the CDF.
+
+<img src="gauss_pdf.png" width = 500>
+
+]
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+## Joint CDF
+## Joint PDF
+## Conditional
+]
+.right-column[
+### Conditional joint distributions
+
+Just replace PMFs by PDFs to form the conditional
+
+.center[<img src="cts_cond_fmla.png" width = 300>]
+
+<br><br>
+
+Other things, like moments, (conditional) independence conditions, etc. also follow with little change [	&#128211;]
+]
+
+
+---
+# Continuous joint distributions
+.left-column[
+## Preliminaries
+## Joint CDF
+## Joint PDF
+## Remark
+]
+.right-column[
+### Visualizing distributions
+
+**Contour plots** are a common tool to visualize bivariate continuous distributions.
+
+.center[<img src="gauss_contour.png" width = 400>]
+]
+
+
+---
+# Covariance and correlation
+.left-column[
+## Covariance
+]
+.right-column[
+### Variances
+
+Recall that the **variance of X** is *a* measure of spread of $X$ about its mean $EX$.
+
+$$Var[X] = E[(X - EX)^2]$$
+
+The **covariance between X and Y** is a measure of how often $X$ and $Y$ are *simultaneously* above or below their respective means.
+
+$$Cov(X,Y) = E[(X - EX)(Y - EY)]$$
+
+.footnote[.red[*] <font size=2>Note the similarity between formulas</font>]
+
+]
+
+
+---
+# Covariance and correlation
+.left-column[
+## Covariance
+## Intuition
+]
+.right-column[
+### What does it look like?
+
+.center[<img src="highcov.png" width = 300>]
+.center[High Covariance]
+
+]
+
+---
+# Covariance and correlation
+.left-column[
+## Covariance
+## Intuition
+]
+.right-column[
+### What does it look like?
+
+
+.center[<img src="mediumcov.png" width = 300>]
+.center[Medium Covariance]
+
+]
+
+---
+# Covariance and correlation
+.left-column[
+## Covariance
+## Intuition
+]
+.right-column[
+### What does it look like?
+
+.center[<img src="zerocov.png" width = 300>]
+.center[Zero Covariance]
+]
+
+---
+# Covariance and correlation
+.left-column[
+## Covariance
+## Intuition
+## Correlation
+]
+.right-column[
+### What does it look like?
+
+.center[<img src="zerocov.png" width = 300>]
+.center[Zero Covariance]
+]
+
+
+---
+# Covariance and correlation
+.left-column[
+## Definition
+## Intuition
+## Correlation
+]
+.right-column[
+### Correlation
+
+The covariance depends on the units of $X$ and $Y$.
+
+To remedy that, we can normalize by dividing by the standard deviations:
+
+$$Corr(X, Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$$
+
+This **correlation coefficient** is unitless and falls between -1 and 1.
+
+]
+
+
+
+---
+# Covariance and correlation
+.left-column[
+## Definition
+## Intuition
+## Correlation
+]
+.right-column[
+### When is it large?
+
+When $X$ and $Y$ are roughly **linearly** related.
+
+<img src="correlations.png">
+
+
+]
+
+---
+# Covariance and correlation
+.left-column[
+## Definition
+## Intuition
+## Correlation
+## Remarks 
+]
+
+.right-column[
+### Covariance $\neq$ Dependence
+
+<img src="dep.png" width = 600>
+
+These are all *dependent* (why?), but uncorrelated.
+
+<br><br>
+.center[.red[Correlation does imply dependence. <br>
+Dependence does not imply correlation]]
+]
+
+---
+# Covariance and correlation
+.left-column[
+## Definition
+## Intuition
+## Correlation
+## Remarks 
+]
+
+.right-column[
+### Covariance $\neq$ Causality
+
+Two random variables $X$ and $Y$ may be highly correlated because:
+
++ $X$ causes $Y$
++ $Y$ causes $Y$
++ A third variable, $Z$, causes both $X$ and $Y$
++ (Anything else?)
+
+
+<br><br>
+.center[.red["Correlation does not imply causation"]]
+
+
+.footnote[<font size =2>Does *dependence* imply causation? If not, what *does* imply causation?</font>]
+]
+
+
+---
+# Covariance and correlation
+.left-column[
+## Definition
+## Intuition
+## Correlation
+## Remarks 
+]
+
+.right-column[
+### xkcd's obligatory comic
+
+<img src="xkcd.png" width = 550>
+
+<font size = 2><i>"Correlation doesn't imply causation, but it does waggle its eyebrows suggestively and gesture furtively while mouthing 'look over there'"
+
+.footnote[<font size =1>https://xkcd.com/552/]
+]
+
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+

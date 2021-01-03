@@ -1,0 +1,10 @@
+mu = [5 80];
+Sigma = [3 2; 2 5];
+x1 = 2:.2:8; 
+x2 = 75:.2:85;
+[X1,X2] = meshgrid(x1,x2);
+F = mvncdf([X1(:) X2(:)],mu,Sigma);
+F = reshape(F,length(x2),length(x1));
+surf(x1,x2,F);
+caxis([min(F(:))-.5*range(F(:)),max(F(:))]);
+xlabel('Effort'); ylabel('Grade'); zlabel('Probability Density');

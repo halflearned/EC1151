@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Predicting with Conditional Expectation
+
+---
+# Decomposing Y
+.left-column[
+## Decomposition
+]
+
+.right-column[
+## Decomposing Y
+
+.center[
+Given a random variable $Y$ and another $X$,<br> we can always do this:
+]
+
+$\qquad \qquad Y = Y + 0$
+
+$\qquad \qquad \ \ = Y + E[Y|X = x] - E[Y|X = x]$
+
+$\qquad \qquad \ \ = E[Y|X = x] + (Y - E[Y|X = x])$
+
+$\qquad \qquad \ \ = E[Y|X = x] + \epsilon$
+
+<br><bR><br>
+.footnote[.red[*] <font size =2> Of course, we could have used the mean or the mode, as well. But the means are special in a sense we'll see in a bit.]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+]
+
+.right-column[
+## Decomposing Y
+
+.center[
+<img src="decomposition1.png">
+	]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+]
+
+.right-column[
+## Conditional mean decomposition
+
+.center[
+<img src="decomposition2.png">
+	]
+]
+
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+]
+
+.right-column[
+## Conditional mean decomposition
+
+.center[
+<img src="decomposition3.png">
+	]
+
+<font size=3>This works regardless of the functional form of $E[Y|X = x]$!</font>
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+]
+
+.right-column[
+## Errors
+
+.center[
+<img src="decomposition4.png">
+	]
+
+Since we're interested in using $E[Y|X=x]$ as a prediction tool,
+the random variable $\epsilon$ is often called the "error".
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Properties of $\epsilon$
+
+What do we know about $\epsilon$?
+
+1. $E[\epsilon | X = x] = 0$ for every $x$
+
+2. $E[\epsilon] = 0$
+
+3. $E[\epsilon g(X)] = 0$ for any function $g(x)$ [&#128211;]
+ 
+4. $Cov[\epsilon, g(X)] = 0$ for any function $g(x)$ [&#128211;]
+
+<br><br>
+
+<font size=3>These are straightforward consequences of properties studied last class</font>
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+1) $E[\epsilon | X = x] = 0$ for every $x$
+
+.center[<img src="decomposition5.png">]
+.center[<font size=3>For any given $x$, <u>if $\epsilon$ has a symmetric distribution,</u><br>
+	the error is equally likely to be positive or negative.</font>]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+2) $E[\epsilon] = 0$
+
+.center[<img src="decomposition5.png">]
+.center[<font size=3>On average our prediction is correct.</font>]
+
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+2) $E[\epsilon] = 0$
+
+.center[<img src="decomposition6.png">]
+.center[<font size=3>Distribution of $\epsilon$ could be asymmetric</font>]
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+2) $E[\epsilon] = 0$
+
+.center[<img src="decomposition7.png">]
+.center[<font size=3>$\epsilon$ could have large variance</font>]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+2) $E[\epsilon] = 0$
+
+.center[<img src="decomposition8.png">]
+.center[<font size=3>Variance could depend on $X$</font>]
+]
+
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+]
+
+.right-column[
+## Geometric interpretations
+
+2) $E[\epsilon] = 0$
+
+.center[<img src="decomposition9.png">]
+.center[<font size=3>Only this .red[cannot] happen</font>]
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Predictions
+
+The term $E[Y|X = x]$ can be interpreted as the part of $Y$ that varies *systematically* with $X$.
+
+We'll often be interested in quantities like:
+<br><br>
+
+ $$E[Y|X = x'] - E[Y|X = x]$$
+
+ .center[or] 
+
+ $$\frac{\partial}{\partial x}E[Y|X = x']$$
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Predictions
+
+<b>Example</b> $X$: altitude, $\ \ Y$: temperature
+
+.center[<img src="alttemp1.png">]
+
+Assumption: $E[Y|X=x] = a + bx$
+
+]
+
+---
+count:false
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Predictions
+
+<b>Example</b> $X$: altitude, $\ \ Y$: temperature
+
+.center[<img src="alttemp2.png">]
+
+Estimated: $\hat{E}[Y|X=x] =  9.33 - 0.0039x$
+
+]
+
+---
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Example results
+
+Regions at altitude $100$ usually have temperature $-0.39$ degrees lower than regions at altitude 0.
+
+$\hat{E}[Y|X=100] - \hat{E}[Y|X=0] -0.39$
+
+<br><br>
+
+If two regions have slightly different altitudes, the lower one will have a temperature $0.0039$ warmer.
+
+$\frac{\partial}{\partial x}\hat{E}[Y|X=x] = -0.0039$
+
+]
+
+
+---
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Example results
+
+Regions at altitude $100$ usually have temperature $-0.39$ degrees lower than regions at altitude 0.
+
+$\hat{E}[Y|X=100] - \hat{E}[Y|X=0] -0.39$
+
+<br><br>
+
+If two regions have slightly different altitudes, the lower one will have a temperature $0.0039$ warmer.
+
+$\frac{\partial}{\partial x}\hat{E}[Y|X=x] = -0.0039$
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Predictions
+
+<b>Example</b> $X$: altitude, $\ \ Y$: temperature
+
+.center[<img src="logx.png">]
+
+Assumption: $E[Y|X=x] = a + b\log(x)$
+
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Predictions
+
+<b>Example</b> $X$: altitude, $\ \ Y$: temperature
+
+.center[<img src="logx.png">]
+
+Estimated: $\hat{E}[Y|X=x] = -1.04 + 2.005\log(x)$
+
+]
+
+
+---
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+]
+
+.right-column[
+## Example results
+
+If we *find* that two individuals have slightly different values of $X$, on average their $Y$ will differ by:
+
+
+$$\frac{\partial}{\partial x}\hat{E}[Y|X=x] = 2.005\frac{1}{x}$$
+
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## Warning &#9760;
+
+This does *not* mean that $X$ causes changes in $Y$!
+
+.center[<img src="alttemp3.png">]
+
+.center[Does temperature *cause* altitude?]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## So when can we say "$X$ causes $Y$"? 
+
+Usually we can't be sure.
+
+Causality is assumed..red[*]
+
+I'll talk a little about it next.
+
+But in Econometrics, you'll learn much more about it.
+
+.footnote[.red[*]<font size=1>Causality is actually a pretty hot area of research in machine learning right now. If you're interested, let me know.</font>]
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## Causality comes from manipulation
+
+We can say that $X$ causes $Y$ if changes in $Y$ arise from a counterfactual manipulation of $X$, *keeping everything else constant*.
+
+<font size=3>
+<ul>
+<li>Does temperature cause changes in altitude?
+<li>Does altitude cause changes in temperature?
+<li>What else causes changes in temperature? Are these effects independent from altitude?
+<li>Do you believe that the causal effect is $-0.0039$?
+</ul>
+</font>
+
+.footnote[<font size=1></font>]
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## Causality comes from manipulation
+
+I like to think in terms of graphs like these.
+
+
+.center[(Arrows indicate causality)
+
+<img src="confound3.jpg">]
+
+In this case we can retrieve causal effect from data.
+
+
+.footnote[<font size=1>For way more information on graphical models: <br>Koller, D., & Friedman, N. (2009). Probabilistic graphical models: principles and techniques. MIT press.
+Chicago	
+ </font>]
+]
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## Causality comes from manipulation
+
+I like to think in terms of graphs like these.
+
+
+.center[(Arrows indicate causality)
+
+<img src="confound2.png">]
+
+In this case there's no causal effect to be found.
+
+
+.footnote[<font size=1>For way more information on graphical models: <br>Koller, D., & Friedman, N. (2009). Probabilistic graphical models: principles and techniques. MIT press.
+Chicago	
+ </font>]
+]
+
+
+---
+
+# Decomposing Y
+.left-column[
+## Decomposition
+## Errors
+## Predictions
+## Causality
+]
+
+.right-column[
+## Causality comes from manipulation
+
+I like to think in terms of graphs like these.
+
+
+.center[(Arrows indicate causality)
+
+<img src="confound1.jpg">]
+
+In this case the causal effect is *confounded*.
+
+.footnote[<font size=1>For way more information on graphical models: <br>Koller, D., & Friedman, N. (2009). Probabilistic graphical models: principles and techniques. MIT press.
+Chicago	
+ </font>]
+]
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

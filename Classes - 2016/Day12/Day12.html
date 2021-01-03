@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Continuous random variables
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+
+]
+.right-column[
+# Distribution functions
+
+There are two functions associated with every rv $X$:
+<br><br>
++ The **probability mass function**, or **pmf**
+$$p_X(x) = P(X = x)$$
+
++ The **cumulative distribution function**, or **cdf**
+
+$$F_X(x) = P(X \leq x)$$
+
+<br><br>
+<font size=2>.red[*] I'll denote cdfs with capital $F$, pmfs with lower case $p$, and pdfs with lower case $f$. </font>
+]
+
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+]
+.right-column[
+# Distribution functions
+<img src="pmf_cdf.png" width =600>
+
+<font size=3>For the distributions we've seen so far, the <b>cdf</b> jumps at points of positive probability, and is constant everywhere else.</font>
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+]
+.right-column[
+# Distribution functions
+.center[<img src="pmf_cdf.png" width =300>]
+
+The height of the jumps corresponds to the "height" of the probability.
+
+That's because, for example:
+
+$$F_X(2) - F_X(1) = \sum_i^2 f_X(x) - \sum_i^1 f_X(x) = f_X(2)$$
+
+]
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+
+]
+.right-column[
+# Support 
+
+The **support of the random variable $X$** is the set of points on the real line that can happen.
+
+Example:
+
++ If $X \sim Bernoulli(p)$, then its support is: 
+
++ If $X \sim Binomial(3, 1/2)$, then its support is: 
+
++ If $X \sim DiscreteUniform(a, b)$, then its support is: 
+
+For *discrete* random variables, the support consists of a bunch of separated points. 
+
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+<img src="spinner2.png" height=300>
+
+.footnote[The <b>support</b> is an <b>interval</b>, not a bunch of separated points!]
+
+]
+
+
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+<img src="spinner2.png" height=300>
+
+.footnote[<font size=1>Super technical point: it's even more than "just" infinite. <br>
+The geometric distribution, for example, has infinite support but is not continuous. </font>]
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+<img src="spinner2.png" height=300>
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+We'd like to assign to each number in $[0,1]$ positive probability.
+
+.center[<img src="oprah.jpg" height = 300>]
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+We'd like to assign to each number in $[0,1]$ positive probability.
+
+.center[<img src="supp3.png" height = 300>]
+]
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+We'd like to assign to each number in $[0,1]$ positive probability.
+
+.center[<img src="supp5.png" height = 300>]
+]
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+We'd like to assign to each number in $[0,1]$ positive probability.
+
+.center[<img src="supp10.png" height = 300>]
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+
+]
+.right-column[
+## What to do with this RV?
+
+We'd like to assign to each number in $[0,1]$ positive probability.
+
+.center[<img src="supp25.png" height = 300>]
+]
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Problem
+
+]
+.right-column[
+## The problem
+<center>
+	<font size = 10>
+	Every outcome of a continuous random variable 
+	has probability mass zero!<br><br>
+			$P(X = x) = 0<br>$
+</font>
+</center>
+]
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+
+]
+.right-column[
+## Solving the puzzle
+
+Since the probability mass is always zero, it's pretty useless.
+
+<img src="unif_cdf.png" width = 400>
+
+But the CDF comes to the rescue!
+]
+
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+
+]
+.right-column[
+## Solving the puzzle
+
+By analogy with the "jump" formula for discrete rvs...
+
+$$p_X(x) = \frac{F_X(x) - F_X(x - 1)}{1}$$
+
+<br><br>
+...we'll *define* the **probability density function** as the rate of change of the **cdf** 
+
+.center[<img src="deriv.png" height = 50>]
+]
+
+
+	
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+## Densities
+]
+.right-column[
+## Continuous uniform
+
+Then the **pdf** looks like this:
+
+<img src="u1.png" width = 600>
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+## Densities
+]
+.right-column[
+## Continuous uniform
+
+For *ranges*, instead of looking for the "height" of the probability, we look at the area beneath the pdf.
+
+<img src="u2.png" width = 600>
+
+$$P(a < X \leq b) = \int_a^b f_X(x )dx$$
+
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+## Densities
+## Properties
+]
+.right-column[
+## Properties of PDFs
+
+**Densities** are not the same as **probability mass**.
+
+<br>
+They *must* satisfy:
+
+.center[<img src="densities.png" height = 200>]
+
+<br>
+
+But they need *not* be between 0 and 1! (Examples?)
+
+]
+
+
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+## Densities
+## Properties
+## By the way
+]
+.right-column[
+
+<center><img src="scream.jpg" height="400"><br>
+	<i>Feeling like this yet?</i>
+</center>
+]
+
+---
+# Continuous random variables
+.left-column[
+## Preliminaries 
+## Continuous RVs
+## Solution
+## Densities
+## Properties
+## By the way
+]
+.right-column[
+
+## In this course
+
++ You will **not** be asked to explicitly take limits
+
++ You will **not** be asked to explicitly compute derivatives
+
++ You will **not** be asked to explicitly evaluate integrals
+
+## But
+
++ You should *try* to make analogies to the discrete case:
+
+<img src="analogy.png" height =100>
+
++ Then have the computer do the work [&#128211;]
+
+]
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+

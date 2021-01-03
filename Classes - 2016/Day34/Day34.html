@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Interpreting Linear Regression
+
+---
+.left-column[
+##Preliminaries
+## Preliminaries
+]
+
+.right-column[
+## Logs and percentages
+<br>
+<center>
+	Notice anything?<br>
+<img src="logs.png", width= 300>
+</center>
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+]
+
+.right-column[
+## Logs and percentages
+
+This happens because if $x$ is small, 
+
+$$log(1 + x) \approx x$$
+
+<center>
+<img src="logs2.png", width= 300>
+</center>
+
+As a consequence, if $x$ and $y$ are close,
+
+$$\log(y) - \log(x) = \log \left(1 + \frac{y-x}{x} \right) \approx \frac{y-x}{x} $$
+
+.center[log-difference $\approx$ percentage change!]
+]
+
+
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships
+
+$$Y = b_0 + b_1 X_1 + b_2 X_2 + \epsilon$$
+
+Suppose we *find* two observations such that
+
++ Both have same $X_2$
++ First observation has a little more $X_1$
+
+On average, by how much will their level of $Y$ differ?
+
+<font size=3>
+Think about the derivative of $E[Y|X_1 = x_1, X_2 = x_2]$ wrt $x_1$
+</font>
+$$\frac{\partial}{\partial x_1}E[Y|X_1 = x_1, X_2 = x_2] = b_1$$
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships
+
+$$Y = b_0 + b_1 X_1 + b_2 X_2 + \epsilon$$
+
+Suppose we *find* two observations such that
+
++ Both have same $X_2$
++ First observation has a little more $X_1$
+
+On average, by how much will their level of $Y$ differ?
+
+<font size=3>
+Think about the derivative of $E[Y|X_1 = x_1, X_2 = x_2]$ wrt $x_1$
+</font>
+$$\frac{\partial}{\partial x_1}E[Y|X_1 = x_1, X_2 = x_2] = b_1$$
+
+<br>
+Comments: 
+
++ Constant everywhere
+
++ Independent of $X_2$
+
+]
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+
+Suppose we *find* two students such that
+
++ Had the same ACT score
+
++ Their hsGPA differ by a little bit 
+
+On average, what's their difference in $collegeGPA$?
+
+Regression results:
+
+.center[<img src="ols1.png", width = 400>]
+
+
+]
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+
+Suppose we *find* two students such that
+
++ Had the same ACT score
+
++ Their hsGPA differ by 
+On average, what's their difference in $collegeGPA$?
+
+Regression results:
+.center[<img src="ols1.png", width = 400>]
+
+<font size=3>
+$$\hat{E}[collegeGPA | hsGPA, ACT] = 1.29 + .453 \ hsGPA + .0094 \ ACT$$
+</font>
+Answer:
+
+.center[<i>Their average $collegeGPA$ will differ by $.453$ points</i>]
+]
+
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+
+Suppose we *find* two students such that
+
++ Had the same hsGPA 
+
++ Their ACT differ by a little bit
+
+On average, what's their difference in $collegeGPA$?
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+.center[<img src="ols1.png", width = 400>]
+
+]
+
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+
+Suppose we *find* two students such that
+
++ Had the same hsGPA 
+
++ Their ACT differ by a little bit
+
+On average, what's their difference in $collegeGPA$?
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+.center[<img src="ols1.png", width = 400>]
+
+<center>Maybe zero! Note the p-values and the CI.</font>
+]
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+
+Suppose we *find* two students such that
+
++ Had the same hsGPA 
+
++ Their ACT differ by a little bit
+
+On average, what's their difference in $collegeGPA$?
+
+$$collegeGPA = b_0 + b_1 hsGPA + b_2 ACT + \epsilon$$
+.center[<img src="ols1.png", width = 400>]
+
+<center><i>We say that $\hat{b}_2$ is statistically indistinguishable from zero</i>
+or
+<center><i>We say that $\hat{b}_2$ is (statistically) insignificant</i>
+]
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+]
+
+.right-column[
+## Linear relationships (Example)
+
+.center[<img src="surf1.jpg" width = 500>]
+
+]
+
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+]
+
+.right-column[
+## Nonlinear relationships
+$$Y = b_0 + b_1 X_1 + b_2 X_1^2 + b_3 X_2 + \epsilon$$
+
+Suppose we *find* two observations such that
+
++ Both have same $X_2$
++ First observation has a little more $X_1$
+
+On average, by how much will their level of $Y$ differ?
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+]
+
+.right-column[
+## Nonlinear relationships
+$$Y = b_0 + b_1 X_1 + b_2 X_1^2 + b_3 X_2 + \epsilon$$
+
+Suppose we *find* two observations such that
+
++ Both have same $X_2$
++ First observation has a little more $X_1$
+
+On average, by how much will their level of $Y$ differ?
+
+Taking derivatives:
+
+$$\frac{\partial}{\partial x_1}E[Y|X_1 = x_1, \ X_2 = x_2] = b_1 + 2b_2 x_1$$
+
+<br>Comments:
+
++ Not constant everywhere anymore
+
++ Still independent of $X_2$
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+]
+
+.right-column[
+## Nonlinear relationships (Example)
+
+$$log(salary) = b_0 + b_1 log(sales) + b_2 ceoten + b_3 ceoten^2 + \epsilon$$
+
+<font size=4>
+Suppose we *find* two companies such that
+
++ Both sold the same amount 
++ First firm's CEO tenure is a little higher than the second
+
+On average, by how much will their CEO's log-salary differ?
+
+.center[<img src="ols2.png" width = 400>]
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+]
+
+.right-column[
+## Nonlinear relationships (Example)
+
+$$log(salary) = b_0 + b_1 log(sales) + b_2 ceoten + b_3 ceoten^2 + \epsilon$$
+
+<font size=4>
+Suppose we *find* two companies such that
+
++ Both sold the same amount 
++ First firm's CEO tenure is a little higher than the second
+
+On average, by how much will their CEO's log-salary differ?
+
+.center[<img src="ols2.png" width = 400>]
+
+$$\frac{\partial}{\partial x_1}\hat{E}[Y|X_1 = x_1, \ X_2 = x_2] = 0.0450 + 2(-0.0012)x_1$$
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+## Binary
+]
+
+.right-column[
+## Dealing with binary variables
+
+$$Y = b_0 + b_1 X_1 + b_2 X_2 + \epsilon$$
+
+However, now $X_2$ is 0 or 1.
+
+We *find* two observations
+
++ Both have same $X_1$
++ Their $X_2$ are different
+
+On average, by how much will their level of $Y$ differ?
+
+Instead of taking derivatives, compare directly
+
+$$E[Y|X_1 = x_1, \ X_2 = 1] = b_0 + b_1x_1 + b_2$$
+$$E[Y|X_1 = x_1, \ X_2 = 0] = b_0 + b_1x_1$$
+
+Therefore, the estimated difference is just $b_2$.
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+## Binary
+]
+
+.right-column[
+## Dealing with binary variables
+
+$$Y = b_0 + b_1 X_1 + b_2 X_2 + \epsilon$$
+
+However, now $X_2$ is 0 or 1.
+
+We *find* two observations
+
++ Both have same $X_1$
++ Their $X_2$ are different
+
+On average, by how much will their level of $Y$ differ?
+
+Instead of taking derivatives, compare directly
+
+$$E[Y|X_1 = x_1, \ X_2 = 1] = b_0 + b_1x_1 + b_2$$
+$$E[Y|X_1 = x_1, \ X_2 = 0] = b_0 + b_1x_1$$
+
+Therefore, the estimated difference is just $b_2$.
+
++ Intercept shift interpretation
+
++ Useful to compare two groups of observations
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+## Binary
+]
+
+.right-column[
+## Dealing with binary variables (Example)
+
+$$log(wage) = b_0 + b_1 educ + b_2 female + \epsilon$$
+
+Variable $female$ encodes gender.
+
+.center[<img src="ols3.png", width = 450>]
+
+.center[<img src="plot3.png", width = 500>]
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+## Binary
+## Logs
+]
+
+.right-column[
+## Interpreting logs
+<font size=4>
+	Often, even though we're interested in changes to $Y$, <br> our regression is in terms of $\log(Y)$
+<font>
+
+$$\log(Y) = b_0 + b_1 X + \epsilon$$
+
+How does a change in $X$ affect $Y$ (not $\log Y$)?
+
+Using the fact we learned in the beginning of class:
+
+.center[Log-difference in avg Ys is $b_1$ $\quad \approx \quad $ $b_1\%$ change in $Y$]
+
+This is called the <b>semielasticity</b> of $Y$ with respect to $X$.
+
+
+]
+
+
+---
+.left-column[
+##Preliminaries
+## Linear 
+## Nonlinear
+## Binary
+## Logs
+]
+
+.right-column[
+## Interpreting logs
+<font size=4>
+	Often, even though we're interested in changes to $Y$, <br> our regression is in terms of $\log(Y)$
+<font>
+
+$$\log(Y) = b_0 + b_1 X + \epsilon$$
+
+How does a change in $X$ affect $Y$ (not $\log Y$)?
+
+Using the fact we learned in the beginning of class:
+
+.center[Log-difference in avg Ys is $b_1$ $\quad \approx \quad $ $b_1\%$ change in $Y$]
+
+This is called the <b>semielasticity</b> of $Y$ with respect to $X$.
+
+Moreover, if $X$ is also in logs,
+
+$$\log(Y) = b_0 + b_1 \log(X) + \epsilon$$
+
+Then $b_1$ should be interpreted as the <b>elasticity</b> of $Y$ with respect to $X$. [&#128211;]
+
+$$\frac{d \log(Y)}{d\log(X)} = b_1$$
+
+
+]
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

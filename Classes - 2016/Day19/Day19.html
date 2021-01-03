@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+    <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+    <title>Remark</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <textarea id="source">
+
+class: inverse, middle, center
+# Estimation and Inference
+
+---
+# Estimation
+.left-column[
+## Definitions
+]
+.right-column[
+## What is a *statistic*?
+
+Suppose $X_1, \cdots, X_n$ are random variables.
+
+A **statistic** is a function that maps $X_1, \cdots, X_n$ to a number.
+
+Examples:
+
+$$X_1, \cdots, X_n \mapsto \frac{1}{n}\sum_i X_i$$
+
+
+$$X_1, \cdots, X_n \mapsto \frac{1}{n}\sum_i (X_i - EX_i)^2$$
+
+
+.footnote[<font size=1>.red[*] The symbols $\mapsto$ means "maps to". In $\LaTeX$, you write is as \mapsto </font> ]
+]
+
+
+---
+# Estimation 
+.left-column[
+## Definitions
+]
+.right-column[
+## Estimation
+
+We say statistic is an **estimator for some unknown parameter** if knowing the statistic is somehow.red[*] related to knowing the parameter.
+
+<font size=3>
+	Ex: $X_1, \cdots, X_n \sim Poisson(\lambda)$ <br> 
+
+The function that maps $X_1, \cdots, X_n \mapsto \frac{1}{n}\sum_i X_i$ is an estimator for $\lambda$ (why?)</font>
+
+<br>
+The actual realization $\frac{1}{n}\sum_i x_i$ is called the **estimate**. 
+
+.footnote[<font size=1>.red[*] We will make this precise later.</font>]
+]
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+
+]
+.right-column[ 
+## Notation
+
+Notation here is a bit confusing. 
+
+We *should* write:
+
+> <i>The function $f(X_1, \cdots, X_n)$ that maps to $\frac{1}{n}\sum_i X_i$ is an estimator for $\lambda$ </i>
+<font size=1> Meaning "this function is somehow related to $\lambda$"</font>
+
+and something like:
+
+> <i>The number $m = \frac{1}{n}\sum_i x_i$ is an estimate for $\lambda$ </i>
+<font size=1> Meaning "this number is a "good" guess for the value of $\lambda$"</font>
+]
+
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+
+]
+.right-column[ 
+## Notation
+
+However it's common to denote both things by $\hat{\lambda}$.
+
+We end up writing:
+
+> <i>The function $\hat{\lambda}(X_1, \cdots, X_n)$ that maps to $\frac{1}{n}\sum_i X_i$ is an estimator for $\lambda$ </i>
+<font size=1> Meaning "this function is somehow related to $\lambda$"</font>
+
+and also something like:
+
+> <i>The number $\hat{\lambda} = \frac{1}{n}\sum_i x_i$ is an estimate for $\lambda$ </i>
+<font size=1> Meaning "this number is a "good" guess for the value of $\lambda$"</font>
+]
+
+
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+## Estimation
+]
+.right-column[ 
+## Example
+
+What is the probability of having 5 or more customers in an hour? 
+
+### *Before* we look at the data:
+
+Step 1) We **model the experiment** using a distribution with unkown parameter.
+
+<font size=2> 
+	<ul>
+		<li>Let $X$ denote the number of customer per hour
+		<li>Assume $X \sim Poisson(\lambda)$
+	</ul>
+</font>
+
+Step 2) We figure out an estimator that relates to this parameter.
+
+<font size=2> 
+	<ul>
+		<li>We know that $E[X] = \lambda$
+		<li>We know that $\frac{1}{n}\sum_i X_i \rightarrow^p \lambda$
+	</ul>
+</font>
+]
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+## Estimation
+]
+.right-column[ 
+## Example
+
+What is the probability of having 5 or more customers in an hour? 
+
+### *After* we look at the data:
+
+Step 1) We apply the **estimator** to find the **estimate**
+
+<font size=3>
+	Data = 1, 5, 3, 1, 2, 5, 3, 1, 4, 4<br><br>
+$\hat{\lambda} = \frac{1+5+3+1+2+5+3+1+4+4}{10} = 2.9$
+</font>
+```python
+x = [1, 5, 3, 1, 2, 5, 3, 1, 4, 4]
+lambda_hat = mean(x)
+```
+]
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+## Estimation
+]
+.right-column[ 
+## Example
+
+What is the probability of having 5 or more customers in an hour? 
+
+### *After* we look at the data:
+
+Step 2) Answer the question using your guess $\hat{\lambda}$ instead of $\lambda$
+
+<font size=2>
+$\hat{P}(X \geq 5) = 1 - \hat{P}(X \leq 4) = 1 - F_X(4) = 0.1682$
+</font>
+
+```python
+prob = 1 - poisson(lambda_hat).cdf(4)
+```
+]
+
+
+---
+# Estimation
+.left-column[
+## Definitions
+## Notation
+## Estimation
+## Issues
+]
+.right-column[ 
+## What about this?
+
+You tell your boss that your guess for the avg. number of customers is $\hat{\lambda} = 2.9$.
+
+However, they reply with:
+
+<font size= 2>
+	<i>Nonsense! You got that number because you had too few data points, and by sheer randomness the numbers happened to be small. The average number of customers should be more like <u>5</u> per hour.</i>
+</font>
+
+<br><br>
+What would you tell your boss?
+]
+
+
+
+---
+# Inference
+.left-column[
+## Definitions
+]
+.right-column[ 
+## Statistical Inference
+
+Estimation is the only first half of a process called **statistical inference**.
+
+The second half is about making intelligent comments about how good your guesses are.
+
+]
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+]
+.right-column[ 
+## Hypothesis testing
+
+Basically, we'll consider the following thought experiment:
+
+
+Suppose that your boss is right. Call that $\lambda_{hyp} = 5$.
+
+Then what are the chances of getting $\hat{\lambda} = 2.9$?
+
++ If chances are high, we will agree with the boss.
+
++ If chances are low, we will disagree with the boss.
+
+]
+
+
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+]
+.right-column[ 
+## Monte-Carlo Simulation
+
+We can solve this by simulation.
+
+Repeat the following a large number of times:
+<font size=2>
++ Draw n = 10 numbers from Poisson($\lambda_{hyp} = 5$)
++ Compute the associated $\hat{\lambda}$
+</font>
+<br>
+
+Then see how many of the $\hat{\lambda}$s were 2.9 <i>or smaller</i>.red[*].
+
+
+```python
+n_sims = 50000    # number of simulations
+sample_size = 10  # n
+lambda_hyp = 5    # your boss's hypothetical lambda
+
+# Make a table of X~Poisson(5) of shape (n_sim, sample_size)
+X = poisson(lambda_hyp).rvs((n_simulations, sample_size))
+lambda_hat = mean(X, axis = 1) # Take mean of each row
+```
+.footnote[<font size=1>.red[*] Why not look at values that are exactly equal to 2.9?</font>]
+
+]
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+]
+.right-column[ 
+## Monte-Carlo Simulation
+
+<img src="lambda_hat_sims.png" height = 300>
+
+```python
+fig, ax = plt.subplots(1)
+ax.hist(lambda_hat, bins = 100);
+ax.set_title("Histogram of simulated $\hat{\lambda}$", 
+			  fontsize = 20)
+```
+]
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+]
+.right-column[ 
+## Monte-Carlo Simulation
+
+What fraction of the $\hat{\lambda}$ were smaller than $2.9$?
+
+Only about 0.46%!
+
+```python
+is_smaller = lambda_hat < 2.9
+frac_smaller = mean(is_smaller)
+print(frac_smaller)
+
+0.0046
+```
+
+<br><br>
+So what do you tell your boss?
+
+]
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+## CLT
+]
+.right-column[ 
+## Central Limit Theorem
+
+What if you couldn't simulate?
+
+You can still reason by the Central Limit Theorem.
+
+
+1) Check that $E[X_i] = \lambda$ and $Var(X_i) = \lambda$.
+
+2) Plug these into Central Limit Theorem
+
+$$\hat{\lambda} = \frac{1}{n}\sum_i X_i \sim^a Normal(\lambda, \frac{\lambda}{n})$$
+
+]
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+## CLT
+]
+.right-column[ 
+## Central Limit Theorem
+
+3) Compute the probability using the Normal cdf.
+
+```python
+n = 10            # sample size
+lambda_hyp = 5    # your boss's hypothetical lambda
+prob = norm(lambda_hyp, np.sqrt(lambda_hyp/n)).cdf(2.9)
+print(prob)
+
+0.0015
+```
+
+Again, a small probability: 0.15%!
+
+.footnote[<font size=2>Why are the probabilities not equal?</font>]
+]
+
+
+
+---
+# Inference
+.left-column[
+## Definitions
+## Hypothesis
+## Simulation
+## CLT
+## Issues
+]
+.right-column[ 
+## To think:
+
+Suppose that your boss had posited $\lambda_{hyp} = 3.5$ instead.
+
+If we redo the calculations, we'll see that in that case the probability of getting a $\hat{\lambda} \leq 2.9$ is about 13.4%.
+
+In that case, what do you tell your boss?
+
+]
+
+
+
+
+
+
+
+
+
+	</textarea>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+		  inlineMath: [['$','$']]
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+  </body>
+</html>
+
+
+
